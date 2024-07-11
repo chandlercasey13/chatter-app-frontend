@@ -36,7 +36,7 @@ function ChatBox () {
 return ( <>
     <ul className="list-none">
       {messageLog.map((message, index) => (
-        <li>{message}</li>
+        <li key = {index}>{message}</li>
       ))}
     </ul>
 
