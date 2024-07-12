@@ -39,7 +39,7 @@ function ChatBox({ user }) {
 
   return (
     <>
-      <ul className="list-none flex flex-col  items-center">
+      <ul className="list-none flex flex-col  items-center overflow-auto">
         {messageLog.map((userMessageObject, index) => (
           <div
             className={`w-5/6 flex ${
@@ -48,10 +48,11 @@ function ChatBox({ user }) {
                 : `justify-start`
             }`}
           >
-            <div className="border-2 border-black rounded-xl p-2 m-1 ">
-              <li
-                key={index}
-              >{`${userMessageObject.senderId} :  ${userMessageObject.message}`}</li>
+            <div className="border-2 border-black rounded-xl pl-2 pr-2 pb-2 m-1 ">
+              <div className="font-semibold pt-1 ">
+                {`${userMessageObject.senderId}`}
+              </div>
+              <li key={index}>{` ${userMessageObject.message}`}</li>
             </div>
           </div>
         ))}
