@@ -19,7 +19,7 @@ function ChatBox () {
     
         socket.emit("message", textInputData.textInput);
         setMessageLog([...messageLog, textInputData.textInput]);
-        setTextInputData({ textInput: "" });
+        setTextInputData({ userId: "" , textInput: "" });
       }
     
      
