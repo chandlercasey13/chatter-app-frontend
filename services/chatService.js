@@ -22,3 +22,6 @@ const create = async function (userMessage) {
 
 }
 
+
+
+export {create}

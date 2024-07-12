@@ -34,16 +34,17 @@ function ChatBox () {
 
       
 return ( <>
-    <ul className="list-none">
+    <ul className="list-none flex flex-col justify-center items-center">
       {messageLog.map((message, index) => (
         <li key = {index}>{message}</li>
       ))}
     </ul>
 
-    <form onSubmit={handleButtonSubmit}>
+    <form className= 'w-full flex justify-center' onSubmit={handleButtonSubmit}>
       <label htmlFor="textInput"></label>
 
       <input
+      className="w-5/6 border-2 rounded-lg border-black/30"
         id="textInput"
         name="textInput"
         type="text"
