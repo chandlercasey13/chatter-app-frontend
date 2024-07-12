@@ -7,6 +7,7 @@ function ChatBox({ user }) {
     senderId: user.username,
     message: "",
   });
+
   const [messageLog, setMessageLog] = useState([]);
 
   function handleTextInput(event) {
@@ -14,14 +15,18 @@ function ChatBox({ user }) {
       ...textInputData,
       [event.target.name]: event.target.value,
     });
-    console.log(textInputData)
   }
 
   function handleButtonSubmit(e) {
     e.preventDefault();
 
-    socket.emit("message", textInputData.message);
-    setMessageLog([...messageLog, textInputData.message]);
+    setMessageLog([...messageLog, textInputData]);
+
+    socket.emit("message", {
+      senderId: user.username,
+      message: textInputData.message,
+    });
+
     chatService.create(textInputData);
     setTextInputData({ senderId: user.username, message: "" });
   }
@@ -30,22 +35,37 @@ function ChatBox({ user }) {
     setMessageLog([...messageLog, messagecontent]);
   });
 
+ 
+
   return (
     <>
-      <ul className="list-none flex flex-col justify-center items-center">
-        {messageLog.map((message, index) => (
-          <li key={index}>{message}</li>
+      <ul className="list-none flex flex-col  items-center overflow-auto">
+        {messageLog.map((userMessageObject, index) => (
+          <div
+            className={`w-5/6 flex ${
+              userMessageObject.senderId === user.username
+                ? `justify-end`
+                : `justify-start`
+            }`}
+          >
+            <div className="border-2 border-black rounded-xl pl-2 pr-2 pb-2 m-1 ">
+              <div className="font-semibold pt-1 ">
+                {`${userMessageObject.senderId}`}
+              </div>
+              <li key={index}>{` ${userMessageObject.message}`}</li>
+            </div>
+          </div>
         ))}
       </ul>
 
       <form
-        className="w-full flex justify-center"
+        className="w-full h-10 flex justify-center mb-2"
         onSubmit={handleButtonSubmit}
       >
-        <label htmlFor="textInput"></label>
+        <label htmlFor="message"></label>
 
         <input
-          className="w-5/6 border-2 rounded-lg border-black/30"
+          className="w-5/6 h-full border-2 rounded-lg border-black/30 pl-2"
           id="message"
           name="message"
           type="text"
@@ -54,8 +74,7 @@ function ChatBox({ user }) {
           required
         ></input>
 
-        <button>
-          {" "}
+        <button className="w-10 rounded-lg border-black border-2">
           <i className="bx bxs-send"></i>
         </button>
       </form>
