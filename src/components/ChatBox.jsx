@@ -27,7 +27,7 @@ function ChatBox({ user }) {
       message: textInputData.message,
     });
 
-    // chatService.create(textInputData);
+    chatService.create(textInputData);
     setTextInputData({ senderId: user.username, message: "" });
   }
 
@@ -35,7 +35,7 @@ function ChatBox({ user }) {
     setMessageLog([...messageLog, messagecontent]);
   });
 
-  console.log(messageLog);
+ 
 
   return (
     <>
