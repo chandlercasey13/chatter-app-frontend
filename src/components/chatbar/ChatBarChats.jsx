@@ -1,4 +1,4 @@
-const Chat = () => {
+const ChatBarChats = () => {
   return (
     <>
       <div className="insert inline styling here">
@@ -19,4 +19,4 @@ const Chat = () => {
   );
 };
 
-export default Chat;
+export default ChatBarChats;
