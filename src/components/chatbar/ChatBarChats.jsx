@@ -1,20 +1,17 @@
 import { useEffect, useState } from "react";
+import * as chatService from "/services/chatService.js";
 
-const ChatBarChats = () => {
-  const useGetChats = () => {
+const ChatBarChats = (user) => {
+  const useFetchChats = () => {
     const [chats, setChats] = useState([]);
 
     useEffect(() => {
-      const getChats = async () => {
-        try {
-          const res = await fetch("/users");
-        } catch (error) {
-          console.log(error);
-        }
+      const fetchAllChats = async () => {
+        const chatsData = await chatService.index();
+        setChats(chatsData);
       };
-      getChats();
+      if (user) fetchAllChats();
     }, []);
-    return { chats };
   };
 
   return (

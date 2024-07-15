@@ -8,7 +8,7 @@ const ChatLog = (props) => {
   console.log("Chats:", chats);
   return (
     <div className="py-2 flex-col overlfow-auto">
-      {chats.map((chat) => (
+      {chats?.map((chat) => (
         <ChatBarChats key={chat._id} chat={chat} />
       ))}
       {/* <ChatBarChats />
