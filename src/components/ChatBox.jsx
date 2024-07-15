@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { socket } from "../socket";
 import * as chatService from "../../services/chatService";
 
@@ -14,13 +14,19 @@ function ChatBox({ user }) {
 
 
 useEffect(() => {
+  
 const fetchAllMessages = async function() {
-  const messageData = await chatService.messageIndex();
+  const messageData = await chatService.messageIndex()
  
-
-setMessageLog(messageData)
+//reversed so the most recent messages display at the bottom
+setMessageLog(messageData.reverse())
 
 }
+
+
+
+
+
 fetchAllMessages()
 
 }, [messageLog])
@@ -51,16 +57,22 @@ fetchAllMessages()
     setTextInputData({ senderId: user.username, message: "" });
   }
 
+
+function handleDeleteButtonSubmit () {
+  
+}
+
   socket.on("message", (messagecontent) => {
     setMessageLog([...messageLog, messagecontent]);
   });
 
- 
+  
 
   return (
     <>
-      <ul className="list-none flex flex-col-reverse items-center overflow-auto">
-        {messageLog.map((userMessageObject, index) => (
+      <ul  className="list-none flex flex-col-reverse items-center overflow-auto">
+        {
+        messageLog.map((userMessageObject, index) => (
           <div
             className={`w-5/6 flex ${
               userMessageObject.senderId[0].username === user.username
