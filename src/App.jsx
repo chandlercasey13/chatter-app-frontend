@@ -11,6 +11,7 @@ import "./App.css";
 
 function App() {
   const [user, setUser] = useState(authService.getUser());
+  
   const [loginText, setLoginText] = useState({ username: "", password: "" });
   const [isSignedup, setIsSignedUp] = useState(true);
 
@@ -25,6 +26,7 @@ function App() {
 
     console.log(loginText);
   }
+  
 
   return (
     <>

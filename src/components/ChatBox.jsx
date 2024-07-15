@@ -11,16 +11,27 @@ function ChatBox({ user }) {
   const [messageLog, setMessageLog] = useState([]);
   const [selectedChat, setSelectedChat] = useState();
 
+
+
   useEffect(() => {
     const fetchAllMessages = async function () {
+     try {
       const messageData = await chatService.messageIndex();
-
+      
       //reversed so the most recent messages display at the bottom
-      setMessageLog(messageData.reverse());
-    };
+      setMessageLog(messageData);
+      console.log(messageData)
+    } catch (err) {
+console.log(err)
+    }
 
+      
+    };
+    
     fetchAllMessages();
-  }, [messageLog]);
+  }, []);
+
+
 
   function handleTextInput(event) {
     setTextInputData({
@@ -54,20 +65,23 @@ function ChatBox({ user }) {
     setMessageLog([...messageLog, messagecontent]);
   });
 
+
+
   return (
     <>
       <ul className="list-none flex flex-col-reverse items-center overflow-auto">
         {messageLog.map((userMessageObject, index) => (
           <div
             className={`w-5/6 flex ${
-              userMessageObject.senderId[0]?.username === user.username
+              userMessageObject.senderId[0].username === user.username
                 ? `justify-end`
                 : `justify-start`
             }`}
           >
+          
             <div className="border-2 border-black rounded-xl pl-2 pr-2 pb-2 m-1 ">
               <div className="font-semibold pt-1 ">
-                {`${userMessageObject.senderId[0]?.username}`}{" "}
+                {`${userMessageObject.senderId[0].username}`}{" "}
                 <button
                   onClick={function () {
                     handleDeleteButtonSubmit(userMessageObject._id);
@@ -78,8 +92,17 @@ function ChatBox({ user }) {
               </div>
               <li key={index}>{` ${userMessageObject.message}`}</li>
             </div>
-          </div>
+         </div>
         ))}
+
+
+
+
+
+
+
+
+
       </ul>
 
       <form
