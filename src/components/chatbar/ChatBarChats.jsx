@@ -11,7 +11,7 @@ const ChatBarChats = (user) => {
         setChats(chatsData);
       };
       if (user) fetchAllChats();
-    }, []);
+    }, [chats]);
   };
 
   return (
