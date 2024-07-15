@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 
 import ChatBar from "./components/chatbar/ChatBar";
+import ChatBarChats from "./components/chatbar/ChatBarChats";
 import ChatBox from "./components/ChatBox";
 import * as authService from "../services/authService";
 import * as chatService from "../services/chatService";
-import { Route } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
 import "./App.css";
 
@@ -35,7 +36,7 @@ function App() {
         {user ? (
           <>
             <div className=" flex justify-end w-5/6 h-5/6 border-2 border-black rounded-lg">
-              <ChatBar />
+              <ChatBar user={user} />
               <div className="flex flex-col justify-end h-full w-5/6 border-2 border-black/40 rounded-lg">
                 <ChatBox user={user} />
               </div>
