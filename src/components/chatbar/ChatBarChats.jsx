@@ -1,16 +1,31 @@
-const ChatBarChats = () => {
+import { useEffect, useState } from "react";
+import * as chatService from "/services/chatService.js";
+
+const ChatBarChats = (user) => {
+  const useFetchChats = () => {
+    const [chats, setChats] = useState([]);
+
+    useEffect(() => {
+      const fetchAllChats = async () => {
+        const chatsData = await chatService.index();
+        setChats(chatsData);
+      };
+      if (user) fetchAllChats();
+    }, []);
+  };
+
   return (
     <>
-      <div className="insert inline styling here">
+      <div className="flex gap-2 items-center hover:bg-sky-500 rounded p-2 py-1 cursor-pointer">
         <div className="avatar online here">
-          <div className="insert inline styling here">
+          <div className="w-10 rouned-full">
             <img src="img" alt="avatar" />
           </div>
         </div>
-        <div className="inline styling here">
-          <div className="inline styling here">
-            <p className="inline styling here"></p>
-            <span className="text-xl">emoji here</span>
+        <div className="flex flex-col flex-1">
+          <div className="flex gap-3 justify-between">
+            <p className="font-bold text-gray-100"></p>
+            <span className="text-l">Chatter User</span>
           </div>
         </div>
       </div>
