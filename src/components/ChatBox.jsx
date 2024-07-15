@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { socket } from "../socket";
 import * as chatService from "../../services/chatService";
 
@@ -9,6 +9,26 @@ function ChatBox({ user }) {
   });
 
   const [messageLog, setMessageLog] = useState([]);
+  const [selectedChat, setSelectedChat] = useState()
+
+
+
+useEffect(() => {
+const fetchAllMessages = async function() {
+  const messageData = await chatService.messageIndex();
+ 
+
+setMessageLog(messageData)
+
+}
+fetchAllMessages()
+
+}, [messageLog])
+
+
+
+
+
 
   function handleTextInput(event) {
     setTextInputData({
@@ -39,18 +59,18 @@ function ChatBox({ user }) {
 
   return (
     <>
-      <ul className="list-none flex flex-col  items-center overflow-auto">
+      <ul className="list-none flex flex-col-reverse items-center overflow-auto">
         {messageLog.map((userMessageObject, index) => (
           <div
             className={`w-5/6 flex ${
-              userMessageObject.senderId === user.username
+              userMessageObject.senderId[0].username === user.username
                 ? `justify-end`
                 : `justify-start`
             }`}
           >
             <div className="border-2 border-black rounded-xl pl-2 pr-2 pb-2 m-1 ">
               <div className="font-semibold pt-1 ">
-                {`${userMessageObject.senderId}`}
+                {`${userMessageObject.senderId[0].username}`}
               </div>
               <li key={index}>{` ${userMessageObject.message}`}</li>
             </div>
