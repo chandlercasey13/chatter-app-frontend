@@ -24,6 +24,7 @@ const messageIndex = async function () {
     }
   })
 
+
   return res.json()
 
 }
