@@ -29,7 +29,7 @@ const messageIndex = async function () {
 }
 
 const deleteMessage = async function (messageId) {
-const res = await fetch(`${BACKEND_URL}/messages/${messageId}`, {
+ await fetch(`${BACKEND_URL}/messages/${messageId}`, {
   method : "DELETE",
   headers : {
     Authorization: `Bearer ${localStorage.getItem("token")}`,
