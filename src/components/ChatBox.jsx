@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { socket } from "../socket";
 import * as chatService from "../../services/chatService";
 
@@ -14,13 +14,19 @@ function ChatBox({ user }) {
 
 
 useEffect(() => {
+  
 const fetchAllMessages = async function() {
-  const messageData = await chatService.messageIndex();
+  const messageData = await chatService.messageIndex()
  
-
-setMessageLog(messageData)
+//reversed so the most recent messages display at the bottom
+setMessageLog(messageData.reverse())
 
 }
+
+
+
+
+
 fetchAllMessages()
 
 }, [messageLog])
@@ -51,16 +57,25 @@ fetchAllMessages()
     setTextInputData({ senderId: user.username, message: "" });
   }
 
+
+ async function handleDeleteButtonSubmit (messageId) {
+  await chatService.deleteMessage(messageId)
+  
+setMessageLog(messageLog)
+//set the message log to trigger useeffect and rerender messages to page
+}
+
   socket.on("message", (messagecontent) => {
     setMessageLog([...messageLog, messagecontent]);
   });
 
- 
+  
 
   return (
     <>
-      <ul className="list-none flex flex-col-reverse items-center overflow-auto">
-        {messageLog.map((userMessageObject, index) => (
+      <ul  className="list-none flex flex-col-reverse items-center overflow-auto">
+        {
+        messageLog.map((userMessageObject, index) => (
           <div
             className={`w-5/6 flex ${
               userMessageObject.senderId[0].username === user.username
@@ -70,7 +85,7 @@ fetchAllMessages()
           >
             <div className="border-2 border-black rounded-xl pl-2 pr-2 pb-2 m-1 ">
               <div className="font-semibold pt-1 ">
-                {`${userMessageObject.senderId[0].username}`}
+                {`${userMessageObject.senderId[0].username}`} <button onClick={function () {handleDeleteButtonSubmit(userMessageObject._id)}}><i class='bx bx-dots-vertical-rounded bx-rotate-90' ></i></button>
               </div>
               <li key={index}>{` ${userMessageObject.message}`}</li>
             </div>
