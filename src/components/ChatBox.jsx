@@ -58,8 +58,11 @@ fetchAllMessages()
   }
 
 
-function handleDeleteButtonSubmit () {
+ async function handleDeleteButtonSubmit (messageId) {
+  await chatService.deleteMessage(messageId)
   
+setMessageLog(messageLog)
+//set the message log to trigger useeffect and rerender messages to page
 }
 
   socket.on("message", (messagecontent) => {
@@ -82,7 +85,7 @@ function handleDeleteButtonSubmit () {
           >
             <div className="border-2 border-black rounded-xl pl-2 pr-2 pb-2 m-1 ">
               <div className="font-semibold pt-1 ">
-                {`${userMessageObject.senderId[0].username}`}
+                {`${userMessageObject.senderId[0].username}`} <button onClick={function () {handleDeleteButtonSubmit(userMessageObject._id)}}><i class='bx bx-dots-vertical-rounded bx-rotate-90' ></i></button>
               </div>
               <li key={index}>{` ${userMessageObject.message}`}</li>
             </div>
