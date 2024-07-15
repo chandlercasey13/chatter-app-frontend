@@ -1,41 +1,40 @@
 const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 
-
 const create = async function (userMessage) {
-    try {
-        const res = await fetch(`${BACKEND_URL}/messages`, {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(userMessage),
-        });
-        return res.json();
-      } catch (error) {
-        console.log(error);
-      }
+  try {
+    const res = await fetch(`${BACKEND_URL}/messages`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userMessage),
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-    
-
-
-
-}
-
-
-
-const messageIndex= async function () {
+const messageIndex = async function () {
   const res = await fetch(`${BACKEND_URL}/messages`, {
     headers: {
-      Authorization : `Bearer ${localStorage.getItem("token")}`
-    }
-  })
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
 
-  return res.json()
+  return res.json();
+};
 
-}
+const chatLogIndex = async () => {
+  try {
+    const res = await fetch(BACKEND_URL, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
 
-
-
-
-export {create, messageIndex}
+export { create, messageIndex, chatLogIndex };
