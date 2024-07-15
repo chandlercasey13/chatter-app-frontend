@@ -24,4 +24,18 @@ const create = async function (userMessage) {
 
 
 
-export {create}
+const messageIndex= async function () {
+  const res = await fetch(`${BACKEND_URL}/messages`, {
+    headers: {
+      Authorization : `Bearer ${localStorage.getItem("token")}`
+    }
+  })
+
+  return res.json()
+
+}
+
+
+
+
+export {create, messageIndex}
