@@ -4,7 +4,7 @@ import ChatBarChats from "./ChatBarChats";
 import useChatLogs from "../../zustand/useChatLogs";
 
 const ChatLog = (props) => {
-  const { loading, chats } = ChatBarChats();
+  const { chats } = ChatBarChats();
   console.log("Chats:", chats);
   return (
     <div className="py-2 flex-col overlfow-auto">

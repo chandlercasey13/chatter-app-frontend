@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 
 const ChatBarChats = () => {
   const useGetChats = () => {
-    const [ loading, setLoading ] = useState(false);
-    const [ chats, setChats ] = useState([]);
+    const [chats, setChats] = useState([]);
 
     useEffect(() => {
       const getChats = async () => {
@@ -15,7 +14,7 @@ const ChatBarChats = () => {
       };
       getChats();
     }, []);
-    return { loading, chats };
+    return { chats };
   };
 
   return (
