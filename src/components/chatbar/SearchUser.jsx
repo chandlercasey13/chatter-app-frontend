@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import LoadingSpinner from "./LoadingSpinner";
 import UserProfile from "./UserProfile";
@@ -21,12 +21,12 @@ const SearchUser = ({ onClose }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-        //   search: search,
-        username: search,
+          //   search: search,
+          username: search,
         }),
       });
       const data = await response.json();
-      console.log(data)
+      console.log(data);
       setLoading(false);
       setSearchUser(data.data);
     } catch (error) {

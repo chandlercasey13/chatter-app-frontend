@@ -1,6 +1,6 @@
 import { BiSolidMessageSquareAdd } from "react-icons/bi";
 
-const SearchBar = () => {
+const SearchBar = ({ onOpen }) => {
   return (
     // <form className="flex items-center gap-2 text-l">
     //   <input
@@ -8,7 +8,7 @@ const SearchBar = () => {
     //     placeholder="Search user or chat..."
     //     className="input input-bordered rounded-full"
     //   />
-    <button type="submit" className="btn rounded text-purple-600">
+    <button type="submit" className="btn rounded text-purple-600" onClick={onOpen}>
       <BiSolidMessageSquareAdd className="w-20 h-10" />
     </button>
     // </form>
