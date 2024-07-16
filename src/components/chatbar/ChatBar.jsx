@@ -24,6 +24,11 @@ const ChatBar = () => {
           </div>
         )}
       </div>
+{
+    openSearchBox && (
+        <SearchUser onClose={()=>setOpenSearchBox(false)}/>
+    )
+}
     </div>
   );
 };
