@@ -36,7 +36,7 @@ function App() {
         {/* //protected routes */}
         {user ? (
           <>
-            <div className=" flex justify-end w-5/6 h-5/6 border-2 border-black rounded-lg">
+            <div className=" flex justify-end w-5/6 h-5/6 border-2 border-slate-400 rounded-lg">
               <ChatBar />
               <div className="flex flex-col justify-end h-full w-5/6 border-2 border-black/40 rounded-lg">
                 <ChatBox user={user} />

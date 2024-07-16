@@ -1,16 +1,29 @@
+import React, { useState } from "react";
 import ChatBarChat from "./ChatBarChat";
 import ChatLog from "./ChatLog";
 import SearchBar from "./SearchBar";
 
-const ChatBar = (props) => {
+const ChatBar = () => {
+    const [allUsers, setAllUsers] = useState([]);
+    const [searchUser, setSearchUser] = useState(false);
+
   return (
-    <div className="border-r border-slate-500 p-4 flex flex-col">
+    <div className="rounded-lg border-purple-700 bg-purple-200 p-4 w-40 flex flex-col">
       <SearchBar />
-      <div className="divider px-4"></div>
+      <div className="divide-y-4 divde-slate-400/25"></div>
       <ChatLog />
-      <div className="divider px-3"></div>
-      {/* <ChatLog />
-      <SignOutButton /> */}
+      <div className="divide-y-4 divde-slate-400/25"></div>
+      <div>
+        {
+            allUsers.length === 0 && (
+                <div>
+                    <div className="text-slate-500">
+                        <p>Start new chat!</p>
+                    </div>
+                </div>
+            )
+        }
+      </div>
     </div>
   );
 };

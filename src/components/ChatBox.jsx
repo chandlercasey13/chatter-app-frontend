@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { socket } from "../socket";
 import * as chatService from "../../services/chatService";
+import useChats from "../zustand/useChatLogs";
 
 function ChatBox({ user }) {
   const [textInputData, setTextInputData] = useState({
@@ -9,7 +10,8 @@ function ChatBox({ user }) {
   });
 
   const [messageLog, setMessageLog] = useState([]);
-  const [selectedChat, setSelectedChat] = useState();
+  // const [selectedChats, setSelectedChats] = useState();
+  const {selectedChats, setSelectedChats} = useChats();
 
   useEffect(() => {
     const fetchAllMessages = async function () {

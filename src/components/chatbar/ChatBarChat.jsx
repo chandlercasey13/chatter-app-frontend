@@ -5,8 +5,8 @@ import useChats from "../../zustand/useChatLogs";
 
 const ChatBarChat = () => {
     const [chats, setChats]= useState([]);
-    const {selectedChat, setSelectedChat} = useChats();
-    const isSelected = selectedChat?._id === chatService._id;
+    const {selectedChats, setSelectedChats} = useChats();
+    const isSelected = selectedChats?._id === chatService._id;
 
     useEffect(() => {
       const fetchAllChats = async () => {
@@ -35,7 +35,7 @@ const ChatBarChat = () => {
     <>
       <div className={`flex gap-2 items-center hover:bg-sky-500 rounded p-2 py-1 cursor-pointer"
       ${isSelected ? "bg-sky-500" : ""} `}
-      onClick={() => setSelectedChat(selectedChat)}
+      onClick={() => setSelectedChats(selectedChats)}
       >
 
         <div className="avatar online here">
