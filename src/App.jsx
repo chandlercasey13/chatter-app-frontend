@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import ChatBar from "./components/chatbar/ChatBar";
-import ChatBarChats from "./components/chatbar/ChatBarChats";
+import ChatBarChat from "./components/chatbar/ChatBarChat";
 import ChatBox from "./components/ChatBox";
 import * as authService from "../services/authService";
 import * as chatService from "../services/chatService";
@@ -11,7 +11,7 @@ import "./App.css";
 
 function App() {
   const [user, setUser] = useState(authService.getUser());
-  
+
   const [loginText, setLoginText] = useState({ username: "", password: "" });
   const [isSignedup, setIsSignedUp] = useState(true);
 
@@ -26,7 +26,6 @@ function App() {
 
     console.log(loginText);
   }
-  
 
   return (
     <>
@@ -38,7 +37,7 @@ function App() {
         {user ? (
           <>
             <div className=" flex justify-end w-5/6 h-5/6 border-2 border-black rounded-lg">
-              <ChatBar user={user} />
+              <ChatBar />
               <div className="flex flex-col justify-end h-full w-5/6 border-2 border-black/40 rounded-lg">
                 <ChatBox user={user} />
               </div>
