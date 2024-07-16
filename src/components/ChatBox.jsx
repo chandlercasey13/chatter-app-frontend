@@ -5,7 +5,7 @@ import useChats from "../zustand/useChatLogs";
 
 function ChatBox({ user }) {
   const [textInputData, setTextInputData] = useState({
-    senderId: [ {username : user.username}],
+    senderId: [{ username: user.username }],
     message: "",
   });
 
@@ -26,10 +26,6 @@ function ChatBox({ user }) {
     fetchAllMessages();
   }, []);
 
-
-
-
-
   function handleTextInput(event) {
     setTextInputData({
       ...textInputData,
@@ -42,35 +38,32 @@ function ChatBox({ user }) {
 
     const messageData = await chatService.messageIndex();
 
-   
     setMessageLog([textInputData, ...messageData.reverse()]);
 
     socket.emit("message", {
-      senderId: [ {username : user.username}],
+      senderId: [{ username: user.username }],
       message: textInputData.message,
-      
     });
 
-    
     chatService.create(textInputData);
-    setTextInputData({ senderId: [ {username : user.username}], message: "" });
+    setTextInputData({ senderId: [{ username: user.username }], message: "" });
   }
 
-  async function handleDeleteButtonSubmit(usermessageObject, index) {
+  async function handleDeleteButtonSubmit(
+    usermessageObject,
+    userMessageObjectIndex
+  ) {
     await chatService.deleteMessage(usermessageObject._id);
 
-    setMessageLog(
-      messageLog.filter((message) => {
-        console.log(message[index]);
-      })
-    );
+    const filteredLog = messageLog.filter((usermessageObject, index) => {
+      return index != userMessageObjectIndex;
+    });
 
-    //set the message log to trigger useeffect and rerender messages to page
+    setMessageLog(filteredLog);
   }
 
   socket.on("message", (messagecontent) => {
-    setMessageLog([messagecontent, ...messageLog ]);
-    
+    setMessageLog([messagecontent, ...messageLog]);
   });
 
   return (
@@ -79,17 +72,14 @@ function ChatBox({ user }) {
         {messageLog.map((userMessageObject, index) => (
           <div
             className={`w-5/6 flex ${
-              userMessageObject.senderId[0]?.username === user.username 
+              userMessageObject.senderId[0]?.username === user.username
                 ? `justify-end`
                 : `justify-start`
             }`}
           >
             <div className="border-2 border-black rounded-xl pl-2 pr-2 pb-2 m-1 ">
               <div key={index + 1} className="font-semibold pt-1 ">
-                {`${
-                  userMessageObject.senderId[0]?.username
-                   
-                }`}{" "}
+                {`${userMessageObject.senderId[0]?.username}`}{" "}
                 <button
                   onClick={function () {
                     handleDeleteButtonSubmit(userMessageObject, index);
