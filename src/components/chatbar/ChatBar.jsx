@@ -7,7 +7,7 @@ import SearchUser from "./SearchUser";
 const ChatBar = () => {
   const [allUsers, setAllUsers] = useState([]);
   const [openSearchBox, setOpenSearchBox] = useState(false);
-  console.log(openSearchBox)
+  
   const onOpen = () => {setOpenSearchBox(true)};
   const onClose = () => {setOpenSearchBox(false)};
 

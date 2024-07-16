@@ -5,7 +5,7 @@ import useChatLogs from "../../zustand/useChatLogs";
 
 const ChatLog = (props) => {
   const { chats } = ChatBarChat();
-  console.log("Chats:", chats);
+  
   return (
     <div className="py-2 flex-col overlfow-auto">
       {chats?.map((chat, index) => (
