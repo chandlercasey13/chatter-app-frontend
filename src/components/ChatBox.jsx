@@ -72,7 +72,7 @@ function ChatBox({ user }) {
                 : `justify-start`
             }`}
           >
-            <div className="border-2 border-black rounded-xl pl-2 pr-2 pb-2 m-1 ">
+            <div className="border-2 border-black rounded-xl pl-2 pr-2 pb-2 m-1">
               <div key={index + 1} className="font-semibold pt-1 ">
                 {`${userMessageObject.senderId[0]?.username}`}{" "}
                 <button
