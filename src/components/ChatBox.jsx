@@ -59,10 +59,13 @@ console.log(textInputData)
     setTextInputData({ senderId: user.username, message: "" });
   }
 
-  async function handleDeleteButtonSubmit(messageId) {
-    await chatService.deleteMessage(messageId);
-    setMessageLog(messageLog)
+  async function handleDeleteButtonSubmit(usermessageObject, index) {
 
+    await chatService.deleteMessage(usermessageObject._id);
+    
+setMessageLog(messageLog.filter((message) => {
+  console.log(message[index])
+}))
     
     //set the message log to trigger useeffect and rerender messages to page
   }
@@ -88,7 +91,7 @@ console.log(textInputData)
 
                 <button
                   onClick={function () {
-                    handleDeleteButtonSubmit(userMessageObject._id);
+                    handleDeleteButtonSubmit(userMessageObject, index);
                   }}
                 >
                   <i className="bx bx-trash-alt"></i>
