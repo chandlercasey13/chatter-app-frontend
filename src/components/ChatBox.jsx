@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { socket } from "../socket";
 import * as chatService from "../../services/chatService";
+import useChats from "../zustand/useChatLogs";
 
 function ChatBox({ user }) {
   const [textInputData, setTextInputData] = useState({
@@ -8,8 +9,7 @@ function ChatBox({ user }) {
     message: "",
   });
 
-  
-  const [selectedChat, setSelectedChat] = useState();
+    const {selectedChats, setSelectedChats} = useChats();
   const [messageLog, setMessageLog] = useState([]);
 
 
@@ -29,14 +29,11 @@ setMessageLog(messageData.reverse())
     } catch (err) {
 console.log(err)
     }
- 
-      
+
     };
-    
+
     fetchAllMessages();
   }, []);
-
-
 
   function handleTextInput(event) {
     setTextInputData({
@@ -77,14 +74,13 @@ setMessageLog(messageLog.filter((message) => {
     setMessageLog([...messageLog, messagecontent]);
   });
 
-
-
   return (
     <>
       <ul className="list-none flex flex-col-reverse items-center overflow-auto">
         {messageLog.map((userMessageObject, index) => (
           <div
             className={`w-5/6 flex ${
+
               userMessageObject.senderId[0]?.username === user.username || textInputData.senderId === user.username ? `justify-end`: `justify-start`
             }`}
           >
@@ -92,27 +88,19 @@ setMessageLog(messageLog.filter((message) => {
             <div className="border-2 border-black rounded-xl pl-2 pr-2 pb-2 m-1 ">
               <div key={index+1} className="font-semibold pt-1 ">
                 {`${userMessageObject.senderId[0]?.username ? userMessageObject.senderId[0]?.username :user.username }`}{" "}
+
                 <button
                   onClick={function () {
                     handleDeleteButtonSubmit(userMessageObject, index);
                   }}
                 >
-                  <i className='bx bx-trash-alt' ></i>
+                  <i className="bx bx-trash-alt"></i>
                 </button>
               </div>
               <li key={index}>{` ${userMessageObject.message}`}</li>
             </div>
-         </div>
+          </div>
         ))}
-
-
-
-
-
-
-
-
-
       </ul>
 
       <form
