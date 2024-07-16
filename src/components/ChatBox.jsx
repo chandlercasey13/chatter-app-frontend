@@ -53,6 +53,7 @@ function ChatBox({ user }) {
     usermessageObject,
     userMessageObjectIndex
   ) {
+  console.log(usermessageObject._id)
     await chatService.deleteMessage(usermessageObject._id);
 
     const filteredLog = messageLog.filter((usermessageObject, index) => {
