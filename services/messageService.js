@@ -41,5 +41,5 @@ const deleteMessage = async function (messageId) {
 
 
 
-export { create, messageIndex, chatLogIndex, deleteMessage };
+export { create, messageIndex,  deleteMessage };
 
