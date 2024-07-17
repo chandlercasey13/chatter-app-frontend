@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useRef } from "react";
 import { socket } from "../socket";
-import * as chatService from "../../services/messageService";
+import * as chatService from "../../services/chatService";
 import useChats from "../zustand/useChatLogs";
+import UserProfile from "./chatbar/UserProfile";
+import { useParams } from "react-router-dom";
 
 function ChatBox({ user }) {
   const [textInputData, setTextInputData] = useState({
@@ -11,20 +13,48 @@ function ChatBox({ user }) {
 
   const { selectedChats, setSelectedChats } = useChats();
   const [messageLog, setMessageLog] = useState([]);
+const [selectedUser, setSelectedUser] = useState('')
 
-  useEffect(() => {
-    const fetchAllMessages = async function () {
-      try {
-        const messageData = await chatService.messageIndex();
+// const [userId, setUserId] = useState(useParams())
 
-        setMessageLog(messageData.reverse());
-      } catch (err) {
-        console.log(err);
+  const { userId } = useParams();
+
+
+
+
+  useEffect(()=> {
+
+    
+
+    async function getUser (userId) {
+      const foundUserObject = await chatService.getUser(userId)
+      setSelectedUser(foundUserObject.user.username)
       }
-    };
+      
+if(userId) getUser(userId)
 
-    fetchAllMessages();
-  }, []);
+  }, [userId])
+
+  // // useEffect(() => {
+  // //   // const fetchAllMessages = async function () {
+  // //   //   try {
+  // //   //     const messageData = await chatService.messageIndex();
+
+  // //   //     setMessageLog(messageData.reverse());
+  // //   //   } catch (err) {
+  // //   //     console.log(err);
+  // //   //   }
+  // //   };
+
+  //   fetchAllMessages();
+  // }, []);
+
+
+
+
+
+
+
 
   function handleTextInput(event) {
     setTextInputData({
@@ -68,7 +98,8 @@ function ChatBox({ user }) {
   });
 
   return (
-    <>
+    <> 
+     {userId ? <h1>{selectedUser}</h1> : ''}
       <ul className="list-none flex flex-col-reverse items-center overflow-auto">
         {messageLog.map((userMessageObject, index) => (
           <div

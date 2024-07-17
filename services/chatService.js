@@ -1,5 +1,22 @@
 const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 
+
+const getUser = async (userId) => {
+  try {
+    
+    const res = await fetch(`${BACKEND_URL}/profiles/${userId}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+
+
+
 const chatLogIndex = async () => {
     try {
       const res = await fetch(`${BACKEND_URL}/chatlogs`, {
@@ -45,6 +62,6 @@ const chatLogIndex = async () => {
       console.log(error);
     }
   };
-
-  export { chatLogIndex, create, update };
   
+
+  export {chatLogIndex, getUser, create, update}

@@ -27,12 +27,17 @@ const messageIndex = async function () {
 };
 
 const deleteMessage = async function (messageId) {
-  await fetch(`${BACKEND_URL}/messages/${messageId}`, {
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-  });
-};
+ await fetch(`${BACKEND_URL}/messages/${messageId}`, {
+  method : "DELETE",
+  headers : {
+    Authorization: `Bearer ${localStorage.getItem("token")}`,
+  }
+})
+}
+
+
+
+
+export { create, messageIndex,  deleteMessage };
 
 export { create, messageIndex, deleteMessage };

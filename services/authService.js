@@ -4,6 +4,7 @@ const getUser = () => {
   const token = localStorage.getItem("token");
   if (!token) return null;
   const user = JSON.parse(atob(token.split(".")[1]));
+  
   return user;
 };
 
@@ -15,6 +16,7 @@ const signup = async (formData) => {
       body: JSON.stringify(formData),
     });
     const json = await res.json();
+   
    
     if (json.error) {
       throw new Error(json.error);

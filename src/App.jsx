@@ -40,7 +40,12 @@ function App() {
             <div className=" flex justify-end w-5/6 h-5/6 border-2 border-slate-400 rounded-lg bg-slate-300">
               <ChatBar />
               <div className="flex flex-col justify-end h-full w-5/6 border-2 border-black/40 rounded-lg">
-                <ChatBox user={user} />
+                
+                
+                <Routes>
+                <Route path='/' element = {<ChatBox user={user} />}/>
+                <Route path='/chatlogs/:userId/new' element = {<ChatBox user={user} />}/>
+                </Routes>
               </div>
             </div>
           </>
