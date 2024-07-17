@@ -3,7 +3,7 @@ import * as chatService from "/services/chatService.js";
 import { VscSquirrel } from "react-icons/vsc";
 import useChats from "../../zustand/useChatLogs";
 
-const ChatBarChat = () => {
+const Chat = () => {
     const [chats, setChats]= useState([]);
     const {selectedChats, setSelectedChats} = useChats();
     const isSelected = selectedChats?._id === chatService._id;
@@ -57,4 +57,4 @@ const ChatBarChat = () => {
   );
 
 }
-export default ChatBarChat;
+export default Chat;

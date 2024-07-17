@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import ChatBar from "./components/chatbar/ChatBar";
-import ChatBarChat from "./components/chatbar/ChatBarChat";
+import ChatBarChat from "./components/chatbar/Chat";
 import ChatBox from "./components/ChatBox";
 import * as authService from "../services/authService";
 import * as chatService from "../services/chatService";
