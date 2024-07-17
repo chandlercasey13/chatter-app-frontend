@@ -11,49 +11,59 @@ function ChatBox({ user }) {
     message: "",
   });
 
-  const { selectedChats, setSelectedChats } = useChats();
+  // const { selectedChats, setSelectedChats } = useChats();
   const [messageLog, setMessageLog] = useState([]);
-const [selectedUser, setSelectedUser] = useState('')
+  const [selectedUser, setSelectedUser] = useState({});
+  const [currentRoom, setCurrentRoom] = useState("");
+  const [chatParticipants, setChatParticipants] = useState([])
 
-// const [userId, setUserId] = useState(useParams())
+  // const [userId, setUserId] = useState(useParams())
 
   const { userId } = useParams();
 
+  useEffect(() => {
+    async function getUser(userId) {
+      const foundUserObject = await chatService.getUser(userId);
+      setSelectedUser(foundUserObject);
+    }
 
-
-
-  useEffect(()=> {
-
-    
-
-    async function getUser (userId) {
-      const foundUserObject = await chatService.getUser(userId)
-      setSelectedUser(foundUserObject.user.username)
+    const handleRoomChange = function (newRoom) {
+      if (currentRoom) {
+        // Leave the current room
+        socket.emit("leave", currentRoom, user.username);
       }
-      
-if(userId) getUser(userId)
 
-  }, [userId])
+      socket.emit("join", newRoom, user.username);
+      // Update the current room state
+      setCurrentRoom(newRoom);
+    };
 
-  // // useEffect(() => {
-  // //   // const fetchAllMessages = async function () {
-  // //   //   try {
-  // //   //     const messageData = await chatService.messageIndex();
+    if (userId) getUser(userId);
+    handleRoomChange(userId);
+  }, [userId]);
 
-  // //   //     setMessageLog(messageData.reverse());
-  // //   //   } catch (err) {
-  // //   //     console.log(err);
-  // //   //   }
-  // //   };
+  const messageListener = (messagecontent) => {
+    console.log(messagecontent);
+    setMessageLog([messagecontent, ...messageLog]);
+  };
 
-  //   fetchAllMessages();
-  // }, []);
+  useEffect(() => {
+    socket.on("message", messageListener);
+    return () => socket.off("message", messageListener);
+  }, []);
 
+  useEffect(() => {
+   const createChatRouter = async function() {
+    
+    setChatParticipants([ user,selectedUser])
+  
 
-
-
-
-
+    const newChat = await chatService.create(chatParticipants)
+  console.log(newChat) 
+   
+   }
+   createChatRouter()
+  }, [selectedUser]);
 
 
   function handleTextInput(event) {
@@ -66,16 +76,23 @@ if(userId) getUser(userId)
   async function handleButtonSubmit(e) {
     e.preventDefault();
 
-    const messageData = await chatService.messageIndex();
+    // const messageData = await chatService.messageIndex();
 
-    setMessageLog([textInputData, ...messageData.reverse()]);
+    // setMessageLog([textInputData, ...messageData.reverse()]);
+    setMessageLog([textInputData, ...messageLog]);
 
-    socket.emit("message", {
-      senderId: [{ username: user.username }],
-      message: textInputData.message,
-    });
-    console.log(textInputData);
-    chatService.create(textInputData);
+    socket.emit(
+      "message",
+      {
+        senderId: [{ username: user.username }],
+        message: textInputData.message,
+      },
+      currentRoom
+    );
+
+    // console.log(message);
+    // console.log(textInputData);
+    // chatService.create(textInputData);
     setTextInputData({ senderId: [{ username: user.username }], message: "" });
   }
 
@@ -92,14 +109,11 @@ if(userId) getUser(userId)
 
     setMessageLog(filteredLog);
   }
-
-  socket.on("message", (messagecontent) => {
-    setMessageLog([messagecontent, ...messageLog]);
-  });
+ 
 
   return (
-    <> 
-     {userId ? <h1>{selectedUser}</h1> : ''}
+    <>
+      {userId ? <h1>{selectedUser.user?.username}</h1> : ""}
       <ul className="list-none flex flex-col-reverse items-center overflow-auto">
         {messageLog.map((userMessageObject, index) => (
           <div

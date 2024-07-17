@@ -28,7 +28,8 @@ const chatLogIndex = async () => {
     }
   };
   
-  const create = async function (participants, messageId) {
+  const create = async function (participants) {
+    console.log(participants)
     try {
       const res = await fetch(`${BACKEND_URL}/chatlogs/new/`, {
         method: "POST",
@@ -37,11 +38,12 @@ const chatLogIndex = async () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-            participants: [participants],
-            messages: [messageId]
+            participants: participants,
+            
         }),
       });
-      // return res.json();
+      
+       return res.json();
     } catch (error) {
       console.log(error);
     }
@@ -55,7 +57,7 @@ const chatLogIndex = async () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(messageId),
+        body: JSON.stringify({messageId:messageId}),
       });
       // return res.json();
     } catch (error) {

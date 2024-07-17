@@ -1,8 +1,33 @@
-import React from "react";
+
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import UserAvatar from "./UserAvatar";
+import * as chatService from "../../../services/chatService"
 
-const UserProfile = ({ founduser, onClose }) => {
+
+
+
+
+
+const UserProfile = ({ user, founduser, onClose }) => {
+ 
+const [chatParticipants, setChatParticipants] = useState([])
+
+const handleClick = async (e) => {
+  
+   e.preventDefault()
+   setChatParticipants([])
+  if (user,founduser){
+  
+} else {return}
+
+
+
+
+
+  // onClose()
+}
+
   return (
 
     <Link
