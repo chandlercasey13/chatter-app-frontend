@@ -5,7 +5,7 @@ import UserProfile from "./UserProfile";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 
-const SearchUser = ({ onClose }) => {
+const SearchUser = ({ onClose, user }) => {
   const [searchUser, setSearchUser] = useState([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
@@ -67,7 +67,7 @@ const SearchUser = ({ onClose }) => {
             !loading &&
             searchUser.map((founduser, index) => {
               return (
-                <UserProfile key={founduser._id} founduser={founduser} onClose={onClose} />
+                <UserProfile key={founduser._id}  user = {user} founduser={founduser} onClose={onClose} />
               );
             })}
         </div>

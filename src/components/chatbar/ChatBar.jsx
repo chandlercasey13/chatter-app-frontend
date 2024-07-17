@@ -4,7 +4,7 @@ import ChatLog from "./ChatLog";
 import SearchUserBtn from "./SearchUserButton";
 import SearchUser from "./SearchUser";
 
-const ChatBar = () => {
+const ChatBar = ({user}) => {
   const [allUsers, setAllUsers] = useState([]);
   const [openSearchBox, setOpenSearchBox] = useState(false);
 
@@ -14,6 +14,9 @@ const ChatBar = () => {
   const onClose = () => {
     setOpenSearchBox(false);
   };
+
+
+  
 
   return (
     <div className="rounded-lg border-purple-700 bg-purple-200 p-4 w-40 flex flex-col">
@@ -31,7 +34,7 @@ const ChatBar = () => {
           </div>
         )}
       </div>
-      {openSearchBox && <SearchUser onClose={onClose} />}
+      {openSearchBox && <SearchUser user ={user} onClose={onClose} />}
     </div>
   );
 };
