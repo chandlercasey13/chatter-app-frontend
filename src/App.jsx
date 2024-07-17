@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 
 import ChatBar from "./components/chatbar/ChatBar";
-import ChatBarChat from "./components/chatbar/ChatBarChat";
+import Chat from "./components/chatbar/Chat";
 import ChatBox from "./components/ChatBox";
 import * as authService from "../services/authService";
-import * as chatService from "../services/chatService";
+import * as chatService from "../services/messageService";
 import { Route, Routes } from "react-router-dom";
-
+import io from "socket.io-client";
 import "./App.css";
 
 function App() {
@@ -26,6 +26,7 @@ function App() {
 
     console.log(loginText);
   }
+
 
   return (
     <>
