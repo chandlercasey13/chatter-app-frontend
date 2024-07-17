@@ -26,7 +26,7 @@ const SearchUser = ({ onClose }) => {
         }),
       });
       const data = await response.json();
-      console.log(data);
+     
       setLoading(false);
       setSearchUser(data.data);
     } catch (error) {
@@ -65,9 +65,9 @@ const SearchUser = ({ onClose }) => {
           )}
           {searchUser.length !== 0 &&
             !loading &&
-            searchUser.map((user, index) => {
+            searchUser.map((founduser, index) => {
               return (
-                <UserProfile key={user._id} user={user} onClose={onClose} />
+                <UserProfile key={founduser._id} founduser={founduser} onClose={onClose} />
               );
             })}
         </div>
