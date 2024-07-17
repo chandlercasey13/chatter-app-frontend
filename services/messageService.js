@@ -19,27 +19,20 @@ const create = async function (userMessage) {
 const messageIndex = async function () {
   const res = await fetch(`${BACKEND_URL}/messages`, {
     headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
 
-      Authorization : `Bearer ${localStorage.getItem("token")}`
-    }
-  })
-
-
-  return res.json()
-
-}
+  return res.json();
+};
 
 const deleteMessage = async function (messageId) {
- await fetch(`${BACKEND_URL}/messages/${messageId}`, {
-  method : "DELETE",
-  headers : {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-  }
-})
-}
+  await fetch(`${BACKEND_URL}/messages/${messageId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+};
 
-
-
-
-export { create, messageIndex, chatLogIndex, deleteMessage };
-
+export { create, messageIndex, deleteMessage };

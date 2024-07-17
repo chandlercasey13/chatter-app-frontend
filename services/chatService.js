@@ -45,4 +45,6 @@ const chatLogIndex = async () => {
       console.log(error);
     }
   };
+
+  export { chatLogIndex, create, update };
   
