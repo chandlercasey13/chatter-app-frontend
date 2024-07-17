@@ -7,8 +7,6 @@ import * as authService from "../services/authService";
 import * as chatService from "../services/chatService";
 import { Route, Routes } from "react-router-dom";
 import io from "socket.io-client";
-// import { logout, setOnlineUser, setSocketConnection, setUser } from '../userSlice.js'
-
 import "./App.css";
 
 function App() {
@@ -29,22 +27,6 @@ function App() {
     console.log(loginText);
   }
 
-  // useEffect(() => {
-  //   const socketConnection = io(process.env.REACT_APP_BACKEND_URL, {
-  //     auth : {
-  //       token : localStorage.getItem('token')
-  //     },
-  //   })
-  //   socketConnection.on('onlineUser', (data)=>{
-  //     console.log(data)
-  //     dispatchEvent(setOnlineUser(data))
-  //   })
-  //   dispatchEvent(setSocketConnection(socketConnection))
-
-  //   return()=>{
-  //     socketConnection.disconnect()
-  //   }
-  // }, [])
 
   return (
     <>
