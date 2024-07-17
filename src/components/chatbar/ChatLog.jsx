@@ -1,15 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ChatBarChat from "./ChatBarChat";
+import Chat from "./Chat";
 import useChatLogs from "../../zustand/useChatLogs";
 
 const ChatLog = (props) => {
-  const { chats } = ChatBarChat();
-  
+  const { chats } = Chat();
+
   return (
     <div className="py-2 flex-col overlfow-auto">
       {chats?.map((chat, index) => (
-        <ChatBarChat
+        <Chat
           key={chat._id}
           chat={chat}
           lastIndex={index === chats.length - 1}

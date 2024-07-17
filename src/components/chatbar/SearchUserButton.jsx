@@ -1,6 +1,6 @@
 import { BiSolidMessageSquareAdd } from "react-icons/bi";
 
-const SearchBar = ({ onOpen }) => {
+const SearchUserBtn = ({ onOpen }) => {
   return (
     // <form className="flex items-center gap-2 text-l">
     //   <input
@@ -15,4 +15,4 @@ const SearchBar = ({ onOpen }) => {
   );
 };
 
-export default SearchBar;
+export default SearchUserBtn;
