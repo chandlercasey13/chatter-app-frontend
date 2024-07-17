@@ -6,7 +6,7 @@ import ChatBox from "./components/ChatBox";
 import * as authService from "../services/authService";
 import * as chatService from "../services/chatService";
 import { Route, Routes } from "react-router-dom";
-import io from 'socket.io-client'
+import io from "socket.io-client";
 // import { logout, setOnlineUser, setSocketConnection, setUser } from '../userSlice.js'
 
 import "./App.css";
