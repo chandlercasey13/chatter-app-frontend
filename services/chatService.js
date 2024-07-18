@@ -66,18 +66,21 @@ const chatLogIndex = async () => {
       console.log(error);
     }
   };
-  const getUserChats = async function () {
+  const getUserChats = async function (userId) {
     
     try {
       
-      const res = await fetch(`${BACKEND_URL}/profiles/${userId}`, {
+      const res = await fetch(`${BACKEND_URL}/chatlogs/user/${userId}`, {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       });
+      
       return res.json();
+      
     } catch (error) {
       console.log(error);
     }
+    
   };
   
 
-  export {chatLogIndex, getUser, create, update}
+  export {chatLogIndex, getUser, create, update, getUserChats}
