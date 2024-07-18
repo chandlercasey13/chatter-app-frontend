@@ -22,6 +22,7 @@ function ChatBox({ user }) {
   // const [userId, setUserId] = useState(useParams())
 
   const { userId } = useParams();
+ 
 
   useEffect(() => {
     async function getUser(userId) {
@@ -108,7 +109,7 @@ function ChatBox({ user }) {
     userMessageObjectIndex
   ) {
     console.log(usermessageObject._id);
-    await chatService.deleteMessage(usermessageObject._id);
+    await messageService.deleteMessage(usermessageObject._id);
 
     const filteredLog = messageLog.filter((usermessageObject, index) => {
       return index != userMessageObjectIndex;
