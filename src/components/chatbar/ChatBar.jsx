@@ -24,13 +24,11 @@ const ChatBar = ({ user }) => {
   useEffect(() => {
     const getUserChats = async function (userId) {
       const allUserChats = await chatService.getUserChats(userId);
-
+      console.log(allUserChats);
       setUserChats([...userChats, allUserChats]);
     };
     getUserChats(userId);
   }, []);
-
-  
 
   return (
     <div className="rounded-lg border-purple-700 bg-purple-200 p-4 w-1/6 flex flex-col ">
@@ -52,11 +50,20 @@ const ChatBar = ({ user }) => {
       {openSearchBox && <SearchUser user={user} onClose={onClose} />}
 
       <ul className="overflow-y-auto overflow-x-hidden">
-        {userChats[0]?.map((chats) => (
-          <li className="text-xs mt-5">
+        {userChats[0]?.map((chats, i) => (
+          <li key={i} className="text-xs mt-5">
             {" "}
-            <Link to={`/chatlogs/${chats._id}/user/${chats.participants[0]._id === user._id ? chats.participants[1]._id : chats.participants[0]._id} `} className="w-1 ">
-              {chats.participants[0].username === user.username ? chats.participants[1].username : chats.participants[0].username}{" "}
+            <Link
+              to={`/chatlogs/${chats._id}/user/${
+                chats.participants[0]._id === user._id
+                  ? chats.participants[1]._id
+                  : chats.participants[0]._id
+              } `}
+              className="w-1 "
+            >
+              {chats.participants[0].username === user.username
+                ? chats.participants[1].username
+                : chats.participants[0].username}{" "}
             </Link>
             <button>x</button>
           </li>
