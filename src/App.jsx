@@ -53,16 +53,18 @@ function App() {
           </>
         ) : (
           <>
-            <div className=" flex flex-col justify-center items-center border-black border-2 w-2/6 h-1/2 rounded-lg">
+            <div className=" flex flex-col h-1/2 justify-center items-center bg-purple-200 border-black border-1 w-2/6 h-1/2 rounded-lg">
               {isSignedup ? (
                 <>
+                <div className="h-full flex flex-col items-center justify-center">
                   <h1>Log In</h1>
 
+<div className="h-1/2 flex flex-col justify-center items-center">
                   <form className="flex flex-col w-1/2 " onSubmit={loginSubmit}>
                     <label htmlFor="username"></label>
 
-                    <input
-                      className="border-black border-2"
+                    <input 
+                      className="border-black border-2 w-full"
                       id="username"
                       name="username"
                       type="text"
@@ -86,7 +88,7 @@ function App() {
                       Log In
                     </button>
                   </form>
-
+                  </div>
                   <button
                     onClick={function () {
                       setIsSignedUp(!isSignedup);
@@ -94,6 +96,7 @@ function App() {
                   >
                     Don't have an account ?
                   </button>
+                  </div>
                 </>
               ) : (
                 <>
