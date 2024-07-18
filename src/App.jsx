@@ -45,6 +45,7 @@ function App() {
                 <Routes>
                 <Route path='/' element = {<ChatBox user={user} />}/>
                 <Route path='/chatlogs/:userId/new' element = {<ChatBox user={user} />}/>
+                <Route path = '/chatlogs/user/:chatId' element = {<ChatBox user={user}/>}/>
                 </Routes>
               </div>
             </div>

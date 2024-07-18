@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { socket } from "../socket";
 import * as chatService from "../../services/chatService";
+import * as messageService from "../../services/messageService"
 import useChats from "../zustand/useChatLogs";
 import UserProfile from "./chatbar/UserProfile";
 import { useParams } from "react-router-dom";
@@ -16,10 +17,12 @@ function ChatBox({ user }) {
   const [selectedUser, setSelectedUser] = useState({});
   const [currentRoom, setCurrentRoom] = useState("");
   const [chatParticipants, setChatParticipants] = useState([])
+  const [chatlogId, setChatLogId] = useState('')
 
   // const [userId, setUserId] = useState(useParams())
 
   const { userId } = useParams();
+ 
 
   useEffect(() => {
     async function getUser(userId) {
@@ -59,7 +62,9 @@ function ChatBox({ user }) {
   
 
     const newChat = await chatService.create(chatParticipants)
-  console.log(newChat) 
+  
+    setChatLogId(newChat._id)
+    
    
    }
    createChatRouter()
@@ -90,9 +95,12 @@ function ChatBox({ user }) {
       currentRoom
     );
 
-    // console.log(message);
+    
     // console.log(textInputData);
-    // chatService.create(textInputData);
+   const newMessage = await messageService.create(textInputData);
+   const updateChat = await chatService.update(chatlogId, newMessage._id)
+   console.log(updateChat)
+    
     setTextInputData({ senderId: [{ username: user.username }], message: "" });
   }
 
@@ -101,7 +109,7 @@ function ChatBox({ user }) {
     userMessageObjectIndex
   ) {
     console.log(usermessageObject._id);
-    await chatService.deleteMessage(usermessageObject._id);
+    await messageService.deleteMessage(usermessageObject._id);
 
     const filteredLog = messageLog.filter((usermessageObject, index) => {
       return index != userMessageObjectIndex;

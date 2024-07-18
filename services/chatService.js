@@ -29,7 +29,7 @@ const chatLogIndex = async () => {
   };
   
   const create = async function (participants) {
-    console.log(participants)
+    
     try {
       const res = await fetch(`${BACKEND_URL}/chatlogs/new/`, {
         method: "POST",
@@ -50,7 +50,9 @@ const chatLogIndex = async () => {
   };
 
   const update = async function (chatId, messageId) {
+    console.log(chatId)
     try {
+      
       const res = await fetch(`${BACKEND_URL}/chatlogs/${chatId}`, {
         method: "PUT",
         headers: {
@@ -59,11 +61,26 @@ const chatLogIndex = async () => {
         },
         body: JSON.stringify({messageId:messageId}),
       });
-      // return res.json();
+     return res.json();
     } catch (error) {
       console.log(error);
     }
   };
+  const getUserChats = async function (userId) {
+    
+    try {
+      
+      const res = await fetch(`${BACKEND_URL}/chatlogs/user/${userId}`, {
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      });
+      
+      return res.json();
+      
+    } catch (error) {
+      console.log(error);
+    }
+    
+  };
   
 
-  export {chatLogIndex, getUser, create, update}
+  export {chatLogIndex, getUser, create, update, getUserChats}
