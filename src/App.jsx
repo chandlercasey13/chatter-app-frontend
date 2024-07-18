@@ -28,9 +28,10 @@ function App() {
 
   return (
     <>
+    
       <div
         id="root"
-        className=" flex justify-center items-center w-screen h-screen"
+        className=" flex justify-center items-center w-screen h-screen" 
       >
         {user ? (
           <>
@@ -53,11 +54,12 @@ function App() {
           </>
         ) : (
           <>
-            <div className=" flex flex-col h-1/2 justify-center items-center bg-purple-200 border-black border-1 w-2/6 h-1/2 rounded-lg">
+            <div className="flex flex-col justify-center items-center bg-purple-200 border-black border-1 min-w-96 h-1/2 rounded-lg bg-opacity-100">
               {isSignedup ? (
                 <>
-                <div className="h-full flex flex-col items-center justify-center">
-                  <h1>Log In</h1>
+                <div className="h-full flex flex-col items-center justify-center text-slate-600">
+                  <section>
+                  <h1 className="h-full flex flex-col items-center justify-center text-slate-600">Log In</h1>
 
 <div className="h-1/2 flex flex-col justify-center items-center">
                   <form className="flex flex-col w-1/2 " onSubmit={loginSubmit}>
@@ -96,11 +98,14 @@ function App() {
                   >
                     Don't have an account ?
                   </button>
+                  </section>
                   </div>
                 </>
               ) : (
                 <>
-                  <h1 className="text-purple-700">Sign up</h1>
+                <div>
+                  <section>
+                  <h1 className="h-full flex flex-col items-center justify-center text-slate-600">Sign up</h1>
 
                   <form className="flex flex-col w-1/2 " onSubmit={loginSubmit}>
                     <label htmlFor="username"></label>
@@ -138,6 +143,8 @@ function App() {
                   >
                     Already have an account ?
                   </button>
+                  </section>
+                  </div>
                 </>
               )}
             </div>

@@ -1,6 +1,6 @@
 # Chatter
 
-![Chatter text plus squirrel eating nut](https://imgur.com/wcmPJSx)
+![Chatter name and squirrel eating acorn](https://img.freepik.com/free-photo/closeup-shot-cute-squirrel-with-blurred-green-background_181624-17194.jpg?t=st=1721333793~exp=1721337393~hmac=42d30ad793641f44f74c0b9855f2a848cb73f568670886f81434347d3679a00a&w=2000)
 
 ---
 
