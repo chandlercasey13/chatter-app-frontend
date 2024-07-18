@@ -40,11 +40,11 @@ function App() {
                 <Routes>
                   <Route path="/" element={<ChatBox user={user} />} />
                   <Route
-                    path="/chatlogs/:userId/new"
+                    path="/chatlogs/:foundUserId/new"
                     element={<ChatBox user={user} />}
                   />
                   <Route
-                    path="/chatlogs/user/:chatId"
+                    path="/chatlogs/:chatId/user/:foundUserId"
                     element={<ChatBox user={user} />}
                   />
                 </Routes>
