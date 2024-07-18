@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-
 import ChatBar from "./components/chatbar/ChatBar";
 import Chat from "./components/chatbar/Chat";
 import ChatBox from "./components/ChatBox";
@@ -27,40 +26,45 @@ function App() {
     console.log(loginText);
   }
 
-
   return (
     <>
       <div
         id="root"
         className=" flex justify-center items-center w-screen h-screen"
       >
-        {/* //protected routes */}
         {user ? (
           <>
-            <div className=" flex justify-end w-5/6 h-5/6 border-2 border-slate-400 rounded-lg bg-slate-300">
+            <div className=" flex justify-end w-5/6 h-5/6 rounded-lg bg-slate-200">
               <ChatBar user={user} />
-              <div className="flex flex-col justify-end h-full w-5/6 border-2 border-black/40 rounded-lg">
-                
-                
+              <div className="flex flex-col justify-end h-full w-5/6 border-1 border-black/40 rounded-lg">
                 <Routes>
-                <Route path='/' element = {<ChatBox user={user} />}/>
-                <Route path='/chatlogs/:userId/new' element = {<ChatBox user={user} />}/>
+                  <Route path="/" element={<ChatBox user={user} />} />
+                  <Route
+                    path="/chatlogs/:userId/new"
+                    element={<ChatBox user={user} />}
+                  />
+                  <Route
+                    path="/chatlogs/user/:chatId"
+                    element={<ChatBox user={user} />}
+                  />
                 </Routes>
               </div>
             </div>
           </>
         ) : (
           <>
-            <div className=" flex flex-col justify-center items-center border-black border-2 w-2/6 h-1/2 rounded-lg">
+            <div className=" flex flex-col h-1/2 justify-center items-center bg-purple-200 border-black border-1 w-2/6 h-1/2 rounded-lg">
               {isSignedup ? (
                 <>
+                <div className="h-full flex flex-col items-center justify-center">
                   <h1>Log In</h1>
 
+<div className="h-1/2 flex flex-col justify-center items-center">
                   <form className="flex flex-col w-1/2 " onSubmit={loginSubmit}>
                     <label htmlFor="username"></label>
 
-                    <input
-                      className="border-black border-2"
+                    <input 
+                      className="border-black border-2 w-full"
                       id="username"
                       name="username"
                       type="text"
@@ -84,7 +88,7 @@ function App() {
                       Log In
                     </button>
                   </form>
-
+                  </div>
                   <button
                     onClick={function () {
                       setIsSignedUp(!isSignedup);
@@ -92,9 +96,9 @@ function App() {
                   >
                     Don't have an account ?
                   </button>
+                  </div>
                 </>
               ) : (
-                //public routes
                 <>
                   <h1 className="text-purple-700">Sign up</h1>
 
