@@ -3,7 +3,7 @@ import { VscSquirrel } from "react-icons/vsc";
 import { useSelector } from "react";
 
 const UserAvatar = ({ userId, username, width, height }) => {
-  const onlineUser = ((state) => state?.user?.onlineUser);
+  const onlineUser = (state) => state?.user?.onlineUser;
   let userAvatarName = "";
   if (username) {
     const splitUserName = username?.split(" ");

@@ -21,12 +21,11 @@ const SearchUser = ({ onClose, user }) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          //   search: search,
           username: search,
         }),
       });
       const data = await response.json();
-     
+
       setLoading(false);
       setSearchUser(data.data);
     } catch (error) {
@@ -36,8 +35,6 @@ const SearchUser = ({ onClose, user }) => {
   useEffect(() => {
     handleSearchUser();
   }, [search]);
-
- 
 
   return (
     <div className="fixed top-20 bottom-0 left-0 right-0 text-slate-500 bg-slate-700 bg-opacity-30 p-3 overflow-auto scroll-auto">
@@ -67,7 +64,12 @@ const SearchUser = ({ onClose, user }) => {
             !loading &&
             searchUser.map((founduser, index) => {
               return (
-                <UserProfile key={founduser._id}  user = {user} founduser={founduser} onClose={onClose} />
+                <UserProfile
+                  key={founduser._id}
+                  user={user}
+                  founduser={founduser}
+                  onClose={onClose}
+                />
               );
             })}
         </div>

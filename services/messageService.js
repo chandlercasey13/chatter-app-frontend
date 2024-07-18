@@ -10,7 +10,7 @@ const create = async function (userMessage) {
       },
       body: JSON.stringify(userMessage),
     });
-   return res.json();
+    return res.json();
   } catch (error) {
     console.log(error);
   }
@@ -27,17 +27,12 @@ const messageIndex = async function () {
 };
 
 const deleteMessage = async function (messageId) {
- await fetch(`${BACKEND_URL}/messages/${messageId}`, {
-  method : "DELETE",
-  headers : {
-    Authorization: `Bearer ${localStorage.getItem("token")}`,
-  }
-})
-}
-
-
-
-
-export { create, messageIndex,  deleteMessage };
+  await fetch(`${BACKEND_URL}/messages/${messageId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  });
+};
 
 export { create, messageIndex, deleteMessage };
