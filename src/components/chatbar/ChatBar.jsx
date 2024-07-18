@@ -54,8 +54,9 @@ const ChatBar = ({ user }) => {
           <li key={user} className="text-xs mt-5">
             {" "}
             <Link to={`/chatlogs/user/${chats._id} `} className="w-1 ">
-              {chats._id}{" "}
+              {chats.participants[0].username === user.username ? chats.participants[1].username : chats.participants[0].username}{" "}
             </Link>
+            <button>x</button>
           </li>
         ))}
       </ul>
