@@ -1,8 +1,9 @@
 const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 
-const getUser = async (userId) => {
+const getUser = async (foundUserId) => {
   try {
-    const res = await fetch(`${BACKEND_URL}/profiles/${userId}`, {
+
+    const res = await fetch(`${BACKEND_URL}/profiles/${foundUserId}`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
     return res.json();
@@ -42,7 +43,7 @@ const create = async function (participants) {
 };
 
 const update = async function (chatId, messageId) {
-  console.log(chatId);
+  console.log('chat Id', chatId);
   try {
     const res = await fetch(`${BACKEND_URL}/chatlogs/${chatId}`, {
       method: "PUT",
@@ -69,4 +70,19 @@ const getUserChats = async function (userId) {
   }
 };
 
-export { chatLogIndex, getUser, create, update, getUserChats };
+const getChatMessages = async function (chatId) {
+  try {
+    const res = await fetch(`${BACKEND_URL}/chatlogs/${chatId}`, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+    });
+
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+
+
+
+export { chatLogIndex, getUser, create, update, getUserChats, getChatMessages };

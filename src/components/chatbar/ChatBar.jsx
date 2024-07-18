@@ -30,7 +30,7 @@ const ChatBar = ({ user }) => {
     getUserChats(userId);
   }, []);
 
-  console.log(userChats);
+  
 
   return (
     <div className="rounded-lg border-purple-700 bg-purple-200 p-4 w-1/6 flex flex-col ">
@@ -55,7 +55,7 @@ const ChatBar = ({ user }) => {
         {userChats[0]?.map((chats) => (
           <li className="text-xs mt-5">
             {" "}
-            <Link to={`/chatlogs/user/${chats._id} `} className="w-1 ">
+            <Link to={`/chatlogs/${chats._id}/user/${chats.participants[0]._id === user._id ? chats.participants[1]._id : chats.participants[0]._id} `} className="w-1 ">
               {chats.participants[0].username === user.username ? chats.participants[1].username : chats.participants[0].username}{" "}
             </Link>
             <button>x</button>

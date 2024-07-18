@@ -12,21 +12,39 @@ function ChatBox({ user }) {
     senderId: [{ username: user.username }],
     message: "",
   });
-
+const [databaseMessageLog, setDatabaseMessageLog] = useState([])
   const [messageLog, setMessageLog] = useState([]);
   const [selectedUser, setSelectedUser] = useState({});
   const [currentRoom, setCurrentRoom] = useState("");
   const [chatParticipants, setChatParticipants] = useState([]);
   const [chatlogId, setChatLogId] = useState("");
   const [inputValue, setInputValue] = useState("");
-
+const [userChats,setUserChats] = useState('')
   const { userId } = useParams();
+  const {foundUserId} =useParams();
+const { chatId } =useParams();
+
+// console.log('chatId', chatId)
+// console.log('founduser', foundUserId)
+
 
   useEffect(() => {
-    async function getUser(userId) {
-      const foundUserObject = await chatService.getUser(userId);
+    async function getUser(foundUserId) {
+      const foundUserObject = await chatService.getUser(foundUserId);
       setSelectedUser(foundUserObject);
     }
+
+const handleChatChange = async function (newChatId) {
+  const chatMessages = await chatService.getChatMessages(newChatId)
+setDatabaseMessageLog(chatMessages.messages)
+
+
+
+}
+
+// { senderId: [{ username: user.username }], message: "" }
+
+
 
     const handleRoomChange = function (newRoom) {
       if (currentRoom) {
@@ -37,10 +55,13 @@ function ChatBox({ user }) {
       setCurrentRoom(newRoom);
     };
 
-    if (userId) getUser(userId);
+    if (foundUserId) getUser(foundUserId);
     handleRoomChange(userId);
-  }, [userId]);
+    handleChatChange(chatId)
+  }, [foundUserId]);
 
+ 
+  
   const messageListener = (messagecontent) => {
     console.log(messagecontent);
     setMessageLog([messagecontent, ...messageLog]);
@@ -56,7 +77,7 @@ function ChatBox({ user }) {
       setChatParticipants([user, selectedUser]);
 
       const newChat = await chatService.create(chatParticipants);
-
+// console.log('new chat id' ,newChat)
       setChatLogId(newChat._id);
     };
     createChatRouter();
@@ -84,18 +105,20 @@ function ChatBox({ user }) {
     );
 
     const newMessage = await messageService.create(textInputData);
+    
     const updateChat = await chatService.update(chatlogId, newMessage._id);
-    console.log(updateChat);
-
-    setTextInputData({ senderId: [{ username: user.username }], message: "" });
+   
+    
+     setTextInputData({ senderId: [{ username: user.username }], message: "" });
     setInputValue("");
   }
-
+  console.log('DB message log', databaseMessageLog)
+  console.log('message log', messageLog)
   async function handleDeleteButtonSubmit(
     usermessageObject,
     userMessageObjectIndex
   ) {
-    console.log(usermessageObject._id);
+   
     await messageService.deleteMessage(usermessageObject._id);
 
     const filteredLog = messageLog.filter((usermessageObject, index) => {
@@ -108,7 +131,7 @@ function ChatBox({ user }) {
   return (
     <>
       <header className="sticky top-0 h-16 bg-slate-300 flex justify-between items-center px-4 my-0">
-        {userId ? (
+        {foundUserId ? (
           <div>
             <UserAvatar width={20} height={2} />
             <div>
@@ -121,8 +144,44 @@ function ChatBox({ user }) {
           ""
         )}
       </header>
+
+      <ul className="list-none flex flex-col items-center overflow-auto">
+ 
+      {databaseMessageLog?.map((dbMessageObject,index) => ( <div
+            // className={`w-5/6 flex ${
+            //   userMessageObject.senderId[0]?.username === user.username
+            //     ? `justify-end`
+            //     : `justify-start`
+            // }`}
+          >
+            <div className="border-2 border-slate-500 rounded-xl pl-2 pr-2 pb-2 m-1 ">
+              <div key={index + 1} className="font-semibold pt-1 ">
+                {/* {`${
+                  userMessageObject.senderId[0]?.username
+                    ? userMessageObject.senderId[0]?.username
+                    : user.username
+                }`}{" "} */}
+                <button
+                  onClick={function () {
+                    handleDeleteButtonSubmit(dbMessageObject, index);
+                  }}
+                >
+                  <i className="bx bx-trash-alt"></i>
+                </button>
+              </div>
+              <li key={index}>{` ${dbMessageObject.message}`}</li>
+            </div>
+          </div>
+        ))}
+</ul>
+
+
+
+
+
       <ul className="list-none flex flex-col-reverse items-center overflow-auto">
-        {messageLog.map((userMessageObject, index) => (
+      
+         {messageLog?.map((userMessageObject, index) => (
           <div
             className={`w-5/6 flex ${
               userMessageObject.senderId[0]?.username === user.username
@@ -148,7 +207,7 @@ function ChatBox({ user }) {
               <li key={index}>{` ${userMessageObject.message}`}</li>
             </div>
           </div>
-        ))}
+        ))} 
       </ul>
 
       <form
