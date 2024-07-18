@@ -107,7 +107,7 @@ function ChatBox({ user }) {
 
   return (
     <>
-      <header className="sticky top-0 h-16 bg-white flex justify-between items-center px-4 my-0">
+      <header className="sticky top-0 h-16 bg-slate-300 flex justify-between items-center px-4 my-0">
         {userId ? (
           <div>
             <UserAvatar width={20} height={2} />
