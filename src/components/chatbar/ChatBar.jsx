@@ -6,6 +6,7 @@ import SearchUser from "./SearchUser";
 import { useParams } from "react-router-dom";
 import * as chatService from "../../../services/chatService";
 import { Link } from "react-router-dom";
+import Sidebar from "./DisplayChats";
 
 const ChatBar = ({ user }) => {
   const [allUsers, setAllUsers] = useState([]);
@@ -36,14 +37,12 @@ const ChatBar = ({ user }) => {
       <SearchUserBtn onOpen={onOpen} />
       {openSearchBox ? <SearchUser /> : ""}
       <div className="divide-y-4 divde-slate-400/25"></div>
-      <ChatLog />
+   
       <div className="divide-y-4 divde-slate-400/25"></div>
       <div>
         {allUsers.length === 0 && (
           <div>
-            <div className="text-slate-500">
-              <p>Start new chat!</p>
-            </div>
+   <Sidebar />
           </div>
         )}
       </div>
@@ -52,7 +51,7 @@ const ChatBar = ({ user }) => {
 
       <ul className="overflow-y-auto overflow-x-hidden">
         {userChats[0]?.map((chats) => (
-          <li className="text-xs mt-5">
+          <li key={user} className="text-xs mt-5">
             {" "}
             <Link to={`/chatlogs/user/${chats._id} `} className="w-1 ">
               {chats._id}{" "}

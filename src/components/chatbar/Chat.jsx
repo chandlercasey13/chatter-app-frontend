@@ -11,7 +11,7 @@ const Chat = () => {
   useEffect(() => {
     const fetchAllChats = async () => {
       try {
-        const res = await fetch("/users");
+        const res = await fetch("/chatlogs/user");
         const data = await res.json();
         if (data.error) {
           throw new Error(data.error);
