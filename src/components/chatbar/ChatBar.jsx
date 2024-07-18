@@ -3,6 +3,8 @@ import Chat from "./Chat";
 import ChatLog from "./ChatLog";
 import SearchUserBtn from "./SearchUserButton";
 import SearchUser from "./SearchUser";
+import { useParams } from "react-router-dom";
+import * as chatService from "../../../services/chatService"
 
 const ChatBar = ({user}) => {
   const [allUsers, setAllUsers] = useState([]);
@@ -16,6 +18,11 @@ const ChatBar = ({user}) => {
   };
 
 
+const userId = user._id
+const getUserChats = async function (userId){
+const userChats = await chatService.getUserChats()
+  //chatlogs/user/userID
+}
   
 
   return (
