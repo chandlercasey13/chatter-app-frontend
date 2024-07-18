@@ -37,12 +37,14 @@ const ChatBar = ({ user }) => {
       <SearchUserBtn onOpen={onOpen} />
       {openSearchBox ? <SearchUser /> : ""}
       <div className="divide-y-4 divde-slate-400/25"></div>
-   
+      <ChatLog />
       <div className="divide-y-4 divde-slate-400/25"></div>
       <div>
         {allUsers.length === 0 && (
           <div>
-   <Sidebar />
+            <div className="text-slate-500">
+              <p>Start new chat!</p>
+            </div>
           </div>
         )}
       </div>
@@ -51,7 +53,7 @@ const ChatBar = ({ user }) => {
 
       <ul className="overflow-y-auto overflow-x-hidden">
         {userChats[0]?.map((chats) => (
-          <li key={user} className="text-xs mt-5">
+          <li className="text-xs mt-5">
             {" "}
             <Link to={`/chatlogs/user/${chats._id} `} className="w-1 ">
               {chats.participants[0].username === user.username ? chats.participants[1].username : chats.participants[0].username}{" "}
