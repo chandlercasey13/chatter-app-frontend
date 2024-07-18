@@ -22,13 +22,13 @@ const UserProfile = ({ user, founduser, onClose }) => {
       className="flex items-center gap-3 p-2 lg:p-4 border border-transparent border-b-slate-300 hover:border hover:border-purple-400 hover:bg-purple-100 rounded cursor-pointer"
     >
       <div>
-        <h1>Start a new Chat </h1>
         <UserAvatar
           width={50}
           height={50}
           name={founduser?.username}
           userId={founduser?._id}
         />
+        <p>Start a new Chat</p>
       </div>
       <div className="font-semibold text-ellipsis line-clamp-1">
         {founduser?.username}

@@ -34,9 +34,9 @@ function App() {
       >
         {user ? (
           <>
-            <div className=" flex justify-end w-5/6 h-5/6 border-2 border-slate-400 rounded-lg bg-slate-300">
+            <div className=" flex justify-end w-5/6 h-5/6 rounded-lg bg-slate-200">
               <ChatBar user={user} />
-              <div className="flex flex-col justify-end h-full w-5/6 border-2 border-black/40 rounded-lg">
+              <div className="flex flex-col justify-end h-full w-5/6 border-1 border-black/40 rounded-lg">
                 <Routes>
                   <Route path="/" element={<ChatBox user={user} />} />
                   <Route
