@@ -36,7 +36,7 @@ Chatter gives users a new, seamless way to stay connected in realtime. Use Chatt
 
 ## Getting Started & Resources
 
-Quickly get started with Park'd by signing up for an account. Follow the app link below to started.
+Quickly get started with Chatter by signing up for an account. Follow the app link below to started.
 
 - [App link](https://chatter-application-f0e5633242b6.herokuapp.com/)
 - [Github link - FrontEnd](https://github.com/cbobak671/chatter-app-frontend)
