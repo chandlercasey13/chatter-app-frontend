@@ -96,7 +96,7 @@ function App() {
               ) : (
                 //public routes
                 <>
-                  <h1>Sign up</h1>
+                  <h1 className="text-purple-700">Sign up</h1>
 
                   <form className="flex flex-col w-1/2 " onSubmit={loginSubmit}>
                     <label htmlFor="username"></label>

@@ -39,5 +39,3 @@ const deleteMessage = async function (messageId) {
 
 
 export { create, messageIndex,  deleteMessage };
-
-export { create, messageIndex, deleteMessage };
