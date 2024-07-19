@@ -15,7 +15,7 @@ function App() {
   const [isSignedup, setIsSignedUp] = useState(true);
 
   function loginSubmit(e) {
-    console.log(loginText);
+    
     isSignedup ? authService.signin(loginText) : authService.signup(loginText);
     e.preventDefault();
   }
@@ -23,7 +23,7 @@ function App() {
   function handleTextInput(event) {
     setLoginText({ ...loginText, [event.target.name]: event.target.value });
 
-    console.log(loginText);
+   
   }
 
   return (

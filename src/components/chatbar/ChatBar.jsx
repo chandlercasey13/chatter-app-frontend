@@ -24,7 +24,7 @@ const ChatBar = ({ user }) => {
   useEffect(() => {
     const getUserChats = async function (userId) {
       const allUserChats = await chatService.getUserChats(userId);
-      console.log(allUserChats);
+      
       setUserChats([...userChats, allUserChats]);
     };
     getUserChats(userId);
