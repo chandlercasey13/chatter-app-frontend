@@ -12,21 +12,20 @@ function ChatBox({ user }) {
     senderId: [{ username: user.username }],
     message: "",
   });
-const [databaseMessageLog, setDatabaseMessageLog] = useState([])
+  const [databaseMessageLog, setDatabaseMessageLog] = useState([]);
   const [messageLog, setMessageLog] = useState([]);
   const [selectedUser, setSelectedUser] = useState({});
   const [currentRoom, setCurrentRoom] = useState("");
   const [chatParticipants, setChatParticipants] = useState([]);
   const [chatlogId, setChatLogId] = useState("");
   const [inputValue, setInputValue] = useState("");
-const [userChats,setUserChats] = useState('')
+  const [userChats, setUserChats] = useState("");
   const { userId } = useParams();
-  const {foundUserId} =useParams();
-const { chatId } =useParams();
+  const { foundUserId } = useParams();
+  const { chatId } = useParams();
 
-// console.log('chatId', chatId)
-// console.log('founduser', foundUserId)
-
+  // console.log('chatId', chatId)
+  // console.log('founduser', foundUserId)
 
   useEffect(() => {
     async function getUser(foundUserId) {
@@ -34,15 +33,10 @@ const { chatId } =useParams();
       setSelectedUser(foundUserObject);
     }
 
-const handleChatChange = async function (newChatId) {
-  const chatMessages = await chatService.getChatMessages(newChatId)
-setDatabaseMessageLog(chatMessages.messages)
-
-
-
-}
-
-// { senderId: [{ username: user.username }], message: "" }
+    const handleChatChange = async function (newChatId) {
+      const chatMessages = await chatService.getChatMessages(newChatId);
+      setDatabaseMessageLog(chatMessages.messages);
+    };
 
 
 
@@ -57,11 +51,9 @@ setDatabaseMessageLog(chatMessages.messages)
 
     if (foundUserId) getUser(foundUserId);
     handleRoomChange(userId);
-    handleChatChange(chatId)
-  }, [foundUserId]);
+    handleChatChange(chatId);
+  });
 
- 
-  
   const messageListener = (messagecontent) => {
     console.log(messagecontent);
     setMessageLog([messagecontent, ...messageLog]);
@@ -74,14 +66,10 @@ setDatabaseMessageLog(chatMessages.messages)
 
   useEffect(() => {
     const createChatRouter = async function () {
-      setChatParticipants([user, selectedUser]);
-
-      const newChat = await chatService.create(chatParticipants);
-// console.log('new chat id' ,newChat)
-      setChatLogId(newChat._id);
+      setChatParticipants([user._id, selectedUser.user._id]);
     };
     createChatRouter();
-  }, [selectedUser]);
+  }, [user, selectedUser]);
 
   function handleTextInput(event) {
     setTextInputData({
@@ -92,8 +80,9 @@ setDatabaseMessageLog(chatMessages.messages)
 
   async function handleButtonSubmit(e) {
     e.preventDefault();
-
-    setMessageLog([textInputData, ...messageLog]);
+    const newChat = await chatService.create(chatParticipants); //move to list of users, includes logic that checks for already existing chat between participants
+    setChatLogId(newChat._id);
+    setMessageLog([textInputData, ...messageLog]); 
 
     socket.emit(
       "message",
@@ -105,20 +94,17 @@ setDatabaseMessageLog(chatMessages.messages)
     );
 
     const newMessage = await messageService.create(textInputData);
-    
+
     const updateChat = await chatService.update(chatlogId, newMessage._id);
-   
-    
-     setTextInputData({ senderId: [{ username: user.username }], message: "" });
+
+    setTextInputData({ senderId: [{ username: user.username }], message: "" });
     setInputValue("");
   }
-  console.log('DB message log', databaseMessageLog)
-  console.log('message log', messageLog)
+
   async function handleDeleteButtonSubmit(
     usermessageObject,
     userMessageObjectIndex
   ) {
-   
     await messageService.deleteMessage(usermessageObject._id);
 
     const filteredLog = messageLog.filter((usermessageObject, index) => {
@@ -146,13 +132,13 @@ setDatabaseMessageLog(chatMessages.messages)
       </header>
 
       <ul className="list-none flex flex-col items-center overflow-auto">
- 
-      {databaseMessageLog?.map((dbMessageObject,index) => ( <div
-            // className={`w-5/6 flex ${
-            //   userMessageObject.senderId[0]?.username === user.username
-            //     ? `justify-end`
-            //     : `justify-start`
-            // }`}
+        {databaseMessageLog?.map((dbMessageObject, index) => (
+          <div
+          // className={`w-5/6 flex ${
+          //   userMessageObject.senderId[0]?.username === user.username
+          //     ? `justify-end`
+          //     : `justify-start`
+          // }`}
           >
             <div className="border-2 border-slate-500 rounded-xl pl-2 pr-2 pb-2 m-1 ">
               <div key={index + 1} className="font-semibold pt-1 ">
@@ -173,15 +159,10 @@ setDatabaseMessageLog(chatMessages.messages)
             </div>
           </div>
         ))}
-</ul>
-
-
-
-
+      </ul>
 
       <ul className="list-none flex flex-col-reverse items-center overflow-auto">
-      
-         {messageLog?.map((userMessageObject, index) => (
+        {messageLog?.map((userMessageObject, index) => (
           <div
             className={`w-5/6 flex ${
               userMessageObject.senderId[0]?.username === user.username
@@ -207,7 +188,7 @@ setDatabaseMessageLog(chatMessages.messages)
               <li key={index}>{` ${userMessageObject.message}`}</li>
             </div>
           </div>
-        ))} 
+        ))}
       </ul>
 
       <form

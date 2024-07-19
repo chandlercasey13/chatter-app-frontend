@@ -43,7 +43,6 @@ const create = async function (participants) {
 };
 
 const update = async function (chatId, messageId) {
-  console.log('chat Id', chatId);
   try {
     const res = await fetch(`${BACKEND_URL}/chatlogs/${chatId}`, {
       method: "PUT",

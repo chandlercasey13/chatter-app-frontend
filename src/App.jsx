@@ -4,7 +4,7 @@ import Chat from "./components/chatbar/Chat";
 import ChatBox from "./components/ChatBox";
 import * as authService from "../services/authService";
 import * as chatService from "../services/messageService";
-import { Route, Routes } from "react-router-dom";
+import { Link, Route, Routes } from "react-router-dom";
 import io from "socket.io-client";
 import "./App.css";
 
@@ -28,10 +28,10 @@ function App() {
 
   return (
     <>
-    
+      <Link to="/">Home</Link>
       <div
         id="root"
-        className=" flex justify-center items-center w-screen h-screen" 
+        className=" flex justify-center items-center w-screen h-screen"
       >
         {user ? (
           <>
@@ -57,93 +57,103 @@ function App() {
             <div className="flex flex-col justify-center items-center bg-purple-200 border-black border-1 min-w-96 h-1/2 rounded-lg bg-opacity-100">
               {isSignedup ? (
                 <>
-                <div className="h-full flex flex-col items-center justify-center text-slate-600">
-                  <section>
-                  <h1 className="h-full flex flex-col items-center justify-center text-slate-600">Log In</h1>
+                  <div className="h-full flex flex-col items-center justify-center text-slate-600">
+                    <section>
+                      <h1 className="h-full flex flex-col items-center justify-center text-slate-600">
+                        Log In
+                      </h1>
 
-<div className="h-1/2 flex flex-col justify-center items-center">
-                  <form className="flex flex-col w-1/2 " onSubmit={loginSubmit}>
-                    <label htmlFor="username"></label>
+                      <div className="h-1/2 flex flex-col justify-center items-center">
+                        <form
+                          className="flex flex-col w-1/2 "
+                          onSubmit={loginSubmit}
+                        >
+                          <label htmlFor="username"></label>
 
-                    <input 
-                      className="border-black border-2 w-full"
-                      id="username"
-                      name="username"
-                      type="text"
-                      onChange={handleTextInput}
-                      value={loginText.username}
-                    ></input>
+                          <input
+                            className="border-black border-2 w-full"
+                            id="username"
+                            name="username"
+                            type="text"
+                            onChange={handleTextInput}
+                            value={loginText.username}
+                          ></input>
 
-                    <input
-                      className="border-black border-2"
-                      id="password"
-                      name="password"
-                      type="text"
-                      onChange={handleTextInput}
-                      value={loginText.password}
-                    ></input>
+                          <input
+                            className="border-black border-2"
+                            id="password"
+                            name="password"
+                            type="text"
+                            onChange={handleTextInput}
+                            value={loginText.password}
+                          ></input>
 
-                    <button
-                      className="bg-blue-500 rounded text-white p-1"
-                      type="submit"
-                    >
-                      Log In
-                    </button>
-                  </form>
-                  </div>
-                  <button
-                    onClick={function () {
-                      setIsSignedUp(!isSignedup);
-                    }}
-                  >
-                    Don't have an account ?
-                  </button>
-                  </section>
+                          <button
+                            className="bg-blue-500 rounded text-white p-1"
+                            type="submit"
+                          >
+                            Log In
+                          </button>
+                        </form>
+                      </div>
+                      <button
+                        onClick={function () {
+                          setIsSignedUp(!isSignedup);
+                        }}
+                      >
+                        Don't have an account ?
+                      </button>
+                    </section>
                   </div>
                 </>
               ) : (
                 <>
-                <div>
-                  <section>
-                  <h1 className="h-full flex flex-col items-center justify-center text-slate-600">Sign up</h1>
+                  <div>
+                    <section>
+                      <h1 className="h-full flex flex-col items-center justify-center text-slate-600">
+                        Sign up
+                      </h1>
 
-                  <form className="flex flex-col w-1/2 " onSubmit={loginSubmit}>
-                    <label htmlFor="username"></label>
+                      <form
+                        className="flex flex-col w-1/2 "
+                        onSubmit={loginSubmit}
+                      >
+                        <label htmlFor="username"></label>
 
-                    <input
-                      className="border-black border-2"
-                      id="username"
-                      name="username"
-                      type="text"
-                      onChange={handleTextInput}
-                      value={loginText.username}
-                    ></input>
+                        <input
+                          className="border-black border-2"
+                          id="username"
+                          name="username"
+                          type="text"
+                          onChange={handleTextInput}
+                          value={loginText.username}
+                        ></input>
 
-                    <input
-                      className="border-black border-2"
-                      id="password"
-                      name="password"
-                      type="text"
-                      onChange={handleTextInput}
-                      value={loginText.password}
-                    ></input>
+                        <input
+                          className="border-black border-2"
+                          id="password"
+                          name="password"
+                          type="text"
+                          onChange={handleTextInput}
+                          value={loginText.password}
+                        ></input>
 
-                    <button
-                      className="bg-blue-500 rounded text-white p-1"
-                      type="submit"
-                    >
-                      Sign Up
-                    </button>
-                  </form>
+                        <button
+                          className="bg-blue-500 rounded text-white p-1"
+                          type="submit"
+                        >
+                          Sign Up
+                        </button>
+                      </form>
 
-                  <button
-                    onClick={function () {
-                      setIsSignedUp(!isSignedup);
-                    }}
-                  >
-                    Already have an account ?
-                  </button>
-                  </section>
+                      <button
+                        onClick={function () {
+                          setIsSignedUp(!isSignedup);
+                        }}
+                      >
+                        Already have an account ?
+                      </button>
+                    </section>
                   </div>
                 </>
               )}
