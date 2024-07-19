@@ -8,22 +8,6 @@ const Chat = () => {
   const { selectedChats, setSelectedChats } = useChats();
   const isSelected = selectedChats?._id === chatService._id;
 
-  // useEffect(() => {
-  //   const fetchAllChats = async () => {
-  //     try {
-  //       const res = await fetch("/chatlogs/user");
-  //       const data = await res.json();
-  //       if (data.error) {
-  //         throw new Error(data.error);
-  //       }
-  //       setChats(data);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
-  //   fetchAllChats();
-  // }, []);
-
   return (
     <>
       <div

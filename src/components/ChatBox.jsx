@@ -24,8 +24,7 @@ function ChatBox({ user }) {
   const { foundUserId } = useParams();
   const { chatId } = useParams();
 
-  // console.log('chatId', chatId)
-  // console.log('founduser', foundUserId)
+
 
   useEffect(() => {
     async function getUser(foundUserId) {
@@ -52,10 +51,10 @@ function ChatBox({ user }) {
     if (foundUserId) getUser(foundUserId);
     handleRoomChange(userId);
     handleChatChange(chatId);
-  });
+  }, []);
 
   const messageListener = (messagecontent) => {
-    console.log(messagecontent);
+   
     setMessageLog([messagecontent, ...messageLog]);
   };
 
@@ -66,6 +65,7 @@ function ChatBox({ user }) {
 
   useEffect(() => {
     const createChatRouter = async function () {
+     
       setChatParticipants([user._id, selectedUser.user._id]);
     };
     createChatRouter();
