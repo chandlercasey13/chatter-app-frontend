@@ -4,21 +4,19 @@ import UserAvatar from "./UserAvatar";
 import * as chatService from "../../../services/chatService";
 
 const UserProfile = ({ user, founduser, onClose }) => {
-  const [chatParticipants, setChatParticipants] = useState([]);
+  const [chatId, setChatId] = useState('')
 
   const handleClick = async (e) => {
     e.preventDefault();
-    setChatParticipants([]);
-    if ((user, founduser)) {
-    } else {
-      return;
-    }
+    const newChat = await chatService.create(founduser, user); 
+    setChatId(newChat._id)
+    onClose()
   };
 
   return (
     <Link
-      to={`/chatlogs/${founduser?._id}/new `}
-      onClick={onClose}
+      to={`/chatlogs/${chatId}/user/${founduser?._id} `}
+      onClick={handleClick}
       className="flex items-center gap-3 p-2 lg:p-4 border border-transparent border-b-slate-300 hover:border hover:border-purple-400 hover:bg-purple-100 rounded cursor-pointer"
     >
       <div>

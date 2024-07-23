@@ -23,16 +23,16 @@ const chatLogIndex = async () => {
   }
 };
 
-const create = async function (participants) {
+const create = async function (participant, user) {
   try {
-    const res = await fetch(`${BACKEND_URL}/chatlogs/new/`, {
+    const res = await fetch(`${BACKEND_URL}/chatlogs/new/${participant._id}`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        participants: participants,
+        participants: [participant, user],
       }),
     });
 
@@ -57,6 +57,7 @@ const update = async function (chatId, messageId) {
     console.log(error);
   }
 };
+
 const getUserChats = async function (userId) {
   try {
     const res = await fetch(`${BACKEND_URL}/chatlogs/user/${userId}`, {

@@ -40,10 +40,10 @@ function App() {
               <div className="flex flex-col justify-end h-full w-5/6 border-1 border-black/40 rounded-lg">
                 <Routes>
                   <Route path="/" element={<ChatBox user={user} />} />
-                  <Route
+                  {/* <Route
                     path="/chatlogs/:foundUserId/new"
                     element={<ChatBox user={user} />}
-                  />
+                  /> */}
                   <Route
                     path="/chatlogs/:chatId/user/:foundUserId"
                     element={<ChatBox user={user} />}

@@ -55,15 +55,15 @@ const ChatBar = ({ user }) => {
             {" "}
             <Link
               to={`/chatlogs/${chats._id}/user/${
-                chats.participants[0]._id === user._id
-                  ? chats.participants[1]._id
-                  : chats.participants[0]._id
+                chats?.participants[0]?._id === user._id
+                  ? chats?.participants[1]?._id
+                  : chats?.participants[0]?._id
               } `}
               className="w-1 "
             >
-              {chats.participants[0].username === user.username
-                ? chats.participants[1].username
-                : chats.participants[0].username}{" "}
+              {chats?.participants[0]?.username === user.username
+                ? chats?.participants[1]?.username
+                : chats?.participants[0]?.username}{" "}
             </Link>
             <button>x</button>
           </li>

@@ -16,8 +16,8 @@ function ChatBox({ user }) {
   const [messageLog, setMessageLog] = useState([]);
   const [selectedUser, setSelectedUser] = useState({});
   const [currentRoom, setCurrentRoom] = useState("");
-  const [chatParticipants, setChatParticipants] = useState([]);
-  const [chatlogId, setChatLogId] = useState("");
+  const [chatParticipant, setChatParticipant] = useState({});
+
   const [inputValue, setInputValue] = useState("");
   const [userChats, setUserChats] = useState("");
   const { userId } = useParams();
@@ -66,7 +66,7 @@ function ChatBox({ user }) {
   useEffect(() => {
     const createChatRouter = async function () {
      
-      setChatParticipants([user._id, selectedUser.user._id]);
+      setChatParticipant(selectedUser.user);
     };
     createChatRouter();
   }, [user, selectedUser]);
@@ -77,11 +77,14 @@ function ChatBox({ user }) {
       [event.target.name]: event.target.value,
     });
   }
-
+ 
   async function handleButtonSubmit(e) {
     e.preventDefault();
-    const newChat = await chatService.create(chatParticipants); //move to list of users, includes logic that checks for already existing chat between participants
-    setChatLogId(newChat._id);
+    
+    
+    
+    //move to list of users, includes logic that checks for already existing chat between participants
+   
     setMessageLog([textInputData, ...messageLog]); 
 
     socket.emit(
@@ -95,7 +98,7 @@ function ChatBox({ user }) {
 
     const newMessage = await messageService.create(textInputData);
 
-    const updateChat = await chatService.update(chatlogId, newMessage._id);
+    const updateChat = await chatService.update(chatId, newMessage._id);
 
     setTextInputData({ senderId: [{ username: user.username }], message: "" });
     setInputValue("");
