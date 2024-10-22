@@ -1,23 +1,47 @@
 import React, { useState, useEffect } from "react";
-import ChatBar from "./components/chatbar/ChatBar";
+import ChatBar from "./components/chatbar/ChatsLeftNavBar";
 import Chat from "./components/chatbar/Chat";
 import ChatBox from "./components/ChatBox";
 import * as authService from "../services/authService";
 import * as chatService from "../services/messageService";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import io from "socket.io-client";
 import "./App.css";
 
 function App() {
+
+  const navigate = useNavigate();
+
+
   const [user, setUser] = useState(authService.getUser());
 
+
+
+
+
+
+ 
   const [loginText, setLoginText] = useState({ username: "", password: "" });
   const [isSignedup, setIsSignedUp] = useState(true);
 
-  function loginSubmit(e) {
-    
-    isSignedup ? authService.signin(loginText) : authService.signup(loginText);
-    e.preventDefault();
+  
+
+
+
+ async function loginSubmit(e) {
+  e.preventDefault();
+   
+  
+try {
+  
+  const user =  await authService.signin(loginText) 
+console.log(user)
+  setUser(user);
+  navigate('/');
+} catch (err) {
+  console.log('non')
+}
+
   }
 
   function handleTextInput(event) {
@@ -28,14 +52,16 @@ function App() {
 
   return (
     <>
-      <Link to="/">Home</Link>
+      
+
       <div
         id="root"
-        className=" flex justify-center items-center w-screen h-screen"
+        className=" flex flex-col justify-center items-center w-screen h-screen"
       >
         {user ? (
           <>
-            <div className=" flex justify-end w-5/6 h-5/6 rounded-lg bg-slate-200">
+          <nav className=" w-full flex justify-between"><Link to="/">Home</Link> <button onClick={() => {authService.signout(); setUser(null)}}>Sign Out</button></nav>
+            <div className=" flex  justify-end w-5/6 h-5/6 rounded-lg bg-slate-200">
               <ChatBar user={user} />
               <div className="flex flex-col justify-end h-full w-5/6 border-1 border-black/40 rounded-lg">
                 <Routes>
@@ -45,7 +71,7 @@ function App() {
                     element={<ChatBox user={user} />}
                   /> */}
                   <Route
-                    path="/chatlogs/:chatId/user/:foundUserId"
+                    path="/chatlogs/:chatId/user/:foundUserId/:foundUserusername"
                     element={<ChatBox user={user} />}
                   />
                 </Routes>

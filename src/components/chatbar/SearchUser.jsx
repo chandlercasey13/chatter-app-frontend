@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { CiSearch } from "react-icons/ci";
 import LoadingSpinner from "./LoadingSpinner";
-import UserProfile from "./UserProfile";
+import UserProfile from "./ChatSearchProfile";
 import { IoIosCloseCircleOutline } from "react-icons/io";
 const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 

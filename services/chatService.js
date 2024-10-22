@@ -64,6 +64,8 @@ const getUserChats = async function (userId) {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
     });
 
+
+
     return res.json();
   } catch (error) {
     console.log(error);

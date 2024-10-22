@@ -6,7 +6,8 @@ import SearchUser from "./SearchUser";
 import { useParams } from "react-router-dom";
 import * as chatService from "../../../services/chatService";
 import { Link } from "react-router-dom";
-import Sidebar from "./DisplayChats";
+import Sidebar from "../../DisplayChats";
+import { GiConsoleController } from "react-icons/gi";
 
 const ChatBar = ({ user }) => {
   const [allUsers, setAllUsers] = useState([]);
@@ -19,16 +20,24 @@ const ChatBar = ({ user }) => {
     setOpenSearchBox(false);
   };
 
+  
+
   const userId = user._id;
 
   useEffect(() => {
     const getUserChats = async function (userId) {
+      
+      if(user){
       const allUserChats = await chatService.getUserChats(userId);
       
       setUserChats([...userChats, allUserChats]);
+      }
     };
     getUserChats(userId);
   }, []);
+  
+
+
 
   return (
     <div className="rounded-lg border-purple-700 bg-purple-200 p-4 w-1/6 flex flex-col ">
@@ -47,28 +56,34 @@ const ChatBar = ({ user }) => {
         )}
       </div>
 
-      {openSearchBox && <SearchUser user={user} onClose={onClose} />}
+      {openSearchBox &&  <SearchUser user={user} onClose={onClose} />}
 
-      <ul className="overflow-y-auto overflow-x-hidden">
-        {userChats[0]?.map((chats, i) => (
-          <li key={i} className="text-xs mt-5">
-            {" "}
-            <Link
-              to={`/chatlogs/${chats._id}/user/${
-                chats?.participants[0]?._id === user._id
-                  ? chats?.participants[1]?._id
-                  : chats?.participants[0]?._id
-              } `}
-              className="w-1 "
-            >
-              {chats?.participants[0]?.username === user.username
-                ? chats?.participants[1]?.username
-                : chats?.participants[0]?.username}{" "}
-            </Link>
-            <button>x</button>
-          </li>
-        ))}
-      </ul>
+
+
+{userChats.length > 0 &&  (<ul className="overflow-y-auto overflow-x-hidden">
+       
+       {userChats[0]?.map((chats, i) => (
+         <li key={i} className="text-xs mt-5">
+           {" "}
+           <Link
+             to={`/chatlogs/${chats._id}/user/${
+               chats?.participants[0]?._id === user._id
+                 ? chats?.participants[1]?._id
+                 : chats?.participants[0]?._id
+             }/${chats?.participants[0]?.username === user.username
+               ? chats?.participants[1]?.username
+               : chats?.participants[0]?.username} `}
+             className="w-1 "
+           >
+             {chats?.participants[0]?.username === user.username
+               ? chats?.participants[1]?.username
+               : chats?.participants[0]?.username}{" "}
+           </Link>
+          
+         </li>
+       ))}
+     </ul>  )}
+      
     </div>
   );
 };

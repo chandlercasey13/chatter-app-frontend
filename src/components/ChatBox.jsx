@@ -3,7 +3,7 @@ import { socket } from "../socket";
 import * as chatService from "../../services/chatService";
 import * as messageService from "../../services/messageService";
 import useChats from "../zustand/useChatLogs";
-import UserProfile from "./chatbar/UserProfile";
+import UserProfile from "./chatbar/ChatSearchProfile";
 import { useParams } from "react-router-dom";
 import UserAvatar from "./chatbar/UserAvatar";
 
@@ -23,8 +23,7 @@ function ChatBox({ user }) {
   const { userId } = useParams();
   const { foundUserId } = useParams();
   const { chatId } = useParams();
-
-
+  const { foundUserusername } = useParams();
 
   useEffect(() => {
     async function getUser(foundUserId) {
@@ -34,10 +33,9 @@ function ChatBox({ user }) {
 
     const handleChatChange = async function (newChatId) {
       const chatMessages = await chatService.getChatMessages(newChatId);
+
       setDatabaseMessageLog(chatMessages.messages);
     };
-
-
 
     const handleRoomChange = function (newRoom) {
       if (currentRoom) {
@@ -51,10 +49,10 @@ function ChatBox({ user }) {
     if (foundUserId) getUser(foundUserId);
     handleRoomChange(userId);
     handleChatChange(chatId);
-  }, []);
+   
+  }, [foundUserId]);
 
   const messageListener = (messagecontent) => {
-   
     setMessageLog([messagecontent, ...messageLog]);
   };
 
@@ -65,7 +63,6 @@ function ChatBox({ user }) {
 
   useEffect(() => {
     const createChatRouter = async function () {
-     
       setChatParticipant(selectedUser.user);
     };
     createChatRouter();
@@ -77,15 +74,13 @@ function ChatBox({ user }) {
       [event.target.name]: event.target.value,
     });
   }
- 
+
   async function handleButtonSubmit(e) {
     e.preventDefault();
-    
-    
-    
+
     //move to list of users, includes logic that checks for already existing chat between participants
-   
-    setMessageLog([textInputData, ...messageLog]); 
+
+    setMessageLog([textInputData, ...messageLog]);
 
     socket.emit(
       "message",
@@ -95,6 +90,8 @@ function ChatBox({ user }) {
       },
       currentRoom
     );
+
+    console.log(textInputData);
 
     const newMessage = await messageService.create(textInputData);
 
@@ -133,66 +130,69 @@ function ChatBox({ user }) {
           ""
         )}
       </header>
-
-      <ul className="list-none flex flex-col items-center overflow-auto">
-        {databaseMessageLog?.map((dbMessageObject, index) => (
-          <div
-          // className={`w-5/6 flex ${
-          //   userMessageObject.senderId[0]?.username === user.username
-          //     ? `justify-end`
-          //     : `justify-start`
-          // }`}
-          >
-            <div className="border-2 border-slate-500 rounded-xl pl-2 pr-2 pb-2 m-1 ">
-              <div key={index + 1} className="font-semibold pt-1 ">
-                {/* {`${
-                  userMessageObject.senderId[0]?.username
-                    ? userMessageObject.senderId[0]?.username
-                    : user.username
-                }`}{" "} */}
-                <button
-                  onClick={function () {
-                    handleDeleteButtonSubmit(dbMessageObject, index);
-                  }}
-                >
-                  <i className="bx bx-trash-alt"></i>
-                </button>
+      {foundUserId && (
+        <>
+          <ul className="list-none flex flex-col items-center overflow-auto">
+            {databaseMessageLog?.map((dbMessageObject, index) => (
+              <div
+                className={`w-5/6 flex ${
+                  dbMessageObject.senderId[0] === user._id
+                    ? `justify-end`
+                    : `justify-start`
+                }`}
+              >
+                <div className="border-2 border-slate-500 rounded-xl pl-2 pr-2 pb-2 m-1 ">
+                  <div key={index + 1} className="font-semibold pt-1 ">
+                    {`${
+                      dbMessageObject.senderId[0] === user._id
+                        ? user.username
+                        : foundUserusername
+                    }`}
+                    <button
+                      onClick={function () {
+                        handleDeleteButtonSubmit(dbMessageObject, index);
+                      }}
+                    >
+                      <i className="bx bx-trash-alt"></i>
+                    </button>
+                  </div>
+                  <li key={index}>{` ${dbMessageObject.message}`}</li>
+                </div>
               </div>
-              <li key={index}>{` ${dbMessageObject.message}`}</li>
-            </div>
-          </div>
-        ))}
-      </ul>
+            ))}
+          </ul>
 
-      <ul className="list-none flex flex-col-reverse items-center overflow-auto">
-        {messageLog?.map((userMessageObject, index) => (
-          <div
-            className={`w-5/6 flex ${
-              userMessageObject.senderId[0]?.username === user.username
-                ? `justify-end`
-                : `justify-start`
-            }`}
-          >
-            <div className="border-2 border-slate-500 rounded-xl pl-2 pr-2 pb-2 m-1 ">
-              <div key={index + 1} className="font-semibold pt-1 ">
-                {`${
-                  userMessageObject.senderId[0]?.username
-                    ? userMessageObject.senderId[0]?.username
-                    : user.username
-                }`}{" "}
-                <button
-                  onClick={function () {
-                    handleDeleteButtonSubmit(userMessageObject, index);
-                  }}
-                >
-                  <i className="bx bx-trash-alt"></i>
-                </button>
+          <ul className="list-none flex flex-col-reverse items-center overflow-auto">
+            {messageLog?.map((userMessageObject, index) => (
+              <div
+                className={`w-5/6 flex ${
+                  userMessageObject.senderId[0]?.username === user.username
+                    ? `justify-end`
+                    : `justify-start`
+                }`}
+              >
+                <div className="border-2 border-slate-500 rounded-xl pl-2 pr-2 pb-2 m-1 ">
+                  <div key={index + 1} className="font-semibold pt-1 ">
+                    {`${
+                      userMessageObject.senderId[0]?.username
+                        ? userMessageObject.senderId[0]?.username
+                        : user.username
+                    }`}{" "}
+                    <button
+                      onClick={function () {
+                        handleDeleteButtonSubmit(userMessageObject, index);
+                      }}
+                    >
+                      <i className="bx bx-trash-alt"></i>
+                    </button>
+                  </div>
+                  <li key={index}>{` ${userMessageObject.message}`}</li>
+                </div>
               </div>
-              <li key={index}>{` ${userMessageObject.message}`}</li>
-            </div>
-          </div>
-        ))}
-      </ul>
+            ))}
+          </ul>
+        </>
+      )}
 
       <form
         className="w-full h-10 flex justify-center mb-2"

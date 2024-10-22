@@ -10,6 +10,8 @@ const create = async function (userMessage) {
       },
       body: JSON.stringify(userMessage),
     });
+
+    
     return res.json();
   } catch (error) {
     console.log(error);
