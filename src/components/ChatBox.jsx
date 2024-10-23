@@ -38,6 +38,7 @@ function ChatBox({ user }) {
     };
 
     const handleRoomChange = function (newRoom) {
+     
       if (currentRoom) {
         socket.emit("leave", currentRoom, user.username);
       }
@@ -46,8 +47,9 @@ function ChatBox({ user }) {
       setCurrentRoom(newRoom);
     };
 
-    if (foundUserId) getUser(foundUserId);
-    handleRoomChange(userId);
+    if (foundUserId) 
+    getUser(foundUserId);
+    handleRoomChange(chatId);
     handleChatChange(chatId);
    
   }, [foundUserId]);

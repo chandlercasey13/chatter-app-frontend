@@ -5,6 +5,11 @@ import ChatBox from "./components/ChatBox";
 import * as authService from "../services/authService";
 import * as chatService from "../services/messageService";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
+
+
+import { VscSquirrel } from "react-icons/vsc";
+
+
 import io from "socket.io-client";
 import "./App.css";
 
@@ -56,7 +61,7 @@ console.log(user)
 
       <div
         id="root"
-        className=" flex flex-col justify-center items-center w-screen h-screen"
+       
       >
         {user ? (
           <>
@@ -80,113 +85,86 @@ console.log(user)
           </>
         ) : (
           <>
-            <div className="flex flex-col justify-center items-center bg-purple-200 border-black border-1 min-w-96 h-1/2 rounded-lg bg-opacity-100">
-              {isSignedup ? (
+          <nav className="navbar-container"> <div className="navbar"><VscSquirrel size={50} className="logo"/> <p className="chatter-title">Chatter</p></div></nav>
+            <div className="login-container">
+              <div className="login-inner">
+              
                 <>
-                  <div className="h-full flex flex-col items-center justify-center text-slate-600">
-                    <section>
-                      <h1 className="h-full flex flex-col items-center justify-center text-slate-600">
-                        Log In
-                      </h1>
 
-                      <div className="h-1/2 flex flex-col justify-center items-center">
+              
+                  <div className="landing-column-left-container">
+<div className="landing-column-left">
+                  
+                  <h1 className="landing-column-left-header">A place for meaningful conversations</h1>
+                  
+
+<p id="landing-column-left-pitch">Connect with your friends and family, build your community, and deepen your interests.</p>
+
+
+
+
+                    <div id="login-form-container">
+                     
+
+                       
                         <form
-                          className="flex flex-col w-1/2 "
+                          id="login-form"
                           onSubmit={loginSubmit}
                         >
                           <label htmlFor="username"></label>
 
                           <input
-                            className="border-black border-2 w-full"
+                            className="form-input"
                             id="username"
                             name="username"
                             type="text"
                             onChange={handleTextInput}
                             value={loginText.username}
+                            placeholder="Username"
                           ></input>
 
                           <input
-                            className="border-black border-2"
+                            className="form-input"
                             id="password"
                             name="password"
                             type="text"
                             onChange={handleTextInput}
                             value={loginText.password}
+                            placeholder="Password"
                           ></input>
-
+<div id="form-buttons">
                           <button
-                            className="bg-blue-500 rounded text-white p-1"
+                            id="login-button"
                             type="submit"
                           >
-                            Log In
+                            {isSignedup? "Log In": "Sign Up"}
+                            
                           </button>
-                        </form>
-                      </div>
-                      <button
+                          <button
                         onClick={function () {
                           setIsSignedUp(!isSignedup);
                         }}
                       >
                         Don't have an account ?
                       </button>
-                    </section>
+                      </div>
+                        </form>
+                     
+                      
+                    </div>
+                    </div>
                   </div>
+                  <div className="landing-column-right-container"><div className="landing-column-right">hey</div></div>
                 </>
-              ) : (
-                <>
-                  <div>
-                    <section>
-                      <h1 className="h-full flex flex-col items-center justify-center text-slate-600">
-                        Sign up
-                      </h1>
-
-                      <form
-                        className="flex flex-col w-1/2 "
-                        onSubmit={loginSubmit}
-                      >
-                        <label htmlFor="username"></label>
-
-                        <input
-                          className="border-black border-2"
-                          id="username"
-                          name="username"
-                          type="text"
-                          onChange={handleTextInput}
-                          value={loginText.username}
-                        ></input>
-
-                        <input
-                          className="border-black border-2"
-                          id="password"
-                          name="password"
-                          type="text"
-                          onChange={handleTextInput}
-                          value={loginText.password}
-                        ></input>
-
-                        <button
-                          className="bg-blue-500 rounded text-white p-1"
-                          type="submit"
-                        >
-                          Sign Up
-                        </button>
-                      </form>
-
-                      <button
-                        onClick={function () {
-                          setIsSignedUp(!isSignedup);
-                        }}
-                      >
-                        Already have an account ?
-                      </button>
-                    </section>
-                  </div>
-                </>
-              )}
+               
+              
             </div>
+            </div>
+            
           </>
         )}
       </div>
+      
     </>
   );
 }
