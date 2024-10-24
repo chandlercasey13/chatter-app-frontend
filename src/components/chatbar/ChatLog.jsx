@@ -7,7 +7,7 @@ const ChatLog = (props) => {
   const { chats } = Chat();
 
   return (
-    <div className="py-2 flex-col overlfow-auto">
+    <div className="py-4 flex-col overlfow-auto">
       {chats?.map((chat, index) => (
         <Chat
           key={chat._id}

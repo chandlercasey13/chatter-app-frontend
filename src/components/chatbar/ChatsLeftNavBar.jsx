@@ -52,7 +52,7 @@ const ChatBar = ({ user }) => {
         {allUsers.length === 0 && (
           <div>
             <div className="text-slate-500">
-              <p>Start new chat!</p>
+             
             </div>
           </div>
         )}

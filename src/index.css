@@ -4,6 +4,27 @@
 @tailwind utilities;
 
 
+*::-webkit-scrollbar {
+    width: 7px; /* Width of the vertical scrollbar */
+  }
+  
+  *::-webkit-scrollbar-track {
+    background: white; /* Track color */
+    border-radius: 10px; /* Rounded corners */
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background: #bdbdbd; /* Handle color */
+    border-radius: 10px; /* Rounded corners */
+  }
+  
+  *::-webkit-scrollbar-thumb:hover {
+    background: #8c8a85; /* Handle color on hover */
+  }
+  
+
+
+
 
 #root {
  width: 100%;
@@ -202,6 +223,7 @@ height: 5%;
 width: 100%;
 border-bottom: 1px solid rgba(0,0,0,.1);
 color:#2ea1ff;
+padding: 1px 10px
 }
 
 .chat-logo{
@@ -225,7 +247,8 @@ color:#2ea1ff;
 .chat-left-navbar{
     background-color: rgba(46, 161, 255,.25);
     width: 30%;
-
+    border-radius: 5px;
+    border-right: 1px solid  rgba(0,0,0,.1);
     display: flex;
     flex-direction: column;
    
@@ -248,7 +271,7 @@ color:#2ea1ff;
 .chatlogs-left-li-button{
     width: 100%;
     display: flex;
-    color: rgba(0, 0, 0, .4);
+    color: rgba(0, 0, 0, .5);
     align-items: center;
     gap: 5px;
 }
@@ -264,7 +287,14 @@ color:#2ea1ff;
     padding: 10px 10px 0px  ;
 }
 .search-user-button{
-    width: 15%;
+    font-size: 15px;
+    font-weight: 500;
+    text-wrap: nowrap;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap:5px;
+    width: 30%;
     height: 100%;
     color: rgba(46, 161, 255,1);
 }
@@ -310,8 +340,8 @@ color:#2ea1ff;
     box-sizing: border-box;
    
     display: flex;
-    flex-direction: column;
-    justify-content: start;
+    flex-direction: column-reverse;
+    justify-content: end;
     
     height: 85%;
     width:100%;
@@ -332,20 +362,21 @@ color:#2ea1ff;
     
     width: 100%;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     justify-content: center;
     align-items: center;
 
 }
 
 .chat-right-panel-text-containers{
+    gap:10px;
   min-height: 5vh;
  
-  width: 90%;
+  width: 95%;
 
 }
 .chat-right-panel-text-bubbles{
-    background-color: #82c1f5;
+    /* background-color: #82c1f5; */
     color: white;
     position: relative;
     padding: 5px;
