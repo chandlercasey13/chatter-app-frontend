@@ -5,7 +5,7 @@ import ChatBox from "./components/ChatBox";
 import * as authService from "../services/authService";
 import * as chatService from "../services/messageService";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
-
+import UserAvatar from "./components/chatbar/UserAvatar";
 
 import { VscSquirrel } from "react-icons/vsc";
 
@@ -14,6 +14,9 @@ import io from "socket.io-client";
 import "./App.css";
 
 function App() {
+
+
+
 
   const navigate = useNavigate();
 
@@ -65,16 +68,16 @@ console.log(user)
       >
         {user ? (
           <>
-          <nav className=" w-full flex justify-between"><Link to="/">Home</Link> <button onClick={() => {authService.signout(); setUser(null)}}>Sign Out</button></nav>
-            <div className=" flex  justify-end w-5/6 h-5/6 rounded-lg bg-slate-200">
+          <section className="chat-screen-container">
+          <nav className=" chat-top-navbar"><button><Link to="/" >Home</Link></button> <VscSquirrel size={30} className="chat-logo"/> <button onClick={() => {authService.signout(); setUser(null)}}>Sign Out</button></nav>
+          <div className=" chat-window">
+           
               <ChatBar user={user} />
-              <div className="flex flex-col justify-end h-full w-5/6 border-1 border-black/40 rounded-lg">
+              <div className="chat-window-right-panel">
+              
                 <Routes>
                   <Route path="/" element={<ChatBox user={user} />} />
-                  {/* <Route
-                    path="/chatlogs/:foundUserId/new"
-                    element={<ChatBox user={user} />}
-                  /> */}
+                  
                   <Route
                     path="/chatlogs/:chatId/user/:foundUserId/:foundUserusername"
                     element={<ChatBox user={user} />}
@@ -82,6 +85,7 @@ console.log(user)
                 </Routes>
               </div>
             </div>
+            </section>
           </>
         ) : (
           <>

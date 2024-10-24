@@ -2,13 +2,17 @@ import { BiSolidMessageSquareAdd } from "react-icons/bi";
 
 const SearchUserBtn = ({ onOpen }) => {
   return (
+    <div className="search-user-button-container">
+
+<p>Chats</p>
     <button
       type="submit"
-      className="btn rounded text-purple-600"
+      className="search-user-button"
       onClick={onOpen}
     >
-      <BiSolidMessageSquareAdd className="w-20 h-10" />
+      <BiSolidMessageSquareAdd className="w-full h-full" />
     </button>
+    </div>
   );
 };
 

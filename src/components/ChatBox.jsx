@@ -118,34 +118,35 @@ function ChatBox({ user }) {
 
   return (
     <>
-      <header className="sticky top-0 h-16 bg-slate-300 flex justify-between items-center px-4 my-0">
+      <header className="top-chat-name-container">
         {foundUserId ? (
-          <div>
-            <UserAvatar width={20} height={2} />
-            <div>
-              <h1 className="text-slate-600 text-xl ml-5 font-semibold line-clamp-1">
+          
+           
+            
+              <h1 className="top-chat-name">
                 {selectedUser.user?.username}
               </h1>
-            </div>
-          </div>
+            
+          
         ) : (
           ""
         )}
       </header>
+      <div className="chat-window-right-panel-chat-container-overflow">
       {foundUserId && (
         <>
-          <ul className="list-none flex flex-col items-center overflow-auto">
+          <ul className="database-ul">
             {databaseMessageLog?.map((dbMessageObject, index) => (
               <div
-                className={`w-5/6 flex ${
+                className={`chat-right-panel-text-containers  flex ${
                   dbMessageObject.senderId[0] === user._id
                     ? `justify-end`
                     : `justify-start`
                 }`}
               >
-                <div className="border-2 border-slate-500 rounded-xl pl-2 pr-2 pb-2 m-1 ">
-                  <div key={index + 1} className="font-semibold pt-1 ">
-                    {`${
+                <div className="chat-right-panel-text-bubbles">
+                  <div key={index + 1} className="chat-right-panel-text-bubbles-innerdiv ">
+                    {/* {`${
                       dbMessageObject.senderId[0] === user._id
                         ? user.username
                         : foundUserusername
@@ -156,7 +157,7 @@ function ChatBox({ user }) {
                       }}
                     >
                       <i className="bx bx-trash-alt"></i>
-                    </button>
+                    </button> */}
                   </div>
                   <li key={index}>{` ${dbMessageObject.message}`}</li>
                 </div>
@@ -164,18 +165,18 @@ function ChatBox({ user }) {
             ))}
           </ul>
 
-          <ul className="list-none flex flex-col-reverse items-center overflow-auto">
+          <ul className="state-ul">
             {messageLog?.map((userMessageObject, index) => (
               <div
-                className={`w-5/6 flex ${
+                className={`chat-right-panel-text-containers  flex ${
                   userMessageObject.senderId[0]?.username === user.username
                     ? `justify-end`
-                    : `justify-start`
+                    : `justify-start `
                 }`}
               >
-                <div className="border-2 border-slate-500 rounded-xl pl-2 pr-2 pb-2 m-1 ">
-                  <div key={index + 1} className="font-semibold pt-1 ">
-                    {`${
+                <div className="chat-right-panel-text-bubbles">
+                  <div key={index + 1} className="chat-right-panel-text-bubbles-innerdiv ">
+                    {/* {`${
                       userMessageObject.senderId[0]?.username
                         ? userMessageObject.senderId[0]?.username
                         : user.username
@@ -186,7 +187,7 @@ function ChatBox({ user }) {
                       }}
                     >
                       <i className="bx bx-trash-alt"></i>
-                    </button>
+                    </button> */}
                   </div>
                   <li key={index}>{` ${userMessageObject.message}`}</li>
                 </div>
@@ -195,9 +196,9 @@ function ChatBox({ user }) {
           </ul>
         </>
       )}
-
+</div>
       <form
-        className="w-full h-10 flex justify-center mb-2"
+        className="input-box-container"
         onSubmit={handleButtonSubmit}
       >
         <label htmlFor="message"></label>
