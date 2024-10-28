@@ -6,6 +6,9 @@ import * as authService from "../services/authService";
 import * as chatService from "../services/messageService";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import UserAvatar from "./components/chatbar/UserAvatar";
+import { ChatProvider } from './context';
+
+
 
 import { VscSquirrel } from "react-icons/vsc";
 
@@ -43,11 +46,11 @@ function App() {
 try {
   
   const user =  await authService.signin(loginText) 
-console.log(user)
+
   setUser(user);
   navigate('/');
 } catch (err) {
-  console.log('non')
+  
 }
 
   }
@@ -57,6 +60,11 @@ console.log(user)
 
    
   }
+
+
+
+
+
 
   return (
     <>
@@ -69,10 +77,12 @@ console.log(user)
         {user ? (
           <>
           <section className="chat-screen-container">
-          <nav className=" chat-top-navbar"><button><Link to="/" >Home</Link></button> <VscSquirrel size={30} className="chat-logo"/> <button onClick={() => {authService.signout(); setUser(null)}}>Sign Out</button></nav>
-          <div className=" chat-window">
-           
+          <nav className=" chat-top-navbar"><button><Link to="/" >Home</Link></button> <VscSquirrel size={30} className="chat-logo"/> <button onClick={() => {authService.signout(); setUser(null); navigate('/');}}>Sign Out</button></nav>
+          <div className=" chat-window ">
+            
+          <ChatProvider>
               <ChatBar user={user} />
+              
               <div className="chat-window-right-panel">
               
                 <Routes>
@@ -84,6 +94,10 @@ console.log(user)
                   />
                 </Routes>
               </div>
+              </ChatProvider>
+
+
+              
             </div>
             </section>
           </>

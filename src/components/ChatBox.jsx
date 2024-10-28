@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import { socket } from "../socket";
 import * as chatService from "../../services/chatService";
 import * as messageService from "../../services/messageService";
@@ -6,7 +6,7 @@ import useChats from "../zustand/useChatLogs";
 import UserProfile from "./chatbar/ChatSearchProfile";
 import { useParams } from "react-router-dom";
 import UserAvatar from "./chatbar/UserAvatar";
-
+import { ChatContext } from "../context";
 function ChatBox({ user }) {
   const [textInputData, setTextInputData] = useState({
     senderId: [{ username: user.username }],
@@ -18,12 +18,13 @@ function ChatBox({ user }) {
   const [currentRoom, setCurrentRoom] = useState("");
   const [chatParticipant, setChatParticipant] = useState({});
 
-  const [inputValue, setInputValue] = useState("");
-  const [userChats, setUserChats] = useState("");
+ 
   const { userId } = useParams();
   const { foundUserId } = useParams();
   const { chatId } = useParams();
-  const { foundUserusername } = useParams();
+
+  const { previewMessage, setPreviewMessage } = useContext(ChatContext);
+
 
   useEffect(() => {
     async function getUser(foundUserId) {
@@ -70,6 +71,28 @@ function ChatBox({ user }) {
     createChatRouter();
   }, [user, selectedUser]);
 
+  useEffect(() =>{
+
+const previewMessage = async function () {
+
+  
+
+  if (messageLog[0]){
+    setPreviewMessage(messageLog[0].message)
+  }
+  
+  else {
+   setPreviewMessage(await databaseMessageLog[databaseMessageLog.length-1].message)
+  }
+}
+
+previewMessage()
+
+
+
+
+  },[messageLog, databaseMessageLog])
+
   function handleTextInput(event) {
     setTextInputData({
       ...textInputData,
@@ -93,14 +116,14 @@ function ChatBox({ user }) {
       currentRoom
     );
 
-    console.log(textInputData);
+   
 
     const newMessage = await messageService.create(textInputData);
 
     const updateChat = await chatService.update(chatId, newMessage._id);
 
     setTextInputData({ senderId: [{ username: user.username }], message: "" });
-    setInputValue("");
+   
   }
 
   async function handleDeleteButtonSubmit(
@@ -118,6 +141,7 @@ function ChatBox({ user }) {
 
   return (
     <>
+    
       <header className="top-chat-name-container">
         {foundUserId ? (
           
@@ -169,6 +193,9 @@ function ChatBox({ user }) {
                   </div>
                   <li key={index}>{` ${userMessageObject.message}`}</li>
                 </div>
+                { userMessageObject.senderId[0]?.username === user.username && (<div className="h-1/2">
+                <img className="h-full"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAA65JREFUaEPtml1y2jAQgG1fpOQkhSOAh+eWkzQ9SdJnRnCEkJPUuYgUr0dmVI9WuyutTVLiJxiMpE/7v1Jd3dlT3xlv9QX8v0v8S8LaEj4ej+umab5XVbWq63rlnFvB56qqOpirruvOOTd8rqrqtW3bZ+01hOOpS/h8Pq+stT881M+MxQP8ZS54NeAA9DEDEvsLwD+3bftba0wVYGPMr35BmqBTPjXwImAv1RevvlpCSI3TNU2z2W63o82L58wG9s4IYJd+iqSdBbyACnM28THHtsXAp9PpxTm35qxogXfE0CLgDyLZ6T6KoNnAN7RZjqIcuAkLC/iDw8KGdNbaw36/h4Ql+bCAjTF/Fww91JrRJKVt2wfqzySwMQbSwydqIObvY/yEfHnMrTUdIKnaHGAN6SZjp6Iz7CgpJ4E1FlLX9WW3220oDYCszTn3pBDyIPc+YPNRwI5aKPV70zQP3FTQp6qgUSVPUsoosJLtkjY1JdOY11q7wTx2ChgcVU49e2XoUz/SR8RE2ZtSkWalzCgFPNuklL4qpK+oWkeBNdTKF+6o80hBazhLTK0xYI2CXpTjhhtgjCk2p3686PwYcPGE3HCE2LBG7I+Gpyiwgg0N+S2VBGBqXeq0YFxswzEJa+wwzHuTsOQ3MrrhGHCRhw4kJ+pBKSUe4/Q3AR5Um9N4U0wtk3nAnDYcmuhSxcM/c8Z8yFLAVzXzH6BQ73rHslYoFqK+T+q0isMSlU0t8Ds/LGlkOgsAUVPwE49P0MOiYNGQGLVh7fDgj0THBttbZLVwnArJAjQBVFo+WKWGVkuF2dbglfvi/w+3+B83QekUEu16oMC5al2SQ4eS9+BQxOTU5GiGhwJnqnV2hZTIq8WVW6rxQPW0JJOpw46bIIwayXUkgbnnv1pqrNEUoNpKZM+J2f1g5cucWBJ7R5Bnk9UZCSyYbBZorpZx628SGHZc4MCKTuen0pXYbqo1G47LAoY/MFX7WiRwT/MwFbbWsu+OcGGH5EZiV5Id9+MOEu8X9EodZQYJB8RduLjGfUTRQQTsJS0JVeGioRwMb93BZhSdIOZEBzFwITRXapz3RJIdB8wCzrBpDgD7HYnNTgfNBg68N9u5sInwF9lXG7AhioADaLhMKnU2En61cFcMPK5aqayLbUKWrc4m4enAHhyKeCjqc0q70Ztfcm7aUWqjJuFEAgHw38YQBO/5rsb0gjh8f+Pet6LAFpNw7kKW+t+sEl4KQjLPF7Bktz7ju3cn4XclpDdbwJ4bKQAAAABJRU5ErkJggg=="/>         
+                </div>)}
               </div>
             ))}
           </ul>
@@ -188,6 +215,7 @@ function ChatBox({ user }) {
     {dbMessageObject.senderId[0] != user._id && (<div className="h-1/2">
                 <img className="h-full"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAA65JREFUaEPtml1y2jAQgG1fpOQkhSOAh+eWkzQ9SdJnRnCEkJPUuYgUr0dmVI9WuyutTVLiJxiMpE/7v1Jd3dlT3xlv9QX8v0v8S8LaEj4ej+umab5XVbWq63rlnFvB56qqOpirruvOOTd8rqrqtW3bZ+01hOOpS/h8Pq+stT881M+MxQP8ZS54NeAA9DEDEvsLwD+3bftba0wVYGPMr35BmqBTPjXwImAv1RevvlpCSI3TNU2z2W63o82L58wG9s4IYJd+iqSdBbyACnM28THHtsXAp9PpxTm35qxogXfE0CLgDyLZ6T6KoNnAN7RZjqIcuAkLC/iDw8KGdNbaw36/h4Ql+bCAjTF/Fww91JrRJKVt2wfqzySwMQbSwydqIObvY/yEfHnMrTUdIKnaHGAN6SZjp6Iz7CgpJ4E1FlLX9WW3220oDYCszTn3pBDyIPc+YPNRwI5aKPV70zQP3FTQp6qgUSVPUsoosJLtkjY1JdOY11q7wTx2ChgcVU49e2XoUz/SR8RE2ZtSkWalzCgFPNuklL4qpK+oWkeBNdTKF+6o80hBazhLTK0xYI2CXpTjhhtgjCk2p3686PwYcPGE3HCE2LBG7I+Gpyiwgg0N+S2VBGBqXeq0YFxswzEJa+wwzHuTsOQ3MrrhGHCRhw4kJ+pBKSUe4/Q3AR5Um9N4U0wtk3nAnDYcmuhSxcM/c8Z8yFLAVzXzH6BQ73rHslYoFqK+T+q0isMSlU0t8Ds/LGlkOgsAUVPwE49P0MOiYNGQGLVh7fDgj0THBttbZLVwnArJAjQBVFo+WKWGVkuF2dbglfvi/w+3+B83QekUEu16oMC5al2SQ4eS9+BQxOTU5GiGhwJnqnV2hZTIq8WVW6rxQPW0JJOpw46bIIwayXUkgbnnv1pqrNEUoNpKZM+J2f1g5cucWBJ7R5Bnk9UZCSyYbBZorpZx628SGHZc4MCKTuen0pXYbqo1G47LAoY/MFX7WiRwT/MwFbbWsu+OcGGH5EZiV5Id9+MOEu8X9EodZQYJB8RduLjGfUTRQQTsJS0JVeGioRwMb93BZhSdIOZEBzFwITRXapz3RJIdB8wCzrBpDgD7HYnNTgfNBg68N9u5sInwF9lXG7AhioADaLhMKnU2En61cFcMPK5aqayLbUKWrc4m4enAHhyKeCjqc0q70Ztfcm7aUWqjJuFEAgHw38YQBO/5rsb0gjh8f+Pet6LAFpNw7kKW+t+sEl4KQjLPF7Bktz7ju3cn4XclpDdbwJ4bKQAAAABJRU5ErkJggg=="/>         
                 </div>)}
+
                 
                 
                <div className={`chat-right-panel-text-bubbles ${
@@ -209,8 +237,12 @@ function ChatBox({ user }) {
                       <i className="bx bx-trash-alt"></i>
                     </button> */}
                   </div>
+                  
                   <li key={index}>{` ${dbMessageObject.message}`}</li>
                 </div>
+                {dbMessageObject.senderId[0] === user._id && (<div className="h-1/2">
+                <img className="h-full"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAA65JREFUaEPtml1y2jAQgG1fpOQkhSOAh+eWkzQ9SdJnRnCEkJPUuYgUr0dmVI9WuyutTVLiJxiMpE/7v1Jd3dlT3xlv9QX8v0v8S8LaEj4ej+umab5XVbWq63rlnFvB56qqOpirruvOOTd8rqrqtW3bZ+01hOOpS/h8Pq+stT881M+MxQP8ZS54NeAA9DEDEvsLwD+3bftba0wVYGPMr35BmqBTPjXwImAv1RevvlpCSI3TNU2z2W63o82L58wG9s4IYJd+iqSdBbyACnM28THHtsXAp9PpxTm35qxogXfE0CLgDyLZ6T6KoNnAN7RZjqIcuAkLC/iDw8KGdNbaw36/h4Ql+bCAjTF/Fww91JrRJKVt2wfqzySwMQbSwydqIObvY/yEfHnMrTUdIKnaHGAN6SZjp6Iz7CgpJ4E1FlLX9WW3220oDYCszTn3pBDyIPc+YPNRwI5aKPV70zQP3FTQp6qgUSVPUsoosJLtkjY1JdOY11q7wTx2ChgcVU49e2XoUz/SR8RE2ZtSkWalzCgFPNuklL4qpK+oWkeBNdTKF+6o80hBazhLTK0xYI2CXpTjhhtgjCk2p3686PwYcPGE3HCE2LBG7I+Gpyiwgg0N+S2VBGBqXeq0YFxswzEJa+wwzHuTsOQ3MrrhGHCRhw4kJ+pBKSUe4/Q3AR5Um9N4U0wtk3nAnDYcmuhSxcM/c8Z8yFLAVzXzH6BQ73rHslYoFqK+T+q0isMSlU0t8Ds/LGlkOgsAUVPwE49P0MOiYNGQGLVh7fDgj0THBttbZLVwnArJAjQBVFo+WKWGVkuF2dbglfvi/w+3+B83QekUEu16oMC5al2SQ4eS9+BQxOTU5GiGhwJnqnV2hZTIq8WVW6rxQPW0JJOpw46bIIwayXUkgbnnv1pqrNEUoNpKZM+J2f1g5cucWBJ7R5Bnk9UZCSyYbBZorpZx628SGHZc4MCKTuen0pXYbqo1G47LAoY/MFX7WiRwT/MwFbbWsu+OcGGH5EZiV5Id9+MOEu8X9EodZQYJB8RduLjGfUTRQQTsJS0JVeGioRwMb93BZhSdIOZEBzFwITRXapz3RJIdB8wCzrBpDgD7HYnNTgfNBg68N9u5sInwF9lXG7AhioADaLhMKnU2En61cFcMPK5aqayLbUKWrc4m4enAHhyKeCjqc0q70Ztfcm7aUWqjJuFEAgHw38YQBO/5rsb0gjh8f+Pet6LAFpNw7kKW+t+sEl4KQjLPF7Bktz7ju3cn4XclpDdbwJ4bKQAAAABJRU5ErkJggg=="/>         
+                </div>)}
                 
                     </div>
             
@@ -228,11 +260,11 @@ function ChatBox({ user }) {
         <label htmlFor="message"></label>
 
         <input
-          className="w-5/6 h-full border-2 rounded-lg border-black/30 pl-2 text-slate-700"
+          className=" input w-5/6 h-full border-2 rounded-lg border-black/10 pl-2 text-slate-700 bg-gray-100"
           id="message"
           name="message"
           type="text"
-          placeholder="Start typing..."
+          placeholder="Aa"
           value={textInputData.message}
           onChange={handleTextInput}
           required
