@@ -10,7 +10,7 @@ const UserProfile = ({ user, founduser, onClose }) => {
 
  
 
-console.log(founduser)
+
 
 
   const handleClick = async (e) => {

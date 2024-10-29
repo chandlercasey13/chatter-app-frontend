@@ -34,7 +34,7 @@ function App() {
  
   const [loginText, setLoginText] = useState({ username: "", password: "" });
   const [isSignedup, setIsSignedUp] = useState(true);
-
+  const [loginMessage, setLoginMessage] =useState("Connect with your friends and family, build your community, and deepen your interests.")
   
 
 
@@ -45,12 +45,15 @@ function App() {
   
 try {
   
-  const user =  await authService.signin(loginText) 
+
+const user = isSignedup ?  await authService.signin(loginText) : await authService.signup(loginText)
 
   setUser(user);
   navigate('/');
+
 } catch (err) {
-  
+  console.log(err)
+  setLoginMessage('Invalid username or password')
 }
 
   }
@@ -116,7 +119,7 @@ try {
                   <h1 className="landing-column-left-header">A place for meaningful conversations</h1>
                   
 
-<p id="landing-column-left-pitch">Connect with your friends and family, build your community, and deepen your interests.</p>
+<p id="landing-column-left-pitch">{loginMessage}</p>
 
 
 

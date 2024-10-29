@@ -32,15 +32,20 @@ const ChatBar = ({ user }) => {
     const getUserChats = async function (userId) {
       
       if(user){
+        try{
       const allUserChats = await chatService.getUserChats(userId);
       
       setUserChats([...userChats, allUserChats]);
+      }
+      catch{
+        setUserChats(false)
+      }
       }
     };
     getUserChats(userId);
   }, []);
   
-
+console.log(userChats.length)
 
 
   return (
@@ -66,7 +71,7 @@ const ChatBar = ({ user }) => {
 
 
 
-{userChats.length > 0 &&  (<ul className="chatlogs-left-navbar">
+{userChats > 1 &&  (<ul className="chatlogs-left-navbar">
        
        {userChats[0]?.map((chats, i) => (
          <li key={i} className="chatlogs-left-li">
