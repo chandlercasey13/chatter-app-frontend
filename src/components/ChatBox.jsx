@@ -89,7 +89,8 @@ function ChatBox({ user }) {
     //move to list of users, includes logic that checks for already existing chat between participants
 
     setMessageLog([ ...messageLog, textInputData]);
- setKey(key* (Math.floor(Math.random() * (1000 - 1)) + 1))
+
+
     socket.emit(
       "message",
       {
@@ -104,7 +105,7 @@ function ChatBox({ user }) {
     const newMessage = await messageService.create(textInputData);
 
     const updateChat = await chatService.update(chatId, newMessage._id);
-
+    setPreviewMessage(textInputData)
     setTextInputData({ senderId: [{ username: user.username }], message: "" });
     
    

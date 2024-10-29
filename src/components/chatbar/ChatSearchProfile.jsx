@@ -27,7 +27,7 @@ const UserProfile = ({ user, founduser, onClose }) => {
   return (
    <button
       onClick={handleClick}
-      className="flex items-center gap-3 p-2 lg:p-4 border border-transparent border-b-slate-300 hover:border hover:border-purple-400 hover:bg-purple-100 rounded cursor-pointer">
+      className="flex items-center w-full   gap-3 p-2 lg:p-4 border border-transparent border-b-slate-300 hover:border hover:border-purple-400 hover:bg-purple-100 rounded cursor-pointer">
      
       <div>
         <UserAvatar

@@ -80,7 +80,7 @@ const getChatMessages = async function (chatId) {
 
     return res.json();
   } catch (error) {
-    console.log(error);
+   return
   }
 }
 

@@ -14,7 +14,8 @@ const ChatBar = ({ user }) => {
   const { previewMessage, setPreviewMessage } = useContext(ChatContext);
   const [allUsers, setAllUsers] = useState([]);
   const [openSearchBox, setOpenSearchBox] = useState(false);
-  const [userChats, setUserChats] = useState([]);
+  const [userChats, setUserChats] = useState(false);
+  const [change, setChange] = useState(false);
   
  
   const onOpen = () => {
@@ -24,7 +25,7 @@ const ChatBar = ({ user }) => {
     setOpenSearchBox(false);
   };
 
-  
+ 
 
   const userId = user._id;
 
@@ -35,7 +36,7 @@ const ChatBar = ({ user }) => {
         try{
       const allUserChats = await chatService.getUserChats(userId);
       
-      setUserChats([...userChats, allUserChats]);
+      setUserChats([ allUserChats]);
       }
       catch{
         setUserChats(false)
@@ -43,10 +44,10 @@ const ChatBar = ({ user }) => {
       }
     };
     getUserChats(userId);
-  }, []);
+  }, [previewMessage]);
   
-console.log(userChats.length)
 
+console.log(userChats)
 
   return (
     <div className="chat-left-navbar ">
@@ -71,7 +72,7 @@ console.log(userChats.length)
 
 
 
-{userChats > 1 &&  (<ul className="chatlogs-left-navbar">
+{userChats && userChats[0].length>0 &&  (<ul className="chatlogs-left-navbar">
        
        {userChats[0]?.map((chats, i) => (
          <li key={i} className="chatlogs-left-li">
@@ -96,8 +97,9 @@ console.log(userChats.length)
                </div>
                <div className="chat-contact-preview">
               {
-              
-              chats?.messages[chats.messages.length-1].message}
+                chats.messages.length > 0 && ( chats?.messages[chats.messages.length-1].message)
+             
+             }
                </div>
                </div>
            </Link>

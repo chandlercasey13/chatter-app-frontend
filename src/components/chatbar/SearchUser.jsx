@@ -37,9 +37,9 @@ const SearchUser = ({ onClose, user }) => {
   }, [search]);
 
   return (
-    <div className=" search-modal fixed top-0 bottom-0 left-0 right-0 text-slate-500 bg-slate-700 bg-opacity-30 p-3 overflow-auto scroll-auto">
-      <div className="w-full max-w-lg mx-auto mt-12 m-2">
-        <div className="bg-white rounded h-10 overflow-hidden flex">
+    <div className=" search-modal h-full fixed top-0 bottom-0 left-0 right-0 text-slate-500 bg-slate-700 bg-opacity-30 p-3 ">
+      <div className="w-full max-w-3xl h-full rounded  mx-auto  overflow-hidden ">
+        <div className="bg-white rounded h-10  flex">
           <input
             type="text"
             placeholder="Search by username..."
@@ -51,7 +51,7 @@ const SearchUser = ({ onClose, user }) => {
             <CiSearch size={25} />
           </div>
         </div>
-        <div className="bg-white mt-2 w-full rounded p-3">
+        <div className="bg-white mt-2 w-full max-h-screen rounded p-3 overflow-auto scroll-auto  ">
           {searchUser.length === 0 && (
             <p className="text-left text-slate-500">User Does Not Exist</p>
           )}
@@ -79,7 +79,7 @@ const SearchUser = ({ onClose, user }) => {
         onClick={onClose}
       >
         <button>
-          <IoIosCloseCircleOutline />
+          <IoIosCloseCircleOutline color="white" />
         </button>
       </div>
     </div>
