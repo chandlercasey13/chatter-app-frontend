@@ -28,6 +28,26 @@ const messageIndex = async function () {
   return res.json();
 };
 
+
+const updateMessage = async function (messageId) {
+  try {
+    const res = await fetch(`${BACKEND_URL}/messages/${messageId}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ messageId: messageId }),
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
+
 const deleteMessage = async function (messageId) {
   await fetch(`${BACKEND_URL}/messages/${messageId}`, {
     method: "DELETE",
@@ -37,4 +57,4 @@ const deleteMessage = async function (messageId) {
   });
 };
 
-export { create, messageIndex, deleteMessage };
+export { create, messageIndex, deleteMessage, updateMessage };

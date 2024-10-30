@@ -22,6 +22,7 @@ function ChatBox({ user }) {
  
   const { userId } = useParams();
   const { foundUserId } = useParams();
+  const {foundUserusername} =useParams();
   const { chatId } = useParams();
 
   const { previewMessage, setPreviewMessage } = useContext(ChatContext);
@@ -56,12 +57,28 @@ function ChatBox({ user }) {
    
   }, [foundUserId]);
 
-  const messageListener = (messagecontent) => {
+  const messageListener = async (messagecontent) => {
     setMessageLog((prevMessageLog) => [...prevMessageLog, messagecontent]);
+    
+
+
+   
+    setPreviewMessage(messagecontent)
   };
 
+  const offlineMessageListener = async (messagecontent, chatID) => {
+ 
+
+
+
+
+    setTimeout(() => setPreviewMessage(['otherRoom', foundUserusername ]), 1000)
+
+  }
  
   useEffect(() => {
+    socket.on('refreshChatLog', offlineMessageListener);
+   
     socket.on("message", messageListener);
     return () => socket.off("message", messageListener);
   }, []);
@@ -97,7 +114,7 @@ function ChatBox({ user }) {
         senderId: [{ username: user.username }],
         message: textInputData.message,
       },
-      currentRoom
+      currentRoom, chatId
     );
 
    
@@ -105,6 +122,7 @@ function ChatBox({ user }) {
     const newMessage = await messageService.create(textInputData);
 
     const updateChat = await chatService.update(chatId, newMessage._id);
+
     setPreviewMessage(textInputData)
     setTextInputData({ senderId: [{ username: user.username }], message: "" });
     
@@ -146,7 +164,46 @@ function ChatBox({ user }) {
         <>
  
 
+ <ul className="state-ul">
+            {messageLog?.map((userMessageObject, index) => (
+              <div key={index+1} 
+                className={`chat-right-panel-text-containers  flex items-center ${
+                  userMessageObject.senderId[0]?.username === user.username
+                    ? `justify-end`
+                    : `justify-start `
+                }`}
+              >
 
+{ userMessageObject.senderId[0]?.username != user.username && (<div className="h-1/2">
+                <img className="h-full"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAA65JREFUaEPtml1y2jAQgG1fpOQkhSOAh+eWkzQ9SdJnRnCEkJPUuYgUr0dmVI9WuyutTVLiJxiMpE/7v1Jd3dlT3xlv9QX8v0v8S8LaEj4ej+umab5XVbWq63rlnFvB56qqOpirruvOOTd8rqrqtW3bZ+01hOOpS/h8Pq+stT881M+MxQP8ZS54NeAA9DEDEvsLwD+3bftba0wVYGPMr35BmqBTPjXwImAv1RevvlpCSI3TNU2z2W63o82L58wG9s4IYJd+iqSdBbyACnM28THHtsXAp9PpxTm35qxogXfE0CLgDyLZ6T6KoNnAN7RZjqIcuAkLC/iDw8KGdNbaw36/h4Ql+bCAjTF/Fww91JrRJKVt2wfqzySwMQbSwydqIObvY/yEfHnMrTUdIKnaHGAN6SZjp6Iz7CgpJ4E1FlLX9WW3220oDYCszTn3pBDyIPc+YPNRwI5aKPV70zQP3FTQp6qgUSVPUsoosJLtkjY1JdOY11q7wTx2ChgcVU49e2XoUz/SR8RE2ZtSkWalzCgFPNuklL4qpK+oWkeBNdTKF+6o80hBazhLTK0xYI2CXpTjhhtgjCk2p3686PwYcPGE3HCE2LBG7I+Gpyiwgg0N+S2VBGBqXeq0YFxswzEJa+wwzHuTsOQ3MrrhGHCRhw4kJ+pBKSUe4/Q3AR5Um9N4U0wtk3nAnDYcmuhSxcM/c8Z8yFLAVzXzH6BQ73rHslYoFqK+T+q0isMSlU0t8Ds/LGlkOgsAUVPwE49P0MOiYNGQGLVh7fDgj0THBttbZLVwnArJAjQBVFo+WKWGVkuF2dbglfvi/w+3+B83QekUEu16oMC5al2SQ4eS9+BQxOTU5GiGhwJnqnV2hZTIq8WVW6rxQPW0JJOpw46bIIwayXUkgbnnv1pqrNEUoNpKZM+J2f1g5cucWBJ7R5Bnk9UZCSyYbBZorpZx628SGHZc4MCKTuen0pXYbqo1G47LAoY/MFX7WiRwT/MwFbbWsu+OcGGH5EZiV5Id9+MOEu8X9EodZQYJB8RduLjGfUTRQQTsJS0JVeGioRwMb93BZhSdIOZEBzFwITRXapz3RJIdB8wCzrBpDgD7HYnNTgfNBg68N9u5sInwF9lXG7AhioADaLhMKnU2En61cFcMPK5aqayLbUKWrc4m4enAHhyKeCjqc0q70Ztfcm7aUWqjJuFEAgHw38YQBO/5rsb0gjh8f+Pet6LAFpNw7kKW+t+sEl4KQjLPF7Bktz7ju3cn4XclpDdbwJ4bKQAAAABJRU5ErkJggg=="/>         
+                </div>)}
+                <div className={`chat-right-panel-text-bubbles ${
+                  userMessageObject.senderId[0]?.username === user.username
+                    ? `bg-blue-400`
+                    : `bg-gray-400 `
+                }`}>
+                  <div  className="chat-right-panel-text-bubbles-innerdiv ">
+                    {/* {`${
+                      userMessageObject.senderId[0]?.username
+                        ? userMessageObject.senderId[0]?.username
+                        : user.username
+                    }`}{" "}
+                    <button
+                      onClick={function () {
+                        handleDeleteButtonSubmit(userMessageObject, index);
+                      }}
+                    >
+                      <i className="bx bx-trash-alt"></i>
+                    </button> */}
+                  </div>
+                  <li >{` ${userMessageObject.message}`}</li>
+                </div>
+                { userMessageObject.senderId[0]?.username === user.username && (<div className="h-1/2">
+                <img className="h-full"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAA65JREFUaEPtml1y2jAQgG1fpOQkhSOAh+eWkzQ9SdJnRnCEkJPUuYgUr0dmVI9WuyutTVLiJxiMpE/7v1Jd3dlT3xlv9QX8v0v8S8LaEj4ej+umab5XVbWq63rlnFvB56qqOpirruvOOTd8rqrqtW3bZ+01hOOpS/h8Pq+stT881M+MxQP8ZS54NeAA9DEDEvsLwD+3bftba0wVYGPMr35BmqBTPjXwImAv1RevvlpCSI3TNU2z2W63o82L58wG9s4IYJd+iqSdBbyACnM28THHtsXAp9PpxTm35qxogXfE0CLgDyLZ6T6KoNnAN7RZjqIcuAkLC/iDw8KGdNbaw36/h4Ql+bCAjTF/Fww91JrRJKVt2wfqzySwMQbSwydqIObvY/yEfHnMrTUdIKnaHGAN6SZjp6Iz7CgpJ4E1FlLX9WW3220oDYCszTn3pBDyIPc+YPNRwI5aKPV70zQP3FTQp6qgUSVPUsoosJLtkjY1JdOY11q7wTx2ChgcVU49e2XoUz/SR8RE2ZtSkWalzCgFPNuklL4qpK+oWkeBNdTKF+6o80hBazhLTK0xYI2CXpTjhhtgjCk2p3686PwYcPGE3HCE2LBG7I+Gpyiwgg0N+S2VBGBqXeq0YFxswzEJa+wwzHuTsOQ3MrrhGHCRhw4kJ+pBKSUe4/Q3AR5Um9N4U0wtk3nAnDYcmuhSxcM/c8Z8yFLAVzXzH6BQ73rHslYoFqK+T+q0isMSlU0t8Ds/LGlkOgsAUVPwE49P0MOiYNGQGLVh7fDgj0THBttbZLVwnArJAjQBVFo+WKWGVkuF2dbglfvi/w+3+B83QekUEu16oMC5al2SQ4eS9+BQxOTU5GiGhwJnqnV2hZTIq8WVW6rxQPW0JJOpw46bIIwayXUkgbnnv1pqrNEUoNpKZM+J2f1g5cucWBJ7R5Bnk9UZCSyYbBZorpZx628SGHZc4MCKTuen0pXYbqo1G47LAoY/MFX7WiRwT/MwFbbWsu+OcGGH5EZiV5Id9+MOEu8X9EodZQYJB8RduLjGfUTRQQTsJS0JVeGioRwMb93BZhSdIOZEBzFwITRXapz3RJIdB8wCzrBpDgD7HYnNTgfNBg68N9u5sInwF9lXG7AhioADaLhMKnU2En61cFcMPK5aqayLbUKWrc4m4enAHhyKeCjqc0q70Ztfcm7aUWqjJuFEAgHw38YQBO/5rsb0gjh8f+Pet6LAFpNw7kKW+t+sEl4KQjLPF7Bktz7ju3cn4XclpDdbwJ4bKQAAAABJRU5ErkJggg=="/>         
+                </div>)}
+              </div>
+            ))}
+          </ul>
 
           <ul className="database-ul">
             {databaseMessageLog?.map((dbMessageObject, index) => (
@@ -194,46 +251,7 @@ function ChatBox({ user }) {
             
             ))}
           </ul>
-          <ul className="state-ul">
-            {messageLog?.map((userMessageObject, index) => (
-              <div key={index+1} 
-                className={`chat-right-panel-text-containers  flex items-center ${
-                  userMessageObject.senderId[0]?.username === user.username
-                    ? `justify-end`
-                    : `justify-start `
-                }`}
-              >
-
-{ userMessageObject.senderId[0]?.username != user.username && (<div className="h-1/2">
-                <img className="h-full"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAA65JREFUaEPtml1y2jAQgG1fpOQkhSOAh+eWkzQ9SdJnRnCEkJPUuYgUr0dmVI9WuyutTVLiJxiMpE/7v1Jd3dlT3xlv9QX8v0v8S8LaEj4ej+umab5XVbWq63rlnFvB56qqOpirruvOOTd8rqrqtW3bZ+01hOOpS/h8Pq+stT881M+MxQP8ZS54NeAA9DEDEvsLwD+3bftba0wVYGPMr35BmqBTPjXwImAv1RevvlpCSI3TNU2z2W63o82L58wG9s4IYJd+iqSdBbyACnM28THHtsXAp9PpxTm35qxogXfE0CLgDyLZ6T6KoNnAN7RZjqIcuAkLC/iDw8KGdNbaw36/h4Ql+bCAjTF/Fww91JrRJKVt2wfqzySwMQbSwydqIObvY/yEfHnMrTUdIKnaHGAN6SZjp6Iz7CgpJ4E1FlLX9WW3220oDYCszTn3pBDyIPc+YPNRwI5aKPV70zQP3FTQp6qgUSVPUsoosJLtkjY1JdOY11q7wTx2ChgcVU49e2XoUz/SR8RE2ZtSkWalzCgFPNuklL4qpK+oWkeBNdTKF+6o80hBazhLTK0xYI2CXpTjhhtgjCk2p3686PwYcPGE3HCE2LBG7I+Gpyiwgg0N+S2VBGBqXeq0YFxswzEJa+wwzHuTsOQ3MrrhGHCRhw4kJ+pBKSUe4/Q3AR5Um9N4U0wtk3nAnDYcmuhSxcM/c8Z8yFLAVzXzH6BQ73rHslYoFqK+T+q0isMSlU0t8Ds/LGlkOgsAUVPwE49P0MOiYNGQGLVh7fDgj0THBttbZLVwnArJAjQBVFo+WKWGVkuF2dbglfvi/w+3+B83QekUEu16oMC5al2SQ4eS9+BQxOTU5GiGhwJnqnV2hZTIq8WVW6rxQPW0JJOpw46bIIwayXUkgbnnv1pqrNEUoNpKZM+J2f1g5cucWBJ7R5Bnk9UZCSyYbBZorpZx628SGHZc4MCKTuen0pXYbqo1G47LAoY/MFX7WiRwT/MwFbbWsu+OcGGH5EZiV5Id9+MOEu8X9EodZQYJB8RduLjGfUTRQQTsJS0JVeGioRwMb93BZhSdIOZEBzFwITRXapz3RJIdB8wCzrBpDgD7HYnNTgfNBg68N9u5sInwF9lXG7AhioADaLhMKnU2En61cFcMPK5aqayLbUKWrc4m4enAHhyKeCjqc0q70Ztfcm7aUWqjJuFEAgHw38YQBO/5rsb0gjh8f+Pet6LAFpNw7kKW+t+sEl4KQjLPF7Bktz7ju3cn4XclpDdbwJ4bKQAAAABJRU5ErkJggg=="/>         
-                </div>)}
-                <div className={`chat-right-panel-text-bubbles ${
-                  userMessageObject.senderId[0]?.username === user.username
-                    ? `bg-blue-400`
-                    : `bg-gray-400 `
-                }`}>
-                  <div  className="chat-right-panel-text-bubbles-innerdiv ">
-                    {/* {`${
-                      userMessageObject.senderId[0]?.username
-                        ? userMessageObject.senderId[0]?.username
-                        : user.username
-                    }`}{" "}
-                    <button
-                      onClick={function () {
-                        handleDeleteButtonSubmit(userMessageObject, index);
-                      }}
-                    >
-                      <i className="bx bx-trash-alt"></i>
-                    </button> */}
-                  </div>
-                  <li >{` ${userMessageObject.message}`}</li>
-                </div>
-                { userMessageObject.senderId[0]?.username === user.username && (<div className="h-1/2">
-                <img className="h-full"  src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAA65JREFUaEPtml1y2jAQgG1fpOQkhSOAh+eWkzQ9SdJnRnCEkJPUuYgUr0dmVI9WuyutTVLiJxiMpE/7v1Jd3dlT3xlv9QX8v0v8S8LaEj4ej+umab5XVbWq63rlnFvB56qqOpirruvOOTd8rqrqtW3bZ+01hOOpS/h8Pq+stT881M+MxQP8ZS54NeAA9DEDEvsLwD+3bftba0wVYGPMr35BmqBTPjXwImAv1RevvlpCSI3TNU2z2W63o82L58wG9s4IYJd+iqSdBbyACnM28THHtsXAp9PpxTm35qxogXfE0CLgDyLZ6T6KoNnAN7RZjqIcuAkLC/iDw8KGdNbaw36/h4Ql+bCAjTF/Fww91JrRJKVt2wfqzySwMQbSwydqIObvY/yEfHnMrTUdIKnaHGAN6SZjp6Iz7CgpJ4E1FlLX9WW3220oDYCszTn3pBDyIPc+YPNRwI5aKPV70zQP3FTQp6qgUSVPUsoosJLtkjY1JdOY11q7wTx2ChgcVU49e2XoUz/SR8RE2ZtSkWalzCgFPNuklL4qpK+oWkeBNdTKF+6o80hBazhLTK0xYI2CXpTjhhtgjCk2p3686PwYcPGE3HCE2LBG7I+Gpyiwgg0N+S2VBGBqXeq0YFxswzEJa+wwzHuTsOQ3MrrhGHCRhw4kJ+pBKSUe4/Q3AR5Um9N4U0wtk3nAnDYcmuhSxcM/c8Z8yFLAVzXzH6BQ73rHslYoFqK+T+q0isMSlU0t8Ds/LGlkOgsAUVPwE49P0MOiYNGQGLVh7fDgj0THBttbZLVwnArJAjQBVFo+WKWGVkuF2dbglfvi/w+3+B83QekUEu16oMC5al2SQ4eS9+BQxOTU5GiGhwJnqnV2hZTIq8WVW6rxQPW0JJOpw46bIIwayXUkgbnnv1pqrNEUoNpKZM+J2f1g5cucWBJ7R5Bnk9UZCSyYbBZorpZx628SGHZc4MCKTuen0pXYbqo1G47LAoY/MFX7WiRwT/MwFbbWsu+OcGGH5EZiV5Id9+MOEu8X9EodZQYJB8RduLjGfUTRQQTsJS0JVeGioRwMb93BZhSdIOZEBzFwITRXapz3RJIdB8wCzrBpDgD7HYnNTgfNBg68N9u5sInwF9lXG7AhioADaLhMKnU2En61cFcMPK5aqayLbUKWrc4m4enAHhyKeCjqc0q70Ztfcm7aUWqjJuFEAgHw38YQBO/5rsb0gjh8f+Pet6LAFpNw7kKW+t+sEl4KQjLPF7Bktz7ju3cn4XclpDdbwJ4bKQAAAABJRU5ErkJggg=="/>         
-                </div>)}
-              </div>
-            ))}
-          </ul>
+         
          
         </>
       )}
