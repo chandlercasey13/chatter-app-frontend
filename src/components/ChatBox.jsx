@@ -77,7 +77,7 @@ function ChatBox({ user }) {
   }
  
   useEffect(() => {
-    socket.on('refreshChatLog', offlineMessageListener);
+     socket.on('refreshChatLog', offlineMessageListener);
    
     socket.on("message", messageListener);
     return () => socket.off("message", messageListener);
@@ -163,7 +163,6 @@ function ChatBox({ user }) {
       {foundUserId && (
         <>
  
-
  <ul className="state-ul">
             {messageLog?.map((userMessageObject, index) => (
               <div key={index+1} 
@@ -204,6 +203,7 @@ function ChatBox({ user }) {
               </div>
             ))}
           </ul>
+
 
           <ul className="database-ul">
             {databaseMessageLog?.map((dbMessageObject, index) => (

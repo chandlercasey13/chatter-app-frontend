@@ -30,7 +30,6 @@ function App() {
 
 
 
-
  
   const [loginText, setLoginText] = useState({ username: "", password: "" });
   const [isSignedup, setIsSignedUp] = useState(true);
@@ -48,7 +47,7 @@ try {
 
 const user = isSignedup ?  await authService.signin(loginText) : await authService.signup(loginText)
 
-  setUser(user);
+  setUser(authService.getUser());
   navigate('/');
 
 } catch (err) {
@@ -161,7 +160,7 @@ const user = isSignedup ?  await authService.signin(loginText) : await authServi
                             {isSignedup? "Log In": "Sign Up"}
                             
                           </button>
-                          <button
+                          <button type='button'
                         onClick={function () {
                           setIsSignedUp(!isSignedup);
                         }}

@@ -25,6 +25,7 @@ const chatLogIndex = async () => {
 
 const create = async function (participant, user) {
   try {
+    console.log(participant, user)
     const res = await fetch(`${BACKEND_URL}/chatlogs/new/${participant._id}`, {
       method: "POST",
       headers: {
