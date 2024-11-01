@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { CiSearch } from "react-icons/ci";
 import LoadingSpinner from "./LoadingSpinner";
 import UserProfile from "./ChatSearchProfile";
@@ -9,8 +9,24 @@ const SearchUser = ({ onClose, user }) => {
   const [searchUser, setSearchUser] = useState([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (inputRef.current) {
+        inputRef.current.focus();  // Focus the input on component mount
+        inputRef.current.select();  // Select the text
+    }
+}, []);
+
+
+
+
+
 
   const handleSearchUser = async () => {
+
+
+    
     const URL = `${BACKEND_URL}/messages/search-user`;
     try {
       setLoading(true);
@@ -31,27 +47,42 @@ const SearchUser = ({ onClose, user }) => {
     } catch (error) {
       console.log(error);
     }
+
+
+   
+
   };
+
+  
   useEffect(() => {
     handleSearchUser();
   }, [search]);
 
   return (
-    <div className=" search-modal h-full fixed top-0 bottom-0 left-0 right-0 text-slate-500 bg-slate-700 bg-opacity-30 p-3 ">
-      <div className="w-full max-w-3xl h-full rounded  mx-auto  overflow-hidden ">
-        <div className="bg-white rounded h-10  flex">
+    <div className=" search-modal h-screen w-1/2 absolute top-0 bottom-0 left-0 right-0 text-slate-500   ">
+      <div className="w-full max-w-3xl h-full rounded  mx-4  overflow-visible ">
+       
+       
+       
+        <div className="bg-white rounded h-10  flex items-center justify-center">
+          <h1 className="flex items-center text-xl font-medium">
+            To:
+          </h1>
           <input
             type="text"
-            placeholder="Search by username..."
+            ref={inputRef}
             className="w-full outline-none py-1 h-full px-4"
             onChange={(e) => setSearch(e.target.value)}
             value={search}
           />
-          <div className="h-9 w-9 flex justify-center items-center">
-            <CiSearch size={25} />
-          </div>
+          
         </div>
-        <div className="bg-white mt-2 w-full max-h-screen rounded p-3 overflow-auto scroll-auto  ">
+
+
+
+
+<div className="w-full h-1/2  max-h-screen mt-2 p-2 pr-1  shadow-custom border-2 rounded-2xl">
+        <div className="bg-white  w-full h-full overflow-auto scroll-auto">
           {searchUser.length === 0 && (
             <p className="text-left text-slate-500">User Does Not Exist</p>
           )}
@@ -73,14 +104,13 @@ const SearchUser = ({ onClose, user }) => {
               );
             })}
         </div>
+        </div>
       </div>
       <div
         className="absolute top-0 right-0 text-2xl p-2 lg:text-4xl hover:text-white"
         onClick={onClose}
       >
-        <button>
-          <IoIosCloseCircleOutline color="white" />
-        </button>
+      
       </div>
     </div>
   );

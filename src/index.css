@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 *::-webkit-scrollbar {
-  width: 7px; /* Width of the vertical scrollbar */
+  width: 3px; /* Width of the vertical scrollbar */
 }
 
 *::-webkit-scrollbar-track {
@@ -318,7 +318,7 @@ height: 100%;
   align-items: center;
   height: 95svh;
   width: 83.33vw;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 .chat-window-right-panel-chat-container-overflow {

@@ -5,7 +5,7 @@ import SearchUserBtn from "./SearchUserButton";
 import SearchUser from "./SearchUser";
 import { useParams } from "react-router-dom";
 import * as chatService from "../../../services/chatService";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as messageService from "../../../services/messageService"
 import Sidebar from "../../DisplayChats";
 import { GiConsoleController } from "react-icons/gi";
@@ -18,8 +18,9 @@ const ChatBar = ({ user }) => {
   const [userChats, setUserChats] = useState(false);
   const [insideRoom, setSetInsideRoom] = useState(false);
   const {foundUserusername} =useParams();
- 
+  const navigate = useNavigate();
   const onOpen = () => {
+navigate('/')
     setOpenSearchBox(true);
   };
   const onClose = () => {
@@ -82,7 +83,7 @@ refreshUserChats(userId)
       
    
       <SearchUserBtn onOpen={onOpen} />
-      {openSearchBox ? <SearchUser /> : ""}
+      
       <div className="divide-y-4 divde-slate-400/25"></div>
       <ChatLog />
       <div className="divide-y-4 divde-slate-400/25"></div>
@@ -96,7 +97,7 @@ refreshUserChats(userId)
         )}
       </div>
 
-      {openSearchBox &&  <SearchUser user={user} onClose={onClose} />}
+     
 
 
 

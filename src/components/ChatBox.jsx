@@ -7,7 +7,7 @@ import UserProfile from "./chatbar/ChatSearchProfile";
 import { useParams } from "react-router-dom";
 import UserAvatar from "./chatbar/UserAvatar";
 import { ChatContext } from "../context";
-import { ssrExportAllKey } from "vite/runtime";
+import SearchUser from "./chatbar/SearchUser";
 function ChatBox({ user }) {
   const [textInputData, setTextInputData] = useState({
     senderId: [{ username: user.username }],
@@ -156,7 +156,7 @@ function ChatBox({ user }) {
             
           
         ) : (
-          ""
+          <SearchUser />
         )}
       </header>
       <div className="chat-window-right-panel-chat-container-overflow">
