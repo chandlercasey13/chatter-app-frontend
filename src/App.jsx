@@ -24,9 +24,7 @@ function App() {
   const navigate = useNavigate();
 
 
-  const [user, setUser] = useState(authService.getUser());
-
-
+  const [user, setUser] = useState(null);
 
 
 
@@ -35,28 +33,32 @@ function App() {
   const [isSignedup, setIsSignedUp] = useState(true);
   const [loginMessage, setLoginMessage] =useState("Connect with your friends and family, build your community, and deepen your interests.")
   
-  const [userChats, setUserChats] = useState(false);
+  const [userChats, setUserChats] = useState([]);
   const { previewMessage, setPreviewMessage } = useContext(ChatContext);
 
   const userId = user?._id;
 
-// console.log(previewMessage)
-// console.log(userChats[0][0]?.messages[userChats[0][0]?.messages.length-1])
 
 
+console.log(user)
 
 useEffect(() => {
-refreshUserChats(userId)
-},[previewMessage])
+  if (userId) {
+    refreshUserChats(userId);
+}
+
+},[previewMessage,userId])
 
     const refreshUserChats = async function (userId) {
       
-      if(user){
+      if(userId){
         
       const allUserChats = await chatService.getUserChats(userId);
       
       setUserChats([ allUserChats]);
-      }
+      } else {
+        setUserChats([]); // Clear chats if user is not signed in
+    }
       
       
     };
@@ -70,11 +72,12 @@ try {
   
 
 const user = isSignedup ?  await authService.signin(loginText) : await authService.signup(loginText)
-
-  setUser(authService.getUser());
-  console.log(userChats)
+setUser(user);
+console.log(user)
+ 
   navigate(`/chatlogs/${userChats[0][0]._id}/user/${userChats[0][0].participants[0].username === user.username ? `${userChats[0][0].participants[1]._id}`: `${userChats[0][0].participants[0]._id}`}/${userChats[0][0].participants[0].username === user.username ? `${userChats[0][0].participants[1].username}`: `${userChats[0][0].participants[0].username}` }
    ` );
+  
 
 } catch (err) {
   console.log(err)
@@ -123,7 +126,7 @@ const user = isSignedup ?  await authService.signin(loginText) : await authServi
           <nav className=" chat-top-navbar"><button><Link to="/" >
           <img className="navbar-profile-image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAA7hJREFUaEPtWe1R4zAQlZxCLhQARweERkhcSUglSWiE0AEHBeBGYp1XI2fk9X4pDneTGTxzPw6E9d7u2097d+WPv3L87ofA//bgxTxwvw3ztnJLIBS8W/jg5s7Ff036WVO1rmkr9/b55HeXIj6ZwN0+rBPgRSEoILb7WPpN4d8Njp9NAIB31l0lK0/BMIlIMYEkldcLAMekQWKP77WPkrM+RQTut2HRVg7Ac0+0ZgfkDbQPYIBwOgwx8qDIrdgbZgJJMs8E8uJLs4Cn3gdXPFtjw0RAAG++iHKZQsT0bpUAJ5uk14NVq9K525ew8sFtiTMqCZEAAx6CrX6vPQk+s2qfoWJQ+uAOPri98nc4OYh3xfdKlrnbhy+cbSTL/96FbfAxtbJPV+B2f1a+FiQFd+ZP87H0N9wLWQKUWyXwty/htbOytZixoKh7g3c1V71ZAtj6kuUKwUdjSu8jPMkSJgkw1r+higwXJ8G7DVgt1QGoARCkfU2IJDiPpjgaSInzAkcAy4HNBlZrAajjzG1zmXVF7fD55B8pfWMjcmdJAl3eD/lLq9aR1oczWGpSnBDeYqVBeaErbiO8ox9g5pJWEwEzWQKUmGFwbFHGGRHAkpAyQCkB6jxl1d77uAOgjEl5YKB/reJarNQDIpKD6AEsOSoORgQITbP6B2BECpVy/MA4mjwtkqMIDDQtuRgIaO1G306nNtyURnuP/RMCcJmlhcCpUrN+FgeiQSfHQPLCKMdL/RAMO1J/w3nAFAMlQZmDNAwp8bhUvDBpLE9TFiKGF7Unx0SCd+u2cvOs6p5GTa6dtlRjEwFrCVckcpFfYzVQNWkUA9YSTrg7LrZgoZWsP8g4qQM9dPMCDCkw2KjbB0tLM7mZA8IgGW2QQYSbNKFtOCKWKhyNQvmaarqonY1hzaJJid1oYOsXtdOUjHAACYO4Bhr/fkSCqitcQS0ZKZtsSOEWXIPFFkIKtQLiAuIEj56n4Z3y6lkjJdfnwEbiOHNrDELrWnMyzNx7mB1d3SUCPImxQw8bA0IvQspD61gtOZ7TnTRMqQSSF7ilU7zT2tMwJLRNhlpE1c0cXCysFtnB3BLJSiJQwZs80APRlrvW4gTv0/qmkngyecBA4iQn+IQE/5kd43r90M8Dx1n87PQLKrVU9ErjqYhAZr3v+sDB7lw5SRYTsEjAov/sTPH3hfz9ZxFAaRa+TJ7zrWwS8B7DJAK5JdLmbVG17iHrRvuO9LRiL+lGLZ68GAHLZd9x5ofAd1i15J1X74G/LGDXT0wGU60AAAAASUVORK5CYII="/></Link></button> 
           <VscSquirrel size={30} className="chat-logo"/> 
-          <button onClick={() => {authService.signout(); setUser(null); navigate('/');}}>Sign Out</button>
+          <button onClick={  () => { authService.signout(); setUser(false); setUserChats([]);  navigate('/');}}>Sign Out</button>
           </nav>
           <div className=" chat-window ">
             

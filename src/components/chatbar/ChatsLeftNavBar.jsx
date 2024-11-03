@@ -76,7 +76,7 @@ const ChatBar = ({ user, userId, onOpen, userChats, refreshUserChats }) => {
 
 
 
-{userChats && userChats[0].length>0 &&  (<ul className="chatlogs-left-navbar">
+{userChats && userChats[0]?.length>0 &&  (<ul className="chatlogs-left-navbar">
        
        {userChats[0]?.map((chats, i) => (
          <li key={i} className="chatlogs-left-li">
