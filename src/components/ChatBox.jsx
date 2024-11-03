@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import UserAvatar from "./chatbar/UserAvatar";
 import { ChatContext } from "../context";
 import SearchUser from "./chatbar/SearchUser";
-function ChatBox({ user }) {
+function ChatBox({ user, openSearchBox }) {
   const [textInputData, setTextInputData] = useState({
     senderId: [{ username: user.username }],
     message: "",
@@ -146,7 +146,7 @@ function ChatBox({ user }) {
     <>
     
       <header className="top-chat-name-container">
-        {foundUserId ? (
+        {!openSearchBox ? (
           
            
             
@@ -156,7 +156,7 @@ function ChatBox({ user }) {
             
           
         ) : (
-          <SearchUser />
+          <SearchUser user={user} />
         )}
       </header>
       <div className="chat-window-right-panel-chat-container-overflow">

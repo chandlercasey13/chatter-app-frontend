@@ -60,7 +60,7 @@ const SearchUser = ({ onClose, user }) => {
 
   return (
     <div className=" search-modal h-screen w-1/2 absolute top-0 bottom-0 left-0 right-0 text-slate-500   ">
-      <div className="w-full max-w-3xl h-full rounded  mx-4  overflow-visible ">
+      <div className="w-full max-w-3xl h-full rounded  mx-2  overflow-visible ">
        
        
        

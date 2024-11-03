@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import UserAvatar from "./UserAvatar";
 import * as chatService from "../../../services/chatService";
 import {  Route, Routes, useNavigate } from "react-router-dom";
-const UserProfile = ({ user, founduser, onClose }) => {
+const UserProfile = ({ user, founduser }) => {
 
   const navigate = useNavigate();
 
@@ -18,10 +18,10 @@ const UserProfile = ({ user, founduser, onClose }) => {
     
     const newChat = await chatService.create(founduser, user); 
     
- 
+
     navigate(`/chatlogs/${newChat._id}/user/${founduser?._id}/${founduser?.username} `);
 
-    onClose()
+    
   };
 
   return (

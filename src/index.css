@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 *::-webkit-scrollbar {
-  width: 3px; /* Width of the vertical scrollbar */
+  width: 2px; /* Width of the vertical scrollbar */
 }
 
 *::-webkit-scrollbar-track {
@@ -12,7 +12,7 @@
 }
 
 *::-webkit-scrollbar-thumb {
-  background: #bdbdbd; /* Handle color */
+  background: #8c8a85; /* Handle color */
   border-radius: 10px; /* Rounded corners */
 }
 
@@ -197,6 +197,11 @@ color: transparent;  */
   padding: 1px 10px;
 }
 
+.navbar-profile-image{
+  height: 70%;
+}
+
+
 .chat-logo {
   padding: 1px;
   display: flex;
@@ -219,6 +224,8 @@ color: transparent;  */
   border-right: 1px solid rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
+  
+  overflow: auto;
 }
 
 .chatlogs-left-navbar {
@@ -230,7 +237,7 @@ color: transparent;  */
   align-items: center;
   background-color: white;
   height: 10%;
-  width: 100%;
+  width: 95%;
   border-radius: 5px;
   border-top:1px solid rgba(0, 0, 0, 0.2);
   padding: 10px;
@@ -268,14 +275,15 @@ height: 100%;
 }
 
 .search-user-button-container {
-  height: 5%;
+  height: 7%;
   display: flex;
+  position: sticky;
   justify-content: space-between;
   align-items: center;
   color: black;
   font-size: 20px;
   font-weight: 700;
-  padding: 10px 10px 0px;
+  padding: 10px 10px 10px;
 }
 .search-user-button {
   font-size: 15px;
