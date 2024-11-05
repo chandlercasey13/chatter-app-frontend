@@ -45,15 +45,18 @@ const handleIsInChat = function () {
       refreshUserChats(userId);
     }
   }, [previewMessage, user]);
-
-
+ 
+console.log(userId)
   useEffect(()=>{
-    if (userChats.length>0 && !isInChat){
+    console.log(userId)
+    if (userChats.length>0 && !isInChat && userId){
       navigate(`/chatlogs/${userChats[0][0]?._id}/user/${userChats[0][0]?.participants[0].username === user.username ? `${userChats[0][0]?.participants[1]._id}`: `${userChats[0][0]?.participants[0]._id}`}/${userChats[0][0]?.participants[0].username === user.username ? `${userChats[0][0]?.participants[1].username}`: `${userChats[0][0]?.participants[0].username}` }
         ` );
+    } else{
+      navigate(`/chatlogs/undefined/user/${userId}/undefined ` );
     }
     
-    },[userChats])
+    },[userChats,user])
     
 
 
@@ -76,8 +79,8 @@ const handleIsInChat = function () {
       const userToken = isSignedup
         ? await authService.signin(loginText)
         : await authService.signup(loginText);
-
-      setUser(userToken);
+console.log(userToken)
+      setUser(userToken.user);
     } catch (err) {
       console.log(err);
       setLoginMessage("Invalid username or password");

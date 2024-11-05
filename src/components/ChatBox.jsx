@@ -48,9 +48,10 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
       setCurrentRoom(newRoom);
     };
 
-    if (foundUserId) getUser(foundUserId);
+    if (foundUserId) {
+      getUser(foundUserId);
     handleRoomChange(chatId);
-    handleChatChange(chatId);
+    handleChatChange(chatId);}
   }, [foundUserId]);
 
   const messageListener = async (messagecontent) => {
