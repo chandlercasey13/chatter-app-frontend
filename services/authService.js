@@ -20,9 +20,12 @@ const signup = async (formData) => {
     if (json.error) {
       throw new Error(json.error);
     }
+
+    // Save token in localStorage
     localStorage.setItem("token", json.token);
 
-    return json;
+    // Return user data decoded from the token
+    return JSON.parse(atob(json.token.split(".")[1]));  // Return just the user object
   } catch (err) {
     throw new Error(err);
   }
@@ -41,7 +44,10 @@ const signin = async (user) => {
       throw new Error(json.error);
     }
     if (json.token) {
+      // Save token in localStorage
       localStorage.setItem("token", json.token);
+
+      // Return the user data from the token
       const user = JSON.parse(atob(json.token.split(".")[1]));
       
       return user;
@@ -51,7 +57,6 @@ const signin = async (user) => {
     throw err;
   }
 };
-
 const signout = () => {
   localStorage.removeItem("token");
 };

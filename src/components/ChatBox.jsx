@@ -48,7 +48,7 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
       setCurrentRoom(newRoom);
     };
 
-    if (foundUserId) {
+    if (foundUserId && foundUserId != 'undefined') {
       getUser(foundUserId);
     handleRoomChange(chatId);
     handleChatChange(chatId);}

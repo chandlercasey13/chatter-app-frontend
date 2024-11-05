@@ -68,9 +68,9 @@ const SearchUser = ({ onClose, user, refreshUserChats }) => {
               <p className="text-left text-slate-500">User Does Not Exist</p>
             )}
             {loading && (
-              <p>
+              <div className="flex w-full h-full items-center justify-center">
                 <LoadingSpinner />
-              </p>
+              </div>
             )}
             {searchUser.length !== 0 &&
               !loading &&

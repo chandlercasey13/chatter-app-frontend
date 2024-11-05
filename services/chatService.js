@@ -59,6 +59,24 @@ const update = async function (chatId, messageId) {
   }
 };
 
+
+const deleteChat = async function (chatId) {
+  try {
+    const res = await fetch(`${BACKEND_URL}/chatlogs/${chatId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ chatId: chatId }),
+    });
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
 const getUserChats = async function (userId) {
   try {
     const res = await fetch(`${BACKEND_URL}/chatlogs/user/${userId}`, {
@@ -107,4 +125,4 @@ const getChatMessages = async function (chatId) {
 
 
 
-export { chatLogIndex, getUser, create, update, getUserChats, getChatMessages };
+export { chatLogIndex, getUser, create, update, getUserChats, getChatMessages, deleteChat };
