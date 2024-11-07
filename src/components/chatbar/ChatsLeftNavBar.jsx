@@ -6,6 +6,8 @@ import { useParams } from "react-router-dom";
 
 import { Link, useNavigate } from "react-router-dom";
 import * as messageService from "../../../services/messageService"
+
+import * as chatService from "../../../services/chatService"
 import Sidebar from "../../DisplayChats";
 import { GiConsoleController } from "react-icons/gi";
 
@@ -45,12 +47,13 @@ const ChatBar = ({ user, userId, onOpen, onClose, userChats, refreshUserChats, h
   //   refreshUserChats(); // Refresh chats after updating message
   // };
 
-const handleDeleteConversation = async function (event, chatId) {
+const handleDeleteConversation = async function ( chatId, event) {
   event.stopPropagation();
-  console.log('yo')
+ 
+await chatService.deleteChat(chatId)
+  
   refreshUserChats(userId)
 }
-
 
 
 
@@ -114,7 +117,7 @@ const handleDeleteConversation = async function (event, chatId) {
                </div>
               
                </div>
-               <div className="delete-icon" onClick={handleDeleteConversation}>
+               <div className="delete-icon" onClick={(event) => handleDeleteConversation(chats?._id,event)}>
                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAAXRJREFUaEPtWdFtwlAMtJmEDlDaEcoiDUzSMgnQRcoILR2gmQSXICJFtNE59rOiqM4XknM+312eomCmiV888fkpBYydoCuBx63MhelFmFYGITULHVho87Hm2oC/QMwCmuFPM/q2Endw9exES6sIs4CHnWyNzv/SLEyHr2deWswwC1jspXF/biH9A1MfK76z9PIIkC7hseJBvRZ7ceFb7kGk3YG9A3jxKcDroBcPE7glsBywkpi+M9Z7BlJASfuJ6P8lcGtgqUPXF4y1v/o9YCXQPknW/ilA6zC6b/QE0ADeep8BxR4h74AInwKQQ9H1TCDaYdQ/E0AORdczgWiHUf9MADkUXc8Eoh1G/TMB5FB0PTwB9MGC6siAFGB1CDnf1q39i32RaQcd82+VkgsNqFe7b1AncP8m7+el3BNkLnADC+0+V7zWtFILKLjUQ3MNWvqpBTSsVxHV+fcrmsJQv6xdtc63/QcJMAwVDkkB4RYDgskn8ANr3qpA65MuOAAAAABJRU5ErkJggg=="/>
                </div>
                <div className="chat-unread-dot">

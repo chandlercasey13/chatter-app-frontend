@@ -26,6 +26,7 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
   const { chatId } = useParams();
 
   const { previewMessage, setPreviewMessage } = useContext(ChatContext);
+  const inputRef = useRef(null);
 
   useEffect(() => {
     async function getUser(foundUserId) {
@@ -36,7 +37,7 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
     const handleChatChange = async function (newChatId) {
       const chatMessages = await chatService.getChatMessages(newChatId);
 
-      setDatabaseMessageLog(chatMessages.messages);
+      setDatabaseMessageLog(chatMessages?.messages);
     };
 
     const handleRoomChange = function (newRoom) {
@@ -47,6 +48,13 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
       socket.emit("join", newRoom, user.username);
       setCurrentRoom(newRoom);
     };
+
+    if (inputRef.current) {
+      inputRef.current.focus(); 
+      inputRef.current.select(); 
+    }
+
+
 
     if (foundUserId && foundUserId != 'undefined') {
       getUser(foundUserId);
@@ -64,10 +72,17 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
     setTimeout(() => setPreviewMessage(["otherRoom", foundUserusername]), 1000);
   };
 
+ 
+
+
+
+
   useEffect(() => {
     socket.on("refreshChatLog", offlineMessageListener);
 
     socket.on("message", messageListener);
+   
+
     return () => socket.off("message", messageListener);
   }, []);
 
@@ -266,6 +281,7 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
           onChange={handleTextInput}
           required
           onClick={() => onClose()}
+          ref={inputRef}
         ></input>
 
         <button className="w-10 ml-1 rounded-lg border-blue-300 border-2">
