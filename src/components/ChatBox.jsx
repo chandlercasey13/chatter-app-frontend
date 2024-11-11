@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import UserAvatar from "./chatbar/UserAvatar";
 import { ChatContext } from "../context";
 import SearchUser from "./chatbar/SearchUser";
+import { data } from "autoprefixer";
 function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
   const [textInputData, setTextInputData] = useState({
     senderId: [{ username: user.username }],
@@ -137,7 +138,7 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
 
     setMessageLog(filteredLog);
   }
-
+console.log(databaseMessageLog)
   return (
     <>
       <header className="top-chat-name-container">
@@ -152,7 +153,7 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
         )}
       </header>
       <div className="chat-window-right-panel-chat-container-overflow">
-        {foundUserId && (
+        {(foundUserId && databaseMessageLog?.length > 0 && messageLog?.length >0) ?  (
           <>
             <ul className="state-ul">
               {messageLog?.map((userMessageObject, index) => (
@@ -189,7 +190,7 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
                       onClick={function () {
                         handleDeleteButtonSubmit(userMessageObject, index);
                       }}
-                    >
+                    > console.log
                       <i className="bx bx-trash-alt"></i>
                     </button> */}
                     </div>
@@ -266,6 +267,17 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
               ))}
             </ul>
           </>
+        ) : (<div className="w-full h-full">yo
+        
+        
+        
+        
+        
+        
+        
+        </div>
+
+
         )}
       </div>
       <form className="input-box-container" onSubmit={handleButtonSubmit}>
