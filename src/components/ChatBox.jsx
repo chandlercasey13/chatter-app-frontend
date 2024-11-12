@@ -190,7 +190,7 @@ console.log(databaseMessageLog)
                       onClick={function () {
                         handleDeleteButtonSubmit(userMessageObject, index);
                       }}
-                    > console.log
+                    >
                       <i className="bx bx-trash-alt"></i>
                     </button> */}
                     </div>
