@@ -30,11 +30,7 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
   const inputRef = useRef(null);
 
   useEffect(() => {
-    async function getUser(foundUserId) {
-      const foundUserObject = await chatService.getUser(foundUserId);
-      setSelectedUser(foundUserObject);
-    }
-
+  
     const handleChatChange = async function (newChatId) {
       const chatMessages = await chatService.getChatMessages(newChatId);
 
@@ -58,7 +54,7 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
 
 
     if (foundUserId && foundUserId != 'undefined') {
-      getUser(foundUserId);
+      
     handleRoomChange(chatId);
     handleChatChange(chatId);}
   }, [foundUserId]);
@@ -87,12 +83,7 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
     return () => socket.off("message", messageListener);
   }, []);
 
-  useEffect(() => {
-    const createChatRouter = async function () {
-      setChatParticipant(selectedUser.user);
-    };
-    createChatRouter();
-  }, [user, selectedUser]);
+
 
   function handleTextInput(event) {
     setTextInputData({
@@ -138,12 +129,15 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
 
     setMessageLog(filteredLog);
   }
-console.log(databaseMessageLog)
+
   return (
     <>
       <header className="top-chat-name-container">
         {!openSearchBox ? (
-          <h1 className="top-chat-name">{selectedUser.user?.username}</h1>
+          <h1 className="top-chat-name">{
+           foundUserusername
+            }
+            </h1>
         ) : (
           <SearchUser
             user={user}

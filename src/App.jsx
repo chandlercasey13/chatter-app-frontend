@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext,useRef } from "react";
 import { useParams } from "react-router-dom";
 import ChatBar from "./components/chatbar/ChatsLeftNavBar";
 
 import ChatBox from "./components/ChatBox";
-import * as authService from "../services/authService";
+import * as authService from "../services/userService";
 import * as chatService from "../services/chatService";
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import UserAvatar from "./components/chatbar/UserAvatar";
 import { ChatContext } from "../src/context";
 
 import { VscSquirrel } from "react-icons/vsc";
-
+import ImageUploadModal from "./components/ImageUploadModal";
 
 import "./App.css";
 
@@ -30,14 +30,23 @@ function App() {
   const {foundUserId} =useParams();
   const userId = user?._id;
   const [isInChat, setIsInChat] =useState(false);
- 
+ const [imageUploadOpen, setImageUploadOpen]= useState(false);
+
+const handleImageUploadModalClose = function () {
+
+setImageUploadOpen(false)
+console.log('yo')
+}
+
+const handleImageUploadModalOpen = function () {
+
+  setImageUploadOpen(true)
+  
+  }
 
 const handleIsInChat = function () {
   setIsInChat(true)
 }
-
-
-
 
 
   useEffect(() => {
@@ -60,9 +69,8 @@ const handleIsInChat = function () {
     
     
     },[userChats])
-    
 
-
+  
 
 
   const refreshUserChats = async function (userId) {
@@ -88,6 +96,7 @@ const handleIsInChat = function () {
       console.log(err);
       setLoginMessage("Invalid username or password");
     }
+
   }
 
   function handleTextInput(event) {
@@ -109,15 +118,17 @@ const handleIsInChat = function () {
       <div id="root">
         {user ? (
           <>
+         <ImageUploadModal imageUploadOpen={imageUploadOpen} handleImageUploadModalClose= {handleImageUploadModalClose} user={user}/>
+
             <section className="chat-screen-container">
-              <nav className=" chat-top-navbar">
-                <button>
-                  <Link to="/">
+              <nav className=" chat-top-navbar ">
+                <button onClick={handleImageUploadModalOpen}>
+              
                     <img
                       className="navbar-profile-image"
                       src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAA7hJREFUaEPtWe1R4zAQlZxCLhQARweERkhcSUglSWiE0AEHBeBGYp1XI2fk9X4pDneTGTxzPw6E9d7u2097d+WPv3L87ofA//bgxTxwvw3ztnJLIBS8W/jg5s7Ff036WVO1rmkr9/b55HeXIj6ZwN0+rBPgRSEoILb7WPpN4d8Njp9NAIB31l0lK0/BMIlIMYEkldcLAMekQWKP77WPkrM+RQTut2HRVg7Ac0+0ZgfkDbQPYIBwOgwx8qDIrdgbZgJJMs8E8uJLs4Cn3gdXPFtjw0RAAG++iHKZQsT0bpUAJ5uk14NVq9K525ew8sFtiTMqCZEAAx6CrX6vPQk+s2qfoWJQ+uAOPri98nc4OYh3xfdKlrnbhy+cbSTL/96FbfAxtbJPV+B2f1a+FiQFd+ZP87H0N9wLWQKUWyXwty/htbOytZixoKh7g3c1V71ZAtj6kuUKwUdjSu8jPMkSJgkw1r+higwXJ8G7DVgt1QGoARCkfU2IJDiPpjgaSInzAkcAy4HNBlZrAajjzG1zmXVF7fD55B8pfWMjcmdJAl3eD/lLq9aR1oczWGpSnBDeYqVBeaErbiO8ox9g5pJWEwEzWQKUmGFwbFHGGRHAkpAyQCkB6jxl1d77uAOgjEl5YKB/reJarNQDIpKD6AEsOSoORgQITbP6B2BECpVy/MA4mjwtkqMIDDQtuRgIaO1G306nNtyURnuP/RMCcJmlhcCpUrN+FgeiQSfHQPLCKMdL/RAMO1J/w3nAFAMlQZmDNAwp8bhUvDBpLE9TFiKGF7Unx0SCd+u2cvOs6p5GTa6dtlRjEwFrCVckcpFfYzVQNWkUA9YSTrg7LrZgoZWsP8g4qQM9dPMCDCkw2KjbB0tLM7mZA8IgGW2QQYSbNKFtOCKWKhyNQvmaarqonY1hzaJJid1oYOsXtdOUjHAACYO4Bhr/fkSCqitcQS0ZKZtsSOEWXIPFFkIKtQLiAuIEj56n4Z3y6lkjJdfnwEbiOHNrDELrWnMyzNx7mB1d3SUCPImxQw8bA0IvQspD61gtOZ7TnTRMqQSSF7ilU7zT2tMwJLRNhlpE1c0cXCysFtnB3BLJSiJQwZs80APRlrvW4gTv0/qmkngyecBA4iQn+IQE/5kd43r90M8Dx1n87PQLKrVU9ErjqYhAZr3v+sDB7lw5SRYTsEjAov/sTPH3hfz9ZxFAaRa+TJ7zrWwS8B7DJAK5JdLmbVG17iHrRvuO9LRiL+lGLZ68GAHLZd9x5ofAd1i15J1X74G/LGDXT0wGU60AAAAASUVORK5CYII="
                     />
-                  </Link>
+                 
                 </button>
                 <VscSquirrel size={30} className="chat-logo" />
                 <button
@@ -156,6 +167,7 @@ const handleIsInChat = function () {
                           onClose ={onClose}
                           openSearchBox={openSearchBox}
                           refreshUserChats={refreshUserChats}
+                          
                         />
                       }
                     />
@@ -166,6 +178,7 @@ const handleIsInChat = function () {
           </>
         ) : (
           <>
+          
             <nav className="navbar-container">
               {" "}
               <div className="navbar">

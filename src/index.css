@@ -318,8 +318,11 @@ color: transparent;  */
 
 
 .chat-unread-dot{
-width: 2.5%;
-height: 100%;
+  display: flex;
+
+  justify-content: center;
+width: 5%;
+height: 10%;
 }
 
 .search-user-button-container {
@@ -484,6 +487,19 @@ border-radius: 50%;
   z-index: 10;
 }
 
+
+
+.image-upload-modal{
+
+}
+
+.image-upload-modal::backdrop{
+  background-color:  rgba(0, 0, 0, 0.15);
+}
+
+.image-upload-modal-container{
+
+}
 
 @media (min-height: 1100px) {
 

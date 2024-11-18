@@ -61,4 +61,27 @@ const signout = () => {
   localStorage.removeItem("token");
 };
 
-export { signup, signin, getUser, signout };
+
+const createUserPicture = async function (userId) {
+  try {
+    const res = await fetch(`${BACKEND_URL}/users/${userId}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({userId}),
+    });
+
+    
+    return res.json();
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
+
+
+export { signup, signin, getUser, signout, createUserPicture };
