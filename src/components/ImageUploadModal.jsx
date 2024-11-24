@@ -7,7 +7,7 @@ const ImageUploadModal = ({ imageUploadOpen, handleImageUploadModalClose, user }
   const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 
   const modalRef = useRef(null);
-
+  const [imageFile, setImageFile] = useState(null);
   const [image, setImage] = useState(`${BACKEND_URL}/users/${user._id}/images`);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -23,35 +23,38 @@ const ImageUploadModal = ({ imageUploadOpen, handleImageUploadModalClose, user }
   }, [imageUploadOpen]);
 
 
-  useEffect(() => {
-   
-    
-  }, [image]);
 
 
 
+  
   const handleImageChange = (event) => {
     const file = event.target.files[0];
     if (file) {
-      setImage(file);
-      console.log(file)
+      const imageUrl = URL.createObjectURL(file); // Create a temporary URL
+      console.log(imageUrl); // Logs the URL
+      setImage(imageUrl); // Set the URL to your state
+      setImageFile(file)
     }
   };
 
   const handleUpload = async (event) => {
     event.preventDefault()
 
+
     const formData = new FormData();
 
-    formData.append("image", image)
+    formData.append("image", imageFile)
 
    
     
       const postResponse = await userService.createUserPicture(user._id, formData);
       
 
+    
       const getResponse = await userService.getUserPicture(user._id, postResponse.imagePath )
-setImage(getResponse)
+
+console.log(getResponse)
+      setImage(`${BACKEND_URL}/users/${user._id}/images`)
       
     
   }
@@ -79,7 +82,7 @@ setImage(getResponse)
          
          <div className="w-full h-full flex justify-center items-center">
           <Avatar className="h-60 w-60"    >
-      <AvatarImage      src={image} alt="@shadcn" />
+      <AvatarImage src={image} alt="@shadcn" />
       <AvatarFallback>{user.username.charAt(0).toUpperCase()}</AvatarFallback>
     </Avatar>
     </div>
