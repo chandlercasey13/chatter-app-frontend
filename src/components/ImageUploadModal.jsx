@@ -62,7 +62,7 @@ const ImageUploadModal = ({ imageUploadOpen, handleImageUploadModalClose, user }
     <>
       {imageUploadOpen && (
         <dialog
-          className="image-upload-modal rounded-lg h-1/2 w-1/4 p-4 pt-0 flex flex-col items-center justify-around"
+          className="image-upload-modal rounded-lg h-1/2 w-1/2 p-4 pt-0 flex flex-col items-center justify-around"
           ref={modalRef}
         >
          

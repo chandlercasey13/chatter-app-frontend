@@ -308,7 +308,7 @@ color: transparent;  */
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 0px 10px 0px 0px;
-  max-height: 40%;
+  max-height: 30%;
 }
 
 .delete-icon{
@@ -485,6 +485,10 @@ border-radius: 50%;
 
 .image-upload-modal{
 
+min-width:300px;
+min-height: 400px;  
+max-width: 350px;
+max-height: 500px;
 }
 
 .image-upload-modal::backdrop{
