@@ -62,15 +62,15 @@ const signout = () => {
 };
 
 
-const createUserPicture = async function (userId) {
+const createUserPicture = async function (userId,formData) {
   try {
     const res = await fetch(`${BACKEND_URL}/users/${userId}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
-        "Content-Type": "application/json",
+     
       },
-      body: JSON.stringify({userId}),
+      body: formData,
     });
 
     
@@ -80,8 +80,26 @@ const createUserPicture = async function (userId) {
   }
 };
 
+const getUserPicture = async function (userId,imageKey) {
+  try {
+    const res = await fetch(`${BACKEND_URL}/users/${userId}/images/${imageKey}`, {
+      method: "GET",
+     
+      
+    });
+
+    const blob = await res.blob();
+    const imageUrl = URL.createObjectURL(blob);
+
+    return imageUrl;
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 
 
 
-export { signup, signin, getUser, signout, createUserPicture };
+
+
+export { signup, signin, getUser, signout, createUserPicture, getUserPicture };

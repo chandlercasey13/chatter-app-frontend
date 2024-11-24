@@ -145,9 +145,10 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
             refreshUserChats={refreshUserChats}
           />
         )}
+        
       </header>
       <div className="chat-window-right-panel-chat-container-overflow">
-        {(foundUserId && databaseMessageLog?.length > 0 && messageLog?.length >0) ?  (
+        {
           <>
             <ul className="state-ul">
               {messageLog?.map((userMessageObject, index) => (
@@ -261,18 +262,7 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
               ))}
             </ul>
           </>
-        ) : (<div className="w-full h-full">yo
-        
-        
-        
-        
-        
-        
-        
-        </div>
-
-
-        )}
+        }
       </div>
       <form className="input-box-container" onSubmit={handleButtonSubmit}>
         <label htmlFor="message"></label>

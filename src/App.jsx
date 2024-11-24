@@ -11,11 +11,13 @@ import { ChatContext } from "../src/context";
 
 import { VscSquirrel } from "react-icons/vsc";
 import ImageUploadModal from "./components/ImageUploadModal";
-
+import {Avatar, AvatarImage, AvatarFallback} from "./components/ui/avatar"
 import "./App.css";
 
 function App() {
   const navigate = useNavigate();
+  
+  const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 
   const [user, setUser] = useState(authService.getUser());
 
@@ -35,7 +37,7 @@ function App() {
 const handleImageUploadModalClose = function () {
 
 setImageUploadOpen(false)
-console.log('yo')
+
 }
 
 const handleImageUploadModalOpen = function () {
@@ -56,19 +58,19 @@ const handleIsInChat = function () {
   }, [previewMessage, user]);
  
 
-  useEffect(()=>{
+  // useEffect(()=>{
     
-    if (userChats.length>0 && !isInChat && user){
-      navigate(`/chatlogs/${userChats[0][0]?._id}/user/${userChats[0][0]?.participants[0].username === user.username ? `${userChats[0][0]?.participants[1]._id}`: `${userChats[0][0]?.participants[0]._id}`}/${userChats[0][0]?.participants[0].username === user.username ? `${userChats[0][0]?.participants[1].username}`: `${userChats[0][0]?.participants[0].username}` }
-        ` );
-    } else if (userChats.length === 0 && user) {
-      navigate(`/chatlogs/undefined/user/${user._id}/${user.username} ` );
-    }
+  //   if (userChats.length>0 && !isInChat && user){
+  //     navigate(`/chatlogs/${userChats[0][0]?._id}/user/${userChats[0][0]?.participants[0].username === user.username ? `${userChats[0][0]?.participants[1]._id}`: `${userChats[0][0]?.participants[0]._id}`}/${userChats[0][0]?.participants[0]?.username === user.username ? `${userChats[0][0]?.participants[1]?.username}`: `${userChats[0][0]?.participants[0].username}` }
+  //       ` );
+  //   } else if (userChats.length === 0 && user) {
+  //     navigate(`/chatlogs/undefined/user/${user._id}/${user.username} ` );
+  //   }
     
       
     
     
-    },[userChats])
+  //   },[userChats])
 
   
 
@@ -106,12 +108,14 @@ const handleIsInChat = function () {
   const [openSearchBox, setOpenSearchBox] = useState(false);
 
   const onOpen = () => {
+    
     setOpenSearchBox(!openSearchBox);
   };
 
   const onClose = () => {
     setOpenSearchBox(false);
   };
+  console.log(user)
 
   return (
     <>
@@ -124,10 +128,13 @@ const handleIsInChat = function () {
               <nav className=" chat-top-navbar ">
                 <button onClick={handleImageUploadModalOpen}>
               
-                    <img
-                      className="navbar-profile-image"
-                      src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAAAXNSR0IArs4c6QAAA7hJREFUaEPtWe1R4zAQlZxCLhQARweERkhcSUglSWiE0AEHBeBGYp1XI2fk9X4pDneTGTxzPw6E9d7u2097d+WPv3L87ofA//bgxTxwvw3ztnJLIBS8W/jg5s7Ff036WVO1rmkr9/b55HeXIj6ZwN0+rBPgRSEoILb7WPpN4d8Njp9NAIB31l0lK0/BMIlIMYEkldcLAMekQWKP77WPkrM+RQTut2HRVg7Ac0+0ZgfkDbQPYIBwOgwx8qDIrdgbZgJJMs8E8uJLs4Cn3gdXPFtjw0RAAG++iHKZQsT0bpUAJ5uk14NVq9K525ew8sFtiTMqCZEAAx6CrX6vPQk+s2qfoWJQ+uAOPri98nc4OYh3xfdKlrnbhy+cbSTL/96FbfAxtbJPV+B2f1a+FiQFd+ZP87H0N9wLWQKUWyXwty/htbOytZixoKh7g3c1V71ZAtj6kuUKwUdjSu8jPMkSJgkw1r+higwXJ8G7DVgt1QGoARCkfU2IJDiPpjgaSInzAkcAy4HNBlZrAajjzG1zmXVF7fD55B8pfWMjcmdJAl3eD/lLq9aR1oczWGpSnBDeYqVBeaErbiO8ox9g5pJWEwEzWQKUmGFwbFHGGRHAkpAyQCkB6jxl1d77uAOgjEl5YKB/reJarNQDIpKD6AEsOSoORgQITbP6B2BECpVy/MA4mjwtkqMIDDQtuRgIaO1G306nNtyURnuP/RMCcJmlhcCpUrN+FgeiQSfHQPLCKMdL/RAMO1J/w3nAFAMlQZmDNAwp8bhUvDBpLE9TFiKGF7Unx0SCd+u2cvOs6p5GTa6dtlRjEwFrCVckcpFfYzVQNWkUA9YSTrg7LrZgoZWsP8g4qQM9dPMCDCkw2KjbB0tLM7mZA8IgGW2QQYSbNKFtOCKWKhyNQvmaarqonY1hzaJJid1oYOsXtdOUjHAACYO4Bhr/fkSCqitcQS0ZKZtsSOEWXIPFFkIKtQLiAuIEj56n4Z3y6lkjJdfnwEbiOHNrDELrWnMyzNx7mB1d3SUCPImxQw8bA0IvQspD61gtOZ7TnTRMqQSSF7ilU7zT2tMwJLRNhlpE1c0cXCysFtnB3BLJSiJQwZs80APRlrvW4gTv0/qmkngyecBA4iQn+IQE/5kd43r90M8Dx1n87PQLKrVU9ErjqYhAZr3v+sDB7lw5SRYTsEjAov/sTPH3hfz9ZxFAaRa+TJ7zrWwS8B7DJAK5JdLmbVG17iHrRvuO9LRiL+lGLZ68GAHLZd9x5ofAd1i15J1X74G/LGDXT0wGU60AAAAASUVORK5CYII="
-                    />
+
+                <Avatar className='h-8 w-8 ml-2' >
+      <AvatarImage className   src={`${BACKEND_URL}/users/${user._id}/images`} alt="@shadcn" />
+      <AvatarFallback>{user.username.charAt(0).toUpperCase()}</AvatarFallback>
+    </Avatar>
+  
+                  
                  
                 </button>
                 <VscSquirrel size={30} className="chat-logo" />

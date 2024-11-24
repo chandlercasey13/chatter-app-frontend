@@ -3,6 +3,7 @@ import { CiSearch } from "react-icons/ci";
 import LoadingSpinner from "./LoadingSpinner";
 import UserProfile from "./UserProfile";
 import { IoIosCloseCircleOutline } from "react-icons/io";
+
 const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 
 const SearchUser = ({ onClose, user, refreshUserChats }) => {
@@ -44,6 +45,7 @@ const SearchUser = ({ onClose, user, refreshUserChats }) => {
   useEffect(() => {
     handleSearchUser();
   }, [search]);
+  console.log(searchUser)
 
   return (
     <div className=" search-modal h-screen w-1/2 absolute top-0 bottom-0 left-0 right-0 text-slate-500 pointer-events-none  ">
