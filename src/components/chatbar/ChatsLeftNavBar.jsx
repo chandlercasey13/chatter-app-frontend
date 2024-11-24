@@ -56,7 +56,7 @@ await chatService.deleteChat(chatId)
 }
 
 
-console.log(userChats)
+
 
 
   return (
@@ -101,7 +101,8 @@ console.log(userChats)
                    }
              
            >
-            <Avatar>
+           
+            <Avatar >
       <AvatarImage  src={  `${BACKEND_URL}/users/${
               chats?.participants[0]?._id === user._id
                 ? chats?.participants[1]?._id
@@ -111,7 +112,7 @@ console.log(userChats)
                ? chats?.participants[1]?.username
                : chats?.participants[0]?.username).charAt(0).toUpperCase()} </AvatarFallback>
     </Avatar>
-            
+    
 
 
 

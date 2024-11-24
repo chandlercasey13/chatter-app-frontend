@@ -267,12 +267,12 @@ color: transparent;  */
   align-items: center;
   background-color: white;
   min-height: 70px;
-  height: 10%;
-  max-height: 100px;
-  width: 95%;
+  height: 9%;
+  max-height: 90px;
+  width: 96%;
  
   border-top:1px solid rgba(0, 0, 0, 0.2);
-  padding: 10px;
+  padding: 0px 10px 0px 10px;
 }
 .chatlogs-left-li:hover {
   background-color: rgba(46, 161, 255,.15);
@@ -305,6 +305,10 @@ color: transparent;  */
 .chat-contact-preview{
   color:rgba(65, 66, 66,.6);
   font-weight: 400;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0px 10px 0px 0px;
+  max-height: 40%;
 }
 
 .delete-icon{
@@ -412,11 +416,12 @@ height: 10%;
 
 .chat-right-panel-text-containers {
  
-  min-height: 5vh;
-  gap:10px;
+
+  height: 60px;
   
 
-  width: 95%;
+  width: 97%;
+
 }
 .chat-right-panel-text-bubbles {
   /* background-color: #82c1f5; */
@@ -456,17 +461,6 @@ height: 10%;
   background-color: white;
 }
 
-.input-box{
-  display: flex;
-  justify-content: center;
-  text-align: center;
-  width: 80%;
-  height: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 30px;
-  background-color: rgba(218, 223, 230, .8);
-  padding:5px;
-}
 
 .input:focus{
   outline: none;

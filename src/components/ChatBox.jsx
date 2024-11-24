@@ -9,6 +9,7 @@ import UserAvatar from "./chatbar/UserAvatar";
 import { ChatContext } from "../context";
 import SearchUser from "./chatbar/SearchUser";
 import { data } from "autoprefixer";
+import {Avatar, AvatarImage, AvatarFallback} from "../components/ui/avatar"
 function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
   const [textInputData, setTextInputData] = useState({
     senderId: [{ username: user.username }],
@@ -28,7 +29,9 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
 
   const { previewMessage, setPreviewMessage } = useContext(ChatContext);
   const inputRef = useRef(null);
+  const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 
+  
   useEffect(() => {
   
     const handleChatChange = async function (newChatId) {
@@ -130,6 +133,7 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
     setMessageLog(filteredLog);
   }
 
+  console.log(messageLog)
   return (
     <>
       <header className="top-chat-name-container">
@@ -161,11 +165,13 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
                   }`}
                 >
                   {userMessageObject.senderId[0]?.username != user.username && (
-                    <div className="h-1/2">
-                      <img
-                        className="h-full"
-                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAA65JREFUaEPtml1y2jAQgG1fpOQkhSOAh+eWkzQ9SdJnRnCEkJPUuYgUr0dmVI9WuyutTVLiJxiMpE/7v1Jd3dlT3xlv9QX8v0v8S8LaEj4ej+umab5XVbWq63rlnFvB56qqOpirruvOOTd8rqrqtW3bZ+01hOOpS/h8Pq+stT881M+MxQP8ZS54NeAA9DEDEvsLwD+3bftba0wVYGPMr35BmqBTPjXwImAv1RevvlpCSI3TNU2z2W63o82L58wG9s4IYJd+iqSdBbyACnM28THHtsXAp9PpxTm35qxogXfE0CLgDyLZ6T6KoNnAN7RZjqIcuAkLC/iDw8KGdNbaw36/h4Ql+bCAjTF/Fww91JrRJKVt2wfqzySwMQbSwydqIObvY/yEfHnMrTUdIKnaHGAN6SZjp6Iz7CgpJ4E1FlLX9WW3220oDYCszTn3pBDyIPc+YPNRwI5aKPV70zQP3FTQp6qgUSVPUsoosJLtkjY1JdOY11q7wTx2ChgcVU49e2XoUz/SR8RE2ZtSkWalzCgFPNuklL4qpK+oWkeBNdTKF+6o80hBazhLTK0xYI2CXpTjhhtgjCk2p3686PwYcPGE3HCE2LBG7I+Gpyiwgg0N+S2VBGBqXeq0YFxswzEJa+wwzHuTsOQ3MrrhGHCRhw4kJ+pBKSUe4/Q3AR5Um9N4U0wtk3nAnDYcmuhSxcM/c8Z8yFLAVzXzH6BQ73rHslYoFqK+T+q0isMSlU0t8Ds/LGlkOgsAUVPwE49P0MOiYNGQGLVh7fDgj0THBttbZLVwnArJAjQBVFo+WKWGVkuF2dbglfvi/w+3+B83QekUEu16oMC5al2SQ4eS9+BQxOTU5GiGhwJnqnV2hZTIq8WVW6rxQPW0JJOpw46bIIwayXUkgbnnv1pqrNEUoNpKZM+J2f1g5cucWBJ7R5Bnk9UZCSyYbBZorpZx628SGHZc4MCKTuen0pXYbqo1G47LAoY/MFX7WiRwT/MwFbbWsu+OcGGH5EZiV5Id9+MOEu8X9EodZQYJB8RduLjGfUTRQQTsJS0JVeGioRwMb93BZhSdIOZEBzFwITRXapz3RJIdB8wCzrBpDgD7HYnNTgfNBg68N9u5sInwF9lXG7AhioADaLhMKnU2En61cFcMPK5aqayLbUKWrc4m4enAHhyKeCjqc0q70Ztfcm7aUWqjJuFEAgHw38YQBO/5rsb0gjh8f+Pet6LAFpNw7kKW+t+sEl4KQjLPF7Bktz7ju3cn4XclpDdbwJ4bKQAAAABJRU5ErkJggg=="
-                      />
+                    <div className=" flex items-center justify-center  mr-4">
+                      <Avatar className='h-8 w-8 ml-2' >
+      <AvatarImage className   src={`${BACKEND_URL}/users/${foundUserId}/images`} alt="@shadcn" />
+      <AvatarFallback>{foundUserusername.charAt(0).toUpperCase()}</AvatarFallback>
+    </Avatar>
+  
+                    
                     </div>
                   )}
                   <div
@@ -176,28 +182,19 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
                     }`}
                   >
                     <div className="chat-right-panel-text-bubbles-innerdiv ">
-                      {/* {`${
-                      userMessageObject.senderId[0]?.username
-                        ? userMessageObject.senderId[0]?.username
-                        : user.username
-                    }`}{" "}
-                    <button
-                      onClick={function () {
-                        handleDeleteButtonSubmit(userMessageObject, index);
-                      }}
-                    >
-                      <i className="bx bx-trash-alt"></i>
-                    </button> */}
+                     
                     </div>
                     <li>{` ${userMessageObject.message}`}</li>
                   </div>
                   {userMessageObject.senderId[0]?.username ===
                     user.username && (
                     <div className="h-1/2">
-                      <img
-                        className="h-full"
-                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAA65JREFUaEPtml1y2jAQgG1fpOQkhSOAh+eWkzQ9SdJnRnCEkJPUuYgUr0dmVI9WuyutTVLiJxiMpE/7v1Jd3dlT3xlv9QX8v0v8S8LaEj4ej+umab5XVbWq63rlnFvB56qqOpirruvOOTd8rqrqtW3bZ+01hOOpS/h8Pq+stT881M+MxQP8ZS54NeAA9DEDEvsLwD+3bftba0wVYGPMr35BmqBTPjXwImAv1RevvlpCSI3TNU2z2W63o82L58wG9s4IYJd+iqSdBbyACnM28THHtsXAp9PpxTm35qxogXfE0CLgDyLZ6T6KoNnAN7RZjqIcuAkLC/iDw8KGdNbaw36/h4Ql+bCAjTF/Fww91JrRJKVt2wfqzySwMQbSwydqIObvY/yEfHnMrTUdIKnaHGAN6SZjp6Iz7CgpJ4E1FlLX9WW3220oDYCszTn3pBDyIPc+YPNRwI5aKPV70zQP3FTQp6qgUSVPUsoosJLtkjY1JdOY11q7wTx2ChgcVU49e2XoUz/SR8RE2ZtSkWalzCgFPNuklL4qpK+oWkeBNdTKF+6o80hBazhLTK0xYI2CXpTjhhtgjCk2p3686PwYcPGE3HCE2LBG7I+Gpyiwgg0N+S2VBGBqXeq0YFxswzEJa+wwzHuTsOQ3MrrhGHCRhw4kJ+pBKSUe4/Q3AR5Um9N4U0wtk3nAnDYcmuhSxcM/c8Z8yFLAVzXzH6BQ73rHslYoFqK+T+q0isMSlU0t8Ds/LGlkOgsAUVPwE49P0MOiYNGQGLVh7fDgj0THBttbZLVwnArJAjQBVFo+WKWGVkuF2dbglfvi/w+3+B83QekUEu16oMC5al2SQ4eS9+BQxOTU5GiGhwJnqnV2hZTIq8WVW6rxQPW0JJOpw46bIIwayXUkgbnnv1pqrNEUoNpKZM+J2f1g5cucWBJ7R5Bnk9UZCSyYbBZorpZx628SGHZc4MCKTuen0pXYbqo1G47LAoY/MFX7WiRwT/MwFbbWsu+OcGGH5EZiV5Id9+MOEu8X9EodZQYJB8RduLjGfUTRQQTsJS0JVeGioRwMb93BZhSdIOZEBzFwITRXapz3RJIdB8wCzrBpDgD7HYnNTgfNBg68N9u5sInwF9lXG7AhioADaLhMKnU2En61cFcMPK5aqayLbUKWrc4m4enAHhyKeCjqc0q70Ztfcm7aUWqjJuFEAgHw38YQBO/5rsb0gjh8f+Pet6LAFpNw7kKW+t+sEl4KQjLPF7Bktz7ju3cn4XclpDdbwJ4bKQAAAABJRU5ErkJggg=="
-                      />
+  {/* <Avatar className='h-8 w-8 ml-2' >
+      <AvatarImage className   src={`${BACKEND_URL}/users/${user._id}/images`} alt="@shadcn" />
+      <AvatarFallback>{user.username.charAt(0).toUpperCase()}</AvatarFallback>
+    </Avatar> */}
+
+                     
                     </div>
                   )}
                 </div>
@@ -215,11 +212,12 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
                   }`}
                 >
                   {dbMessageObject.senderId[0] != user._id && (
-                    <div className="h-1/2">
-                      <img
-                        className="h-full"
-                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAA65JREFUaEPtml1y2jAQgG1fpOQkhSOAh+eWkzQ9SdJnRnCEkJPUuYgUr0dmVI9WuyutTVLiJxiMpE/7v1Jd3dlT3xlv9QX8v0v8S8LaEj4ej+umab5XVbWq63rlnFvB56qqOpirruvOOTd8rqrqtW3bZ+01hOOpS/h8Pq+stT881M+MxQP8ZS54NeAA9DEDEvsLwD+3bftba0wVYGPMr35BmqBTPjXwImAv1RevvlpCSI3TNU2z2W63o82L58wG9s4IYJd+iqSdBbyACnM28THHtsXAp9PpxTm35qxogXfE0CLgDyLZ6T6KoNnAN7RZjqIcuAkLC/iDw8KGdNbaw36/h4Ql+bCAjTF/Fww91JrRJKVt2wfqzySwMQbSwydqIObvY/yEfHnMrTUdIKnaHGAN6SZjp6Iz7CgpJ4E1FlLX9WW3220oDYCszTn3pBDyIPc+YPNRwI5aKPV70zQP3FTQp6qgUSVPUsoosJLtkjY1JdOY11q7wTx2ChgcVU49e2XoUz/SR8RE2ZtSkWalzCgFPNuklL4qpK+oWkeBNdTKF+6o80hBazhLTK0xYI2CXpTjhhtgjCk2p3686PwYcPGE3HCE2LBG7I+Gpyiwgg0N+S2VBGBqXeq0YFxswzEJa+wwzHuTsOQ3MrrhGHCRhw4kJ+pBKSUe4/Q3AR5Um9N4U0wtk3nAnDYcmuhSxcM/c8Z8yFLAVzXzH6BQ73rHslYoFqK+T+q0isMSlU0t8Ds/LGlkOgsAUVPwE49P0MOiYNGQGLVh7fDgj0THBttbZLVwnArJAjQBVFo+WKWGVkuF2dbglfvi/w+3+B83QekUEu16oMC5al2SQ4eS9+BQxOTU5GiGhwJnqnV2hZTIq8WVW6rxQPW0JJOpw46bIIwayXUkgbnnv1pqrNEUoNpKZM+J2f1g5cucWBJ7R5Bnk9UZCSyYbBZorpZx628SGHZc4MCKTuen0pXYbqo1G47LAoY/MFX7WiRwT/MwFbbWsu+OcGGH5EZiV5Id9+MOEu8X9EodZQYJB8RduLjGfUTRQQTsJS0JVeGioRwMb93BZhSdIOZEBzFwITRXapz3RJIdB8wCzrBpDgD7HYnNTgfNBg68N9u5sInwF9lXG7AhioADaLhMKnU2En61cFcMPK5aqayLbUKWrc4m4enAHhyKeCjqc0q70Ztfcm7aUWqjJuFEAgHw38YQBO/5rsb0gjh8f+Pet6LAFpNw7kKW+t+sEl4KQjLPF7Bktz7ju3cn4XclpDdbwJ4bKQAAAABJRU5ErkJggg=="
-                      />
+                    <div className=" mr-4">
+                      <Avatar className='h-8 w-8 ml-2' >
+      <AvatarImage className   src={`${BACKEND_URL}/users/${foundUserId}/images`} alt="@shadcn" />
+      <AvatarFallback>{foundUserusername.charAt(0).toUpperCase()}</AvatarFallback>
+    </Avatar>
+                      
                     </div>
                   )}
 
@@ -234,28 +232,18 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
                       key={index + 1}
                       className="chat-right-panel-text-bubbles-innerdiv "
                     >
-                      {/* {`${
-                      dbMessageObject.senderId[0] === user._id
-                        ? user.username
-                        : foundUserusername
-                    }`}
-                    <button
-                      onClick={function () {
-                        handleDeleteButtonSubmit(dbMessageObject, index);
-                      }}
-                    >
-                      <i className="bx bx-trash-alt"></i>
-                    </button> */}
+                     
                     </div>
 
                     <li key={index}>{` ${dbMessageObject.message}`}</li>
                   </div>
                   {dbMessageObject.senderId[0] === user._id && (
                     <div className="h-1/2">
-                      <img
-                        className="h-full"
-                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAAA8CAYAAAA6/NlyAAAAAXNSR0IArs4c6QAAA65JREFUaEPtml1y2jAQgG1fpOQkhSOAh+eWkzQ9SdJnRnCEkJPUuYgUr0dmVI9WuyutTVLiJxiMpE/7v1Jd3dlT3xlv9QX8v0v8S8LaEj4ej+umab5XVbWq63rlnFvB56qqOpirruvOOTd8rqrqtW3bZ+01hOOpS/h8Pq+stT881M+MxQP8ZS54NeAA9DEDEvsLwD+3bftba0wVYGPMr35BmqBTPjXwImAv1RevvlpCSI3TNU2z2W63o82L58wG9s4IYJd+iqSdBbyACnM28THHtsXAp9PpxTm35qxogXfE0CLgDyLZ6T6KoNnAN7RZjqIcuAkLC/iDw8KGdNbaw36/h4Ql+bCAjTF/Fww91JrRJKVt2wfqzySwMQbSwydqIObvY/yEfHnMrTUdIKnaHGAN6SZjp6Iz7CgpJ4E1FlLX9WW3220oDYCszTn3pBDyIPc+YPNRwI5aKPV70zQP3FTQp6qgUSVPUsoosJLtkjY1JdOY11q7wTx2ChgcVU49e2XoUz/SR8RE2ZtSkWalzCgFPNuklL4qpK+oWkeBNdTKF+6o80hBazhLTK0xYI2CXpTjhhtgjCk2p3686PwYcPGE3HCE2LBG7I+Gpyiwgg0N+S2VBGBqXeq0YFxswzEJa+wwzHuTsOQ3MrrhGHCRhw4kJ+pBKSUe4/Q3AR5Um9N4U0wtk3nAnDYcmuhSxcM/c8Z8yFLAVzXzH6BQ73rHslYoFqK+T+q0isMSlU0t8Ds/LGlkOgsAUVPwE49P0MOiYNGQGLVh7fDgj0THBttbZLVwnArJAjQBVFo+WKWGVkuF2dbglfvi/w+3+B83QekUEu16oMC5al2SQ4eS9+BQxOTU5GiGhwJnqnV2hZTIq8WVW6rxQPW0JJOpw46bIIwayXUkgbnnv1pqrNEUoNpKZM+J2f1g5cucWBJ7R5Bnk9UZCSyYbBZorpZx628SGHZc4MCKTuen0pXYbqo1G47LAoY/MFX7WiRwT/MwFbbWsu+OcGGH5EZiV5Id9+MOEu8X9EodZQYJB8RduLjGfUTRQQTsJS0JVeGioRwMb93BZhSdIOZEBzFwITRXapz3RJIdB8wCzrBpDgD7HYnNTgfNBg68N9u5sInwF9lXG7AhioADaLhMKnU2En61cFcMPK5aqayLbUKWrc4m4enAHhyKeCjqc0q70Ztfcm7aUWqjJuFEAgHw38YQBO/5rsb0gjh8f+Pet6LAFpNw7kKW+t+sEl4KQjLPF7Bktz7ju3cn4XclpDdbwJ4bKQAAAABJRU5ErkJggg=="
-                      />
+                      {/* <Avatar className='h-8 w-8 ml-2' >
+      <AvatarImage className   src={`${BACKEND_URL}/users/${user._id}/images`} alt="@shadcn" />
+      <AvatarFallback>{user.username.charAt(0).toUpperCase()}</AvatarFallback>
+    </Avatar> */}
+                     
                     </div>
                   )}
                 </div>
@@ -268,7 +256,7 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
         <label htmlFor="message"></label>
 
         <input
-          className=" input w-5/6 h-full border-2 rounded-lg border-black/10 pl-2 text-slate-700 bg-gray-100"
+          className=" input w-5/6  h-full border-2 rounded-xl border-black/10 pl-2 text-slate-700 bg-gray-100 transform transition-transform duration-300  hover:bg-gray-200"
           id="message"
           name="message"
           type="text"
@@ -280,7 +268,7 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
           ref={inputRef}
         ></input>
 
-        <button className="w-10 ml-1 rounded-lg border-blue-300 border-2">
+        <button className="w-10 ml-1 rounded-xl border-blue-300 border-2 transform transition-transform duration-300 hover:scale-110 hover:bg-blue-100">
           <i className="bx bxs-send"></i>
         </button>
       </form>

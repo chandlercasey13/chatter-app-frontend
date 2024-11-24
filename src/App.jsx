@@ -115,7 +115,7 @@ const handleIsInChat = function () {
   const onClose = () => {
     setOpenSearchBox(false);
   };
-  console.log(user)
+
 
   return (
     <>

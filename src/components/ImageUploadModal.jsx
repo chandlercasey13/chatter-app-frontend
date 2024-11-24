@@ -53,9 +53,7 @@ const ImageUploadModal = ({ imageUploadOpen, handleImageUploadModalClose, user }
     
       const getResponse = await userService.getUserPicture(user._id, postResponse.imagePath )
 
-console.log(getResponse)
-      setImage(`${BACKEND_URL}/users/${user._id}/images`)
-      
+
     
   }
   
