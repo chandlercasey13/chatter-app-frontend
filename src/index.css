@@ -610,17 +610,29 @@ max-height: 500px;
 @media (max-width: 600px ){
 
 .login-container{
-  width: 100vw;
-  height:100vh;
+ 
   padding: 0px;
 }
-  
+
+.login-inner {
+ 
+  width: 85%;
+
+}
+
+
 .landing-column-left {
  
-
+width: 100%;
 
  
 }
+.landing-column-left-container {
+ 
+  width: 100%;
+  
+   
+  }
 
 
 
@@ -629,8 +641,7 @@ max-height: 500px;
   height: 100%;
 }
 .landing-column-right {
-  width: 0%;
-  height: 100%;
+ display: none;
 }
 
 
