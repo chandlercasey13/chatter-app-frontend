@@ -616,7 +616,7 @@ max-height: 500px;
 
 .login-inner {
  
-  width: 85%;
+  width: 80%;
 
 }
 
@@ -634,7 +634,22 @@ width: 100%;
    
   }
 
-
+  .landing-column-left-header {
+    height: 45%;
+    width: 100%;
+   
+    font-family: "Segoe UI", Arial, sans-serif; /* Font stack */
+    font-size: 63px;
+    line-height: 85px;
+    letter-spacing: -4px;
+    font-weight: 500;
+    text-align: left;
+    margin-top: 30%;
+  
+    background: linear-gradient(120deg, #2ea1ff, #697dff);
+    background-clip: text;
+    color: transparent;
+  }
 
 .landing-column-right-container {
   width: 0%;
