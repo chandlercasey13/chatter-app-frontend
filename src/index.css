@@ -21,7 +21,7 @@
 }
 
 #root {
-  width: 100%;
+  width: 100vw;
   max-height: 100svh;
   height: 100svh;
   display: flex;
@@ -75,7 +75,7 @@ color: transparent;  */
   justify-content: center;
   align-items: center;
 
-  width: 100%;
+  width: 100vw;
   height: 100svh;
   padding: 40px 30px 100px;
   margin-top: 0%;
@@ -100,7 +100,7 @@ color: transparent;  */
 .landing-column-left {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: start;
 
   width: 80%;
   height: 100%;
@@ -584,6 +584,60 @@ max-height: 500px;
     @apply bg-background text-foreground;
   }
 }
+
+
+@media (max-width: 1400px ){
+
+.landing-column-left-container{
+  width: 100%;
+}
+
+.landing-column-left {
+ 
+
+  width: 100%;
+ 
+}
+
+
+
+
+
+
+}
+
+
+@media (max-width: 600px ){
+
+.login-container{
+  width: 100vw;
+  height:100vh;
+  padding: 0px;
+}
+  
+.landing-column-left {
+ 
+
+
+ 
+}
+
+
+
+.landing-column-right-container {
+  width: 0%;
+  height: 100%;
+}
+.landing-column-right {
+  width: 0%;
+  height: 100%;
+}
+
+
+
+  
+  
+  }
 
 
 
