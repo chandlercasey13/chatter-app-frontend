@@ -639,12 +639,12 @@ width: 100%;
   }
 
   .landing-column-left-header {
-    
-    
-    font-size: 63px;
+    line-height: 75px;
+
+    font-size: 58px;
     
     margin-top: 30%;
-  
+    letter-spacing: -3px;
   }
 
 .landing-column-right-container {
