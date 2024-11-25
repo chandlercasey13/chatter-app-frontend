@@ -620,7 +620,11 @@ max-height: 500px;
 
 }
 
-
+.navbar {
+  
+  width: 90%;
+  
+}
 .landing-column-left {
  
 width: 100%;
@@ -635,20 +639,12 @@ width: 100%;
   }
 
   .landing-column-left-header {
-    height: 45%;
-    width: 100%;
-   
-    font-family: "Segoe UI", Arial, sans-serif; /* Font stack */
+    
+    
     font-size: 63px;
-    line-height: 85px;
-    letter-spacing: -4px;
-    font-weight: 500;
-    text-align: left;
+    
     margin-top: 30%;
   
-    background: linear-gradient(120deg, #2ea1ff, #697dff);
-    background-clip: text;
-    color: transparent;
   }
 
 .landing-column-right-container {
@@ -659,7 +655,9 @@ width: 100%;
  display: none;
 }
 
-
+#login-button {
+  font-size: 12px;
+}
 
   
   
