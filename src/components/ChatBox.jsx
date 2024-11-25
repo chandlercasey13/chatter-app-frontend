@@ -133,7 +133,7 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
     setMessageLog(filteredLog);
   }
 
-  console.log(messageLog)
+  
   return (
     <>
       <header className="top-chat-name-container">
