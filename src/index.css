@@ -63,8 +63,8 @@
 -webkit-background-clip: text;
 background-clip: text; 
 color: transparent;  */
-  font-weight: 700;
-  font-size: 30px;
+  font-weight: 500;
+  font-size: 25px;
 
   margin-left: 10px;
   color: #2ea1ff;
@@ -622,7 +622,7 @@ max-height: 500px;
 
 .navbar {
   
-  width: 90%;
+  width: 100%;
   
 }
 .landing-column-left {
