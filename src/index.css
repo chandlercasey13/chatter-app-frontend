@@ -108,6 +108,7 @@ color: transparent;  */
 
 .landing-column-left-header {
   height: 45%;
+  max-height: 340px;
   width: 100%;
  
   font-family: "Segoe UI", Arial, sans-serif; /* Font stack */
