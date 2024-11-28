@@ -112,7 +112,7 @@ export function AppSidebar({ user, userId, onOpen, onClose, userChats, refreshUs
 
 
   return (
-    <Sidebar className="h-full w-1/6 mt-12  pointer-events-auto border-gray-250 border-2 border-t-0 rounded "  variant="inset" >
+    <Sidebar className="h-full w-1/6 mt-12  pointer-events-auto border-gray-250 border-2 border-t-0 rounded-xl "  variant="inset" collapsible="icon">
       <SidebarContent  className="pointer-events-auto">
         <SidebarHeader><SearchUserBtn onOpen={onOpen}/> </SidebarHeader>
         <SidebarGroup>
