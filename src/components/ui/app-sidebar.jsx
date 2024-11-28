@@ -18,6 +18,9 @@ import {
   SidebarRail
 } from "@/components/ui/sidebar"
  
+import { useSidebar } from "@/components/ui/sidebar"
+
+
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu.jsx";
 import React, { useState, useEffect,useContext } from "react";
 
@@ -30,38 +33,11 @@ import * as messageService from "../../../services/messageService"
 
 import * as chatService from "../../../services/chatService"
 
-import { GiConsoleController } from "react-icons/gi";
 
 
 
-// Menu items.
-const items = [
-  {
-    title: "Home",
-    url: "#",
-    icon: Home,
-  },
-  {
-    title: "Inbox",
-    url: "#",
-    icon: Inbox,
-  },
-  {
-    title: "Calendar",
-    url: "#",
-    icon: Calendar,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Settings",
-    url: "#",
-    icon: Settings,
-  },
-]
+
+
  
 export function AppSidebar({ user, userId, onOpen, onClose, userChats, refreshUserChats, handleIsInChat }) {
 
@@ -76,8 +52,18 @@ export function AppSidebar({ user, userId, onOpen, onClose, userChats, refreshUs
   
   
   
-    console.log(userChats)
-  
+    const {
+        state,
+        open,
+        setOpen,
+        openMobile,
+        setOpenMobile,
+        isMobile,
+        toggleSidebar,
+      } = useSidebar()
+
+      
+
     const handleReadingMessages = async function (messageId) {
       
      await messageService.updateMessage(messageId)
