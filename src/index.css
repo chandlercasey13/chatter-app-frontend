@@ -20,10 +20,16 @@
   background: #8c8a85; /* Handle color on hover */
 }
 
+html{
+ 
+}
+
+
+
 #root {
   width: 100vw;
   max-height: 100svh;
-  height: 100svh;
+  height: 100vh;
   display: flex;
 
   justify-content: center;
@@ -137,7 +143,7 @@ color: transparent;  */
 
 #login-form {
   height: 100%;
-
+max-height: 400px;
   display: flex;
   flex-direction: column;
 }
@@ -179,13 +185,14 @@ color: transparent;  */
 
 .chat-screen-container {
   width: 100%;
-  height: 100svh;
+  height: 100%;
   max-height: 100svh;
   display: flex;
   flex-direction: column;
 
-  justify-content: center;
-  align-items: center;
+  justify-content: end;
+ 
+  
 }
 
 .chat-top-navbar {
@@ -194,9 +201,14 @@ color: transparent;  */
   height: 5%;
  
   width: 100%;
-  border-bottom:1px solid rgba(0, 0, 0, 0.2);
+ 
   color: #2ea1ff;
   padding: 1px 10px;
+  
+    position: fixed;
+    top: 0;
+    left: 0;
+ 
 }
 
 .navbar-profile-image{
@@ -215,9 +227,13 @@ color: transparent;  */
 }
 
 .chat-window {
-  height: 95%;
+
+  height: 100%;
   width: 100%;
   display: flex;
+  flex-direction: column;
+  justify-content: end;
+  
 }
 
 .chat-left-navbar {
@@ -279,28 +295,33 @@ color: transparent;  */
   background-color: rgba(46, 161, 255,.15);
   
 }
-.chatlogs-left-li:hover .delete-icon {
+.chatlogs-left-li-button:hover .delete-icon {
  visibility: visible;
 }
 .chatlogs-left-li-button {
   height: 100%;
   width: 100%;
   display: flex;
+  flex-direction: column;
   color: rgba(0, 0, 0, 0.9);
   align-items: center;
+  
   gap: 5px;
   font-weight: 600;
 }
 .chat-contact{
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+justify-content: center;
+align-items: center;
   height: 100%;
-  width: 90%;
-  padding-left: 10px;
+  width: 100%;
+
 }
 .chat-contact-name{
+  flex-wrap: wrap;
+  flex-direction: row;
   width: 100%;
+  padding-left: 10px;
 }
 
 .chat-contact-preview{
@@ -309,6 +330,7 @@ color: transparent;  */
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 0px 10px 0px 0px;
+  width: 100%;
   max-height: 30%;
 }
 
@@ -318,21 +340,21 @@ color: transparent;  */
   align-items: center;
   height: 50%;
   width: 5%;
-  visibility: hidden;
+  visibility:hidden;
 }
 
 
 .chat-unread-dot{
   display: flex;
-
+align-items: center;
   justify-content: center;
 width: 5%;
-height: 10%;
+height: 100%;
 }
 
 .search-user-button-container {
   width: 100%;
-  height: 7%;
+  height: 100%;
   display: flex;
   position: sticky;
   justify-content: space-between;
@@ -340,7 +362,7 @@ height: 10%;
   color: black;
   font-size: 20px;
   font-weight: 700;
-  padding: 10px 10px 10px;
+ 
 }
 .search-user-button {
   font-size: 15px;
@@ -363,7 +385,7 @@ height: 10%;
   height: 5%;
   width: 100%;
   background-color: white;
-  border-bottom:1px solid rgba(0, 0, 0, 0.2);
+
   display: flex;
   align-items: center;
   justify-content: start;
@@ -377,13 +399,15 @@ height: 10%;
 
 .chat-window-right-panel {
  
-  position: relative;
+  position: fixed;
+  right: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 95svh;
-  width: 83.33vw;
+  max-height: 95%;
+  height: 95%;
+  width: 83.3%;
   overflow-y: hidden;
 }
 
@@ -504,6 +528,7 @@ max-height: 500px;
 
 .chat-top-navbar{
   height: 3%;
+
 }
 
 
@@ -548,6 +573,14 @@ max-height: 500px;
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
   .dark {
     --background: 222.2 84% 4.9%;
@@ -574,6 +607,14 @@ max-height: 500px;
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
   }
 }
 

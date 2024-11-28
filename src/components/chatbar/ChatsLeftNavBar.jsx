@@ -8,9 +8,10 @@ import { Link, useNavigate } from "react-router-dom";
 import * as messageService from "../../../services/messageService"
 
 import * as chatService from "../../../services/chatService"
-import Sidebar from "../../DisplayChats";
+
 import { GiConsoleController } from "react-icons/gi";
 
+import { AppSidebar } from "../ui/app-sidebar";
 
 const ChatBar = ({ user, userId, onOpen, onClose, userChats, refreshUserChats, handleIsInChat }) => {
 
@@ -81,7 +82,6 @@ await chatService.deleteChat(chatId)
      
       
 
-
 {userChats && userChats[0]?.length>0 &&  (<ul className="chatlogs-left-navbar">
        
        {userChats[0]?.map((chats, i) => (
@@ -102,6 +102,9 @@ await chatService.deleteChat(chatId)
              
            >
            
+
+
+
             <Avatar >
       <AvatarImage  src={  `${BACKEND_URL}/users/${
               chats?.participants[0]?._id === user._id

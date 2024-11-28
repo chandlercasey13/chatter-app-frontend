@@ -12,6 +12,8 @@ import { ChatContext } from "../src/context";
 import { VscSquirrel } from "react-icons/vsc";
 import ImageUploadModal from "./components/ImageUploadModal";
 import {Avatar, AvatarImage, AvatarFallback} from "./components/ui/avatar"
+import Layout from "../layout";
+
 import "./App.css";
 
 function App() {
@@ -58,19 +60,19 @@ const handleIsInChat = function () {
   }, [previewMessage, user]);
  
 
-  // useEffect(()=>{
+  useEffect(()=>{
     
-  //   if (userChats.length>0 && !isInChat && user){
-  //     navigate(`/chatlogs/${userChats[0][0]?._id}/user/${userChats[0][0]?.participants[0].username === user.username ? `${userChats[0][0]?.participants[1]._id}`: `${userChats[0][0]?.participants[0]._id}`}/${userChats[0][0]?.participants[0]?.username === user.username ? `${userChats[0][0]?.participants[1]?.username}`: `${userChats[0][0]?.participants[0].username}` }
-  //       ` );
-  //   } else if (userChats.length === 0 && user) {
-  //     navigate(`/chatlogs/undefined/user/${user._id}/${user.username} ` );
-  //   }
+    if (userChats.length>0 && !isInChat && user){
+      navigate(`/chatlogs/${userChats[0][0]?._id}/user/${userChats[0][0]?.participants[0].username === user.username ? `${userChats[0][0]?.participants[1]._id}`: `${userChats[0][0]?.participants[0]._id}`}/${userChats[0][0]?.participants[0]?.username === user.username ? `${userChats[0][0]?.participants[1]?.username}`: `${userChats[0][0]?.participants[0].username}` }
+        ` );
+    } else if (userChats.length === 0 && user) {
+      navigate(`/chatlogs/undefined/user/${user._id}/${user.username} ` );
+    }
     
       
     
     
-  //   },[userChats])
+    },[userChats])
 
   
 
@@ -117,15 +119,16 @@ const handleIsInChat = function () {
   };
 
 
+
   return (
     <>
-      <div id="root">
+      
         {user ? (
           <>
          <ImageUploadModal imageUploadOpen={imageUploadOpen} handleImageUploadModalClose= {handleImageUploadModalClose} user={user}/>
 
             <section className="chat-screen-container">
-              <nav className=" chat-top-navbar ">
+              <nav className=" chat-top-navbar border-gray-250 border-y-2 border-t-0 ">
                 <button onClick={handleImageUploadModalOpen}>
               
 
@@ -151,15 +154,14 @@ const handleIsInChat = function () {
                 </button>
               </nav>
               <div className=" chat-window ">
-                <ChatBar
-                  user={user}
+               <Layout  user={user}
                   userId={userId}
                   onOpen={onOpen}
                   onClose ={onClose}
                   userChats={userChats}
                   refreshUserChats={refreshUserChats}
-                  handleIsInChat ={handleIsInChat}
-                />
+                  handleIsInChat ={handleIsInChat}>
+               
 
                 <div className="chat-window-right-panel">
                   <Routes>
@@ -168,7 +170,7 @@ const handleIsInChat = function () {
                     <Route
                       path="/chatlogs/:chatId/user/:foundUserId/:foundUserusername"
                       element={
-                        <ChatBox
+                        <ChatBox 
                           user={user}
                           onOpen={onOpen}
                           onClose ={onClose}
@@ -180,6 +182,7 @@ const handleIsInChat = function () {
                     />
                   </Routes>
                 </div>
+                </Layout>
               </div>
             </section>
           </>
@@ -252,7 +255,7 @@ const handleIsInChat = function () {
             </div>
           </>
         )}
-      </div>
+      
     </>
   );
 }

@@ -136,7 +136,7 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
   
   return (
     <>
-      <header className="top-chat-name-container">
+      <header className="top-chat-name-container border-gray-250 border-y-2 border-t-0 ">
         {!openSearchBox ? (
           <h1 className="top-chat-name">{
            foundUserusername
@@ -256,7 +256,7 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
         <label htmlFor="message"></label>
 
         <input
-          className=" input w-5/6  h-full border-2 rounded-xl border-black/10 pl-2 text-slate-700 bg-gray-100 transform transition-transform duration-300  hover:bg-gray-200"
+          className=" input w-5/6  h-full border-2 rounded-xl border-black/10 pl-2 text-slate-700 bg-gray-100 transform transition-transform duration-300  hover:bg-gray-200 pointer-events-auto"
           id="message"
           name="message"
           type="text"
