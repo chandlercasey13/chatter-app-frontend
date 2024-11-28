@@ -13,7 +13,8 @@ import { VscSquirrel } from "react-icons/vsc";
 import ImageUploadModal from "./components/ImageUploadModal";
 import {Avatar, AvatarImage, AvatarFallback} from "./components/ui/avatar"
 import Layout from "../layout";
-
+import { Menu } from 'lucide-react';
+import { useSidebar } from "@/components/ui/sidebar"
 import "./App.css";
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
   const userId = user?._id;
   const [isInChat, setIsInChat] =useState(false);
  const [imageUploadOpen, setImageUploadOpen]= useState(false);
+ const [sideBarOpen, setSideBarOpen]=useState(false);
 
 const handleImageUploadModalClose = function () {
 
@@ -52,7 +54,9 @@ const handleIsInChat = function () {
   setIsInChat(true)
 }
 
+const handleOpenSidebar =function () {
 
+}
   useEffect(() => {
     if (userId) {
       refreshUserChats(userId);
@@ -129,29 +133,39 @@ const handleIsInChat = function () {
 
             <section className="chat-screen-container">
               <nav className=" chat-top-navbar border-gray-250 border-y-2 border-t-0 ">
+                 <button
+                  onClick={() => {
+setSideBarOpen(true)
+
+                    
+                    // authService.signout();
+                    // setUser(false);
+                    // setUserChats([]);
+                    // setIsInChat(false)
+                    // navigate("/");
+                  }}
+                >
+                  <Menu />
+                  
+                </button>
+                <VscSquirrel size={30} className="chat-logo" />
+
                 <button onClick={handleImageUploadModalOpen}>
               
 
-                <Avatar className='h-8 w-8 ml-2' >
-      <AvatarImage className   src={`${BACKEND_URL}/users/${user._id}/images`} alt="@shadcn" />
-      <AvatarFallback>{user.username.charAt(0).toUpperCase()}</AvatarFallback>
-    </Avatar>
-  
-                  
-                 
-                </button>
-                <VscSquirrel size={30} className="chat-logo" />
-                <button
-                  onClick={() => {
-                    authService.signout();
-                    setUser(false);
-                    setUserChats([]);
-                    setIsInChat(false)
-                    navigate("/");
-                  }}
-                >
-                  Sign Out
-                </button>
+              <Avatar className='h-8 w-8 ml-2' >
+    <AvatarImage className   src={`${BACKEND_URL}/users/${user._id}/images`} alt="@shadcn" />
+    <AvatarFallback>{user.username.charAt(0).toUpperCase()}</AvatarFallback>
+  </Avatar>
+
+                
+               
+              </button>
+
+
+
+
+               
               </nav>
               <div className=" chat-window ">
                <Layout  user={user}
@@ -160,7 +174,8 @@ const handleIsInChat = function () {
                   onClose ={onClose}
                   userChats={userChats}
                   refreshUserChats={refreshUserChats}
-                  handleIsInChat ={handleIsInChat}>
+                  handleIsInChat ={handleIsInChat}
+                  sideBarOpen={sideBarOpen}>
                
 
                 <div className="chat-window-right-panel">

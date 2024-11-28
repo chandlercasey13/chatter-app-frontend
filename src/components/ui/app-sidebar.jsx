@@ -39,7 +39,7 @@ import * as chatService from "../../../services/chatService"
 
 
  
-export function AppSidebar({ user, userId, onOpen, onClose, userChats, refreshUserChats, handleIsInChat }) {
+export function AppSidebar({ user, userId, onOpen, onClose, userChats, refreshUserChats, handleIsInChat, sideBarOpen }) {
 
 
     const [allUsers, setAllUsers] = useState([]);
@@ -49,7 +49,7 @@ export function AppSidebar({ user, userId, onOpen, onClose, userChats, refreshUs
     const navigate = useNavigate();
   
    
-  
+  console.log(sideBarOpen)
   
   
     const {
@@ -62,7 +62,11 @@ export function AppSidebar({ user, userId, onOpen, onClose, userChats, refreshUs
         toggleSidebar,
       } = useSidebar()
 
-      
+      useEffect(()=> {
+toggleSidebar()
+
+
+      },[sideBarOpen])
 
     const handleReadingMessages = async function (messageId) {
       
@@ -98,7 +102,7 @@ export function AppSidebar({ user, userId, onOpen, onClose, userChats, refreshUs
 
 
   return (
-    <Sidebar className="h-full w-1/6 mt-12  pointer-events-auto border-gray-250 border-2 border-t-0 rounded-xl "  variant="inset" collapsible="icon">
+    <Sidebar className="h-full w-1/6 mt-12  pointer-events-auto border-gray-250 border-2 border-t-0 rounded-xl "  variant="inset" >
       <SidebarContent  className="pointer-events-auto">
         <SidebarHeader><SearchUserBtn onOpen={onOpen}/> </SidebarHeader>
         <SidebarGroup>

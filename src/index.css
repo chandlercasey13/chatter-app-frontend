@@ -232,6 +232,8 @@ max-height: 400px;
   width: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+align-items: center;
   justify-content: end;
   
 }
@@ -740,7 +742,7 @@ width: 100%;
   width: 100%;
  
   color: #2ea1ff;
-  padding: 0px 5px 0px 0px;
+  padding: 0px 5px 0px 5px;
   
     position: fixed;
     top: 0;
@@ -750,10 +752,11 @@ width: 100%;
 
 .chat-window-right-panel {
  
- 
+
   max-height: 93%;
   height: 93%;
-  width: 83.3%;
+  width: 100%;
+
   
   }
 
