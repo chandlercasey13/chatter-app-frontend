@@ -135,7 +135,7 @@ const handleOpenSidebar =function () {
               <nav className=" chat-top-navbar border-gray-250 border-y-2 border-t-0 ">
                  <button
                   onClick={() => {
-setSideBarOpen(true)
+setSideBarOpen(!sideBarOpen)
 
                     
                     // authService.signout();

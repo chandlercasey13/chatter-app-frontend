@@ -133,8 +133,9 @@ toggleSidebar()
 
 
                onClick={() => { if (chats.messages[0])
-                 {handleReadingMessages(chats.messages[chats.messages.length-1]._id)} handleIsInChat(); onClose();} 
-                   }
+                 {handleReadingMessages(chats.messages[chats.messages.length-1]._id)} handleIsInChat(); onClose();  toggleSidebar();} 
+                
+                }
              
            >
            
