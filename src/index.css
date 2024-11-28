@@ -205,7 +205,7 @@ max-height: 400px;
   color: #2ea1ff;
   padding: 1px 10px;
   
-    position: fixed;
+    position:absolute;
     top: 0;
     left: 0;
  
