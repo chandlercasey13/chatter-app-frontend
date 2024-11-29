@@ -10,7 +10,7 @@ export default function Layout({  children,
     refreshUserChats, 
     handleIsInChat, sideBarOpen  }) {
   return (
-    <SidebarProvider  className="pointer-events-none">
+    <SidebarProvider  className="pointer-events-none ">
       <AppSidebar 
       user={user}
                   userId={userId}

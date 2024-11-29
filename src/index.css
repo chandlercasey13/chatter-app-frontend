@@ -224,6 +224,7 @@ max-height: 400px;
   align-items: center;
   height: 100%;
   color: #2ea1ff;
+  
 }
 
 .chat-window {
@@ -413,6 +414,7 @@ height: 100%;
   align-items: center;
   max-height: 95%;
   height: 95%;
+
   width: 83.3%;
   overflow-y: hidden;
 }

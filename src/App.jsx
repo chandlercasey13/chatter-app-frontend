@@ -36,7 +36,7 @@ function App() {
   const userId = user?._id;
   const [isInChat, setIsInChat] =useState(false);
  const [imageUploadOpen, setImageUploadOpen]= useState(false);
- const [sideBarOpen, setSideBarOpen]=useState(false);
+ const [sideBarOpen, setSideBarOpen]=useState(true);
 
 const handleImageUploadModalClose = function () {
 
@@ -130,7 +130,7 @@ const handleOpenSidebar =function () {
         const { width, height } = window.visualViewport;
 
         // Set the app's dimensions to match the visual viewport
-        appElement.style.width = `${width}px`;
+        
         appElement.style.height = `${height}px`;
       } else {
         // Fallback for browsers without Visual Viewport API
@@ -168,6 +168,7 @@ const handleOpenSidebar =function () {
             <section className="chat-screen-container">
               <nav className=" chat-top-navbar border-gray-250 border-y-2 border-t-0 ">
                  <button
+                 // className="block  md:invisible"
                   onClick={() => {
 setSideBarOpen(!sideBarOpen)
 
@@ -201,8 +202,7 @@ setSideBarOpen(!sideBarOpen)
 
                
               </nav>
-              <div className=" chat-window ">
-               <Layout  user={user}
+              <Layout  user={user}
                   userId={userId}
                   onOpen={onOpen}
                   onClose ={onClose}
@@ -210,6 +210,8 @@ setSideBarOpen(!sideBarOpen)
                   refreshUserChats={refreshUserChats}
                   handleIsInChat ={handleIsInChat}
                   sideBarOpen={sideBarOpen}>
+              <div className=" chat-window ">
+               
                
 
                 <div className="chat-window-right-panel">
@@ -231,8 +233,9 @@ setSideBarOpen(!sideBarOpen)
                     />
                   </Routes>
                 </div>
-                </Layout>
+               
               </div>
+               </Layout>
             </section>
           </>
         ) : (
