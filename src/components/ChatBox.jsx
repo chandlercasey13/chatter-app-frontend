@@ -141,10 +141,10 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
          <> 
          
          
-         {/* <Avatar className='h-8 w-8 ml-2 block  md:hidden ' >
+         <Avatar className='h-8 w-8 ml-2 block  md:hidden ' >
          <AvatarImage className   src={`${BACKEND_URL}/users/${foundUserId}/images`} alt="@shadcn" />
          <AvatarFallback>{foundUserusername?.charAt(0).toUpperCase()}</AvatarFallback>
-       </Avatar> */}
+       </Avatar>
 
            
             <h1 className="top-chat-name">{
@@ -177,10 +177,10 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
                 >
                   {userMessageObject.senderId[0]?.username != user.username && (
                     <div className=" flex items-center justify-center  mr-4">
-                      <Avatar className='h-8 w-8 ml-2' >
+                      {/* <Avatar className='h-8 w-8 ml-2' >
       <AvatarImage className   src={`${BACKEND_URL}/users/${foundUserId}/images`} alt="@shadcn" />
       <AvatarFallback>{foundUserusername.charAt(0).toUpperCase()}</AvatarFallback>
-    </Avatar>
+    </Avatar> */}
   
                     
                     </div>
@@ -224,10 +224,10 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
                 >
                   {dbMessageObject.senderId[0] != user._id && (
                     <div className=" mr-4">
-                      <Avatar className='h-8 w-8 ml-2' >
+                      {/* <Avatar className='h-8 w-8 ml-2' >
       <AvatarImage className   src={`${BACKEND_URL}/users/${foundUserId}/images`} alt="@shadcn" />
       <AvatarFallback>{foundUserusername.charAt(0).toUpperCase()}</AvatarFallback>
-    </Avatar>
+    </Avatar> */}
                       
                     </div>
                   )}
