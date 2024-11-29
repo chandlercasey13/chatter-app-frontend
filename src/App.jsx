@@ -122,11 +122,45 @@ const handleOpenSidebar =function () {
     setOpenSearchBox(false);
   };
 
+  useEffect(() => {
+    const adjustAppToViewport = () => {
+      const appElement = document.getElementById('root');
 
+      if (window.visualViewport) {
+        const { width, height } = window.visualViewport;
+
+        // Set the app's dimensions to match the visual viewport
+        appElement.style.width = `${width}px`;
+        appElement.style.height = `${height}px`;
+      } else {
+        // Fallback for browsers without Visual Viewport API
+        appElement.style.width = '100vw';
+        appElement.style.height = '100vh';
+      }
+    };
+
+    // Initial adjustment
+    adjustAppToViewport();
+
+    // Listen for viewport changes
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', adjustAppToViewport);
+      window.visualViewport.addEventListener('scroll', adjustAppToViewport);
+    }
+
+    // Cleanup event listeners on component unmount
+    return () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener('resize', adjustAppToViewport);
+        window.visualViewport.removeEventListener('scroll', adjustAppToViewport);
+      }
+    };
+  }, []);
 
   return (
+    <div id="root">
     <>
-      
+    
         {user ? (
           <>
          <ImageUploadModal imageUploadOpen={imageUploadOpen} handleImageUploadModalClose= {handleImageUploadModalClose} user={user}/>
@@ -272,7 +306,9 @@ setSideBarOpen(!sideBarOpen)
         )}
       
     </>
+    </div>
   );
+
 }
 
 export default App;
