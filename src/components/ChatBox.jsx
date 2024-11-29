@@ -49,7 +49,7 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
       setCurrentRoom(newRoom);
     };
 
-    if (inputRef.current) {
+    if (inputRef.current && window.visualViewport<770) {
       inputRef.current.focus(); 
       inputRef.current.select(); 
     }
