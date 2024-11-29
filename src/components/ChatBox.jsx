@@ -60,8 +60,8 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
       
     handleRoomChange(chatId);
     handleChatChange(chatId);}
-
-    setImageSrc(`${BACKEND_URL}/users/${foundUserId}/images`)
+if (foundUserId){ setImageSrc(`${BACKEND_URL}/users/${foundUserId}/images`)}
+   
   }, [foundUserId]);
 
   const messageListener = async (messagecontent) => {
