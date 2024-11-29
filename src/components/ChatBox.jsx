@@ -141,10 +141,10 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
          <> 
          
          
-         <Avatar className='h-8 w-8 ml-2 block  md:hidden ' >
+         {/* <Avatar className='h-8 w-8 ml-2 block  md:hidden ' >
          <AvatarImage className   src={`${BACKEND_URL}/users/${foundUserId}/images`} alt="@shadcn" />
          <AvatarFallback>{foundUserusername?.charAt(0).toUpperCase()}</AvatarFallback>
-       </Avatar>
+       </Avatar> */}
 
            
             <h1 className="top-chat-name">{
