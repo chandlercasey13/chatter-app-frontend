@@ -422,6 +422,7 @@ height: 100%;
 
   width: 83.3%;
   overflow-y: hidden;
+  pointer-events: all;
 }
 
 .chat-window-right-panel-chat-container-overflow {
