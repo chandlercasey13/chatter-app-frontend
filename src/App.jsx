@@ -134,8 +134,8 @@ const handleOpenSidebar =function () {
         appElement.style.height = `${height}px`;
       } else {
         // Fallback for browsers without Visual Viewport API
-        appElement.style.width = '100vw';
-        appElement.style.height = '100vh';
+        // appElement.style.width = '100vw';
+        // appElement.style.height = '100vh';
       }
     };
 
