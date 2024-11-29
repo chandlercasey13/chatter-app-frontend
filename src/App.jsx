@@ -69,7 +69,9 @@ const handleOpenSidebar =function () {
     if (userChats.length>0 && !isInChat && user){
       navigate(`/chatlogs/${userChats[0][0]?._id}/user/${userChats[0][0]?.participants[0].username === user.username ? `${userChats[0][0]?.participants[1]._id}`: `${userChats[0][0]?.participants[0]._id}`}/${userChats[0][0]?.participants[0]?.username === user.username ? `${userChats[0][0]?.participants[1]?.username}`: `${userChats[0][0]?.participants[0].username}` }
         ` );
-    } 
+    } else if (userChats.length === 0 && user) {
+      navigate(`/chatlogs/undefined/user/${user._id}/${user.username} ` );
+    }
     
       
     
