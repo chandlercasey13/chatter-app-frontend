@@ -7,7 +7,7 @@ const SearchUserBtn = ({ onOpen }) => {
   return (
     <div className="search-user-button-container">
 
-<p className="pl-2 text-2xl  ">Chats</p>
+<p className="pl-1 text-2xl  ">Chats</p>
 
     <button
       type="submit"

@@ -8,7 +8,7 @@ export default function Layout({  children,
     onClose, 
     userChats, 
     refreshUserChats, 
-    handleIsInChat, sideBarOpen  }) {
+    handleIsInChat, sideBarOpen, setSideBarOpen  }) {
   return (
     <SidebarProvider  className="pointer-events-none ">
       <AppSidebar 
@@ -19,7 +19,8 @@ export default function Layout({  children,
                   userChats={userChats}
                   refreshUserChats={refreshUserChats}
                   handleIsInChat ={handleIsInChat}
-                  sideBarOpen={sideBarOpen}  />
+                  sideBarOpen={sideBarOpen}
+                  setSideBarOpen = {setSideBarOpen}  />
       
       <main className="h-full flex flex-col justify-end   ">
         

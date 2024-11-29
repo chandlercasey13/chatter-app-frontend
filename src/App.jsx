@@ -14,7 +14,7 @@ import ImageUploadModal from "./components/ImageUploadModal";
 import {Avatar, AvatarImage, AvatarFallback} from "./components/ui/avatar"
 import Layout from "../layout";
 import { Menu } from 'lucide-react';
-import { useSidebar } from "@/components/ui/sidebar"
+
 import "./App.css";
 
 function App() {
@@ -209,7 +209,9 @@ setSideBarOpen(!sideBarOpen)
                   userChats={userChats}
                   refreshUserChats={refreshUserChats}
                   handleIsInChat ={handleIsInChat}
-                  sideBarOpen={sideBarOpen}>
+                  sideBarOpen={sideBarOpen}
+                  setSideBarOpen = {setSideBarOpen}>
+                   
               <div className=" chat-window ">
                
                

@@ -17,9 +17,8 @@ import {
   SidebarHeader,
   SidebarRail
 } from "@/components/ui/sidebar"
- 
-import { useSidebar } from "@/components/ui/sidebar"
 
+import { useSidebar } from "@/components/ui/sidebar"
 
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem } from "@/components/ui/dropdown-menu.jsx";
 import React, { useState, useEffect,useContext } from "react";
@@ -36,10 +35,8 @@ import * as chatService from "../../../services/chatService"
 
 
 
-
-
  
-export function AppSidebar({ user, userId, onOpen, onClose, userChats, refreshUserChats, handleIsInChat, sideBarOpen }) {
+export function AppSidebar({ user, userId, onOpen, onClose, userChats, refreshUserChats, handleIsInChat, sideBarOpen, setSideBarOpen }) {
 
 
     const [allUsers, setAllUsers] = useState([]);
@@ -50,23 +47,31 @@ export function AppSidebar({ user, userId, onOpen, onClose, userChats, refreshUs
   
    
  
+const {
+    state,
+    open,
+    setOpen,
+    openMobile,
+    setOpenMobile,
+    isMobile,
+    toggleSidebar,
+  } = useSidebar()
+
   
   
-    const {
-        state,
-        open,
-        setOpen,
-        openMobile,
-        setOpenMobile,
-        isMobile,
-        toggleSidebar,
-      } = useSidebar()
+   
 
       useEffect(()=> { 
-        
-if (state == 'expanded'){setOpenMobile(true)}        
+       
+  
+if(isMobile && open==false){setOpenMobile(false)}   
 
-else{ setOpenMobile(false)}
+if (isMobile && open==true){
+ setOpenMobile(true)
+}
+
+console.log(openMobile)
+
 
       },[sideBarOpen])
 
