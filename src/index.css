@@ -399,10 +399,11 @@ height: 100%;
   display: flex;
   align-items: center;
   justify-content: start;
+  padding-left: 10px;
 }
 
 .top-chat-name {
-  margin-left: 20px;
+  margin-left: 10px;
   font-size: 20px;
   font-weight: 600;
 }

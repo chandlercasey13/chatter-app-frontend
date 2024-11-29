@@ -136,13 +136,24 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
   
   return (
     <>
-      <header className="top-chat-name-container border-gray-250 border-y-2 border-t-0 ">
+      <header className="top-chat-name-container border-gray-250 border-y-2 border-t-0 pointer-events-auto ">
         {!openSearchBox ? (
-          <h1 className="top-chat-name">{
-           foundUserusername
-            }
-            </h1>
-        ) : (
+         <> 
+         
+         
+         <Avatar className='h-8 w-8 ml-2 block  md:hidden ' >
+         <AvatarImage className   src={`${BACKEND_URL}/users/${foundUserId}/images`} alt="@shadcn" />
+         <AvatarFallback>{foundUserusername.charAt(0).toUpperCase()}</AvatarFallback>
+       </Avatar>
+
+           
+            <h1 className="top-chat-name">{
+             foundUserusername
+              }
+              </h1>
+              </>
+            )
+         : (
           <SearchUser
             user={user}
             onClose={onClose}
