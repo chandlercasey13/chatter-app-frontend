@@ -268,7 +268,7 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
           ref={inputRef}
         ></input>
 
-        <button className="w-10 ml-1 rounded-xl border-blue-300 border-2 transform transition-transform duration-300 hover:scale-110 hover:bg-blue-100">
+        <button  className="w-10 ml-1 rounded-xl border-blue-300 border-2 transform transition-transform duration-300 hover:scale-110 hover:bg-blue-100 pointer-events-auto">
           <i className="bx bxs-send"></i>
         </button>
       </form>

@@ -70,7 +70,7 @@ if (isMobile && open==true){
  setOpenMobile(true)
 }
 
-console.log(openMobile)
+
 
 
       },[sideBarOpen])

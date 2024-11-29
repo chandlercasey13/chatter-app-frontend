@@ -45,7 +45,7 @@ const SearchUser = ({ onClose, user, refreshUserChats }) => {
   useEffect(() => {
     handleSearchUser();
   }, [search]);
-  console.log(searchUser)
+ 
 
   return (
     <div className=" search-modal h-screen w-1/2 absolute top-0 bottom-0 left-0 right-0 text-slate-500 pointer-events-none  ">
