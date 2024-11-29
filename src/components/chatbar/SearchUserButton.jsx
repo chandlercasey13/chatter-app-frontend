@@ -11,7 +11,7 @@ const SearchUserBtn = ({ onOpen }) => {
 
     <button
       type="submit"
-      className="search-user-button"
+      className="search-user-button "
       onClick={onOpen}
     >
       

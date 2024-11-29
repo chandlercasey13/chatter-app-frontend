@@ -384,6 +384,10 @@ height: 100%;
   color: rgba(46, 161, 255, 1);
 }
 
+.search-user-button::focus {
+  outline:none;
+}
+
 .top-chat-name-container {
   position: absolute;
   top: 0;
