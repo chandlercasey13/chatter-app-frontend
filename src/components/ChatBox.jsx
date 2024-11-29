@@ -229,7 +229,7 @@ if (foundUserId){ setImageSrc(`${BACKEND_URL}/users/${foundUserId}/images`)}
                     <div className=" mr-4">
                       <Avatar className='h-8 w-8 ml-2' >
       <AvatarImage className  src={imageSrc} alt="@shadcn" />
-      <AvatarFallback>{foundUserusername.charAt(0).toUpperCase()}</AvatarFallback>
+      <AvatarFallback>{foundUserusername?.charAt(0).toUpperCase()}</AvatarFallback>
     </Avatar>
                       
                     </div>
