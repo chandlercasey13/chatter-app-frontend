@@ -49,7 +49,7 @@ export function AppSidebar({ user, userId, onOpen, onClose, userChats, refreshUs
     const navigate = useNavigate();
   
    
-  console.log(sideBarOpen)
+ 
   
   
     const {
@@ -62,9 +62,11 @@ export function AppSidebar({ user, userId, onOpen, onClose, userChats, refreshUs
         toggleSidebar,
       } = useSidebar()
 
-      useEffect(()=> {
-toggleSidebar()
+      useEffect(()=> { 
+        
+if (state == 'expanded'){setOpenMobile(true)}        
 
+else{ setOpenMobile(false)}
 
       },[sideBarOpen])
 
@@ -133,7 +135,7 @@ toggleSidebar()
 
 
                onClick={() => { if (chats.messages[0])
-                 {handleReadingMessages(chats.messages[chats.messages.length-1]._id)} handleIsInChat(); onClose();  toggleSidebar();} 
+                 {handleReadingMessages(chats.messages[chats.messages.length-1]._id)} handleIsInChat(); onClose();  if (window.visualViewport.width<770) {toggleSidebar();}} 
                 
                 }
              

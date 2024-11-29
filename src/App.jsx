@@ -36,7 +36,7 @@ function App() {
   const userId = user?._id;
   const [isInChat, setIsInChat] =useState(false);
  const [imageUploadOpen, setImageUploadOpen]= useState(false);
- const [sideBarOpen, setSideBarOpen]=useState(true);
+ const [sideBarOpen, setSideBarOpen]=useState(false);
 
 const handleImageUploadModalClose = function () {
 
@@ -168,7 +168,7 @@ const handleOpenSidebar =function () {
             <section className="chat-screen-container">
               <nav className=" chat-top-navbar border-gray-250 border-y-2 border-t-0 ">
                  <button
-                 // className="block  md:invisible"
+                  className="block  md:invisible"
                   onClick={() => {
 setSideBarOpen(!sideBarOpen)
 
