@@ -765,7 +765,7 @@ width: 100%;
 
 .chat-window-right-panel {
  
-  padding-top: 10px;
+
   max-height: 93%;
   height: 93%;
   width: 100%;
@@ -782,7 +782,15 @@ width: 100%;
   }
 
 
+  .chat-right-panel-text-containers {
+ 
 
+    
+    
+  
+    width: 95%;
+  
+  }
 
   .input-box-container {
    height: 50px;
