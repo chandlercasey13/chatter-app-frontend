@@ -50,10 +50,10 @@ const SearchUser = ({ onClose, user, refreshUserChats, setSideBarOpen, handleOpe
   return (
     <div className=" search-modal h-screen w-full absolute top-0 bottom-0 left-0 right-0 text-slate-500 pointer-events-none md:w-1/2 overflow-hidden ">
       <div
-        className="w-full max-w-3xl h-full rounded  mx-2  overflow-visible 
+        className=" max-w-3xl h-full   mx-2  overflow-visible md:rounded 
  "
       >
-        <div className="bg-white rounded h-10  flex items-center justify-center">
+        <div className="bg-white  h-10  flex items-center justify-center md:rounded">
           <h1 className="flex items-center text-xl font-medium">To:</h1>
           <input
             type="text"
@@ -64,7 +64,7 @@ const SearchUser = ({ onClose, user, refreshUserChats, setSideBarOpen, handleOpe
           />
         </div>
 
-        <div className="w-full h-1/2 bg-white   max-h-screen mt-2 p-2 pr-1  shadow-custom border-2 rounded-2xl">
+        <div className="w-full h-1/2 bg-white   max-h-screen mt-2 p-2 pr-1  shadow-custom border-2 rounded-xl">
           <div className="bg-white  w-full h-full overflow-auto scroll-auto pointer-events-auto">
             {searchUser.length === 0 && (
               <p className="text-left text-slate-500">User Does Not Exist</p>

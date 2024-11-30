@@ -109,17 +109,17 @@ if (isMobile && open==true){
 
 
   return (
-    <Sidebar className="h-full w-1/6 min-w-52 mt-12  pointer-events-auto border-gray-250 border-2 border-t-0 rounded-xl "  variant="inset" >
+    <Sidebar className="h-full w-1/6 min-w-52 mt-12  pointer-events-auto border-gray-250 border-2 border-t-0 rounded-xl  "  variant="inset" >
       <SidebarContent  className="pointer-events-auto">
         <SidebarHeader><SearchUserBtn onOpen={onOpen}/> </SidebarHeader>
-        <SidebarGroup>
+        <SidebarGroup >
           
-          <SidebarGroupContent>
+          <SidebarGroupContent >
 
 
             
             
-            <SidebarMenu>
+            <SidebarMenu >
            
             {openSearchBox ? 
             <div className="block md:hidden pointer-events-auto ">
