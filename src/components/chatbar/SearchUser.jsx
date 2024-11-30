@@ -6,7 +6,7 @@ import { IoIosCloseCircleOutline } from "react-icons/io";
 
 const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 
-const SearchUser = ({ onClose, user, refreshUserChats }) => {
+const SearchUser = ({ onClose, user, refreshUserChats, setSideBarOpen, handleOpenSideBar }) => {
   const [searchUser, setSearchUser] = useState([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
@@ -48,7 +48,7 @@ const SearchUser = ({ onClose, user, refreshUserChats }) => {
  
 
   return (
-    <div className=" search-modal h-screen w-1/2 absolute top-0 bottom-0 left-0 right-0 text-slate-500 pointer-events-none  ">
+    <div className=" search-modal h-screen w-full absolute top-0 bottom-0 left-0 right-0 text-slate-500 pointer-events-none md:w-1/2 overflow-hidden ">
       <div
         className="w-full max-w-3xl h-full rounded  mx-2  overflow-visible 
  "
@@ -84,6 +84,8 @@ const SearchUser = ({ onClose, user, refreshUserChats }) => {
                     founduser={founduser}
                     onClose={onClose}
                     refreshUserChats={refreshUserChats}
+                    setSideBarOpen={setSideBarOpen}
+                    handleOpenSideBar= {handleOpenSideBar}
                   />
                 );
               })}

@@ -31,12 +31,12 @@ import { Link, useNavigate } from "react-router-dom";
 import * as messageService from "../../../services/messageService"
 
 import * as chatService from "../../../services/chatService"
-
+import SearchUser from "../chatbar/SearchUser.jsx";
 
 
 
  
-export function AppSidebar({ user, userId, onOpen, onClose, userChats, refreshUserChats, handleIsInChat, sideBarOpen, setSideBarOpen }) {
+export function AppSidebar({ user, userId, onOpen, onClose, userChats, refreshUserChats, handleIsInChat, sideBarOpen, setSideBarOpen, openSearchBox , handleOpenSideBar}) {
 
 
     const [allUsers, setAllUsers] = useState([]);
@@ -115,11 +115,21 @@ if (isMobile && open==true){
         <SidebarGroup>
           
           <SidebarGroupContent>
+
+
+            
             
             <SidebarMenu>
            
-
-
+            {openSearchBox ? 
+            <div className="block md:hidden pointer-events-auto ">
+            <SearchUser user={user}
+            onClose={onClose}
+            refreshUserChats={refreshUserChats} 
+            setSideBarOpen={setSideBarOpen}
+            handleOpenSideBar={handleOpenSideBar} />
+            </div> : (
+<>
             {userChats[0]?.map((chats, i) => (
 
 
@@ -322,9 +332,9 @@ if (isMobile && open==true){
           
 //          </li>
        ))}
-
-
-
+</>
+      )}
+     
 
 
 
@@ -332,6 +342,7 @@ if (isMobile && open==true){
 
               
             </SidebarMenu>
+            
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>

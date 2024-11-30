@@ -519,7 +519,7 @@ border-radius: 50%;
 }
 
 .search-modal{
-  z-index: 10;
+  z-index: 100;
 }
 
 

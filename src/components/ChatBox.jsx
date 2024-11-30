@@ -134,7 +134,7 @@ if (foundUserId){ setImageSrc(`${BACKEND_URL}/users/${foundUserId}/images`)}
 
     setMessageLog(filteredLog);
   }
-
+console.log(window.visualViewport.width)
   
   return (
     <>
@@ -156,12 +156,14 @@ if (foundUserId){ setImageSrc(`${BACKEND_URL}/users/${foundUserId}/images`)}
               </h1>
               </>
             )
-         : (
+         : ( 
+          <div className=" hidden md:block">
           <SearchUser
             user={user}
             onClose={onClose}
             refreshUserChats={refreshUserChats}
           />
+          </div>
         )}
         
       </header>

@@ -55,7 +55,7 @@ const handleIsInChat = function () {
 }
 
 const handleOpenSidebar =function () {
-
+  setSideBarOpen(!sideBarOpen)
 }
   useEffect(() => {
     if (userId) {
@@ -170,7 +170,7 @@ const handleOpenSidebar =function () {
                  <button
                   className="block  md:invisible"
                   onClick={() => {
-setSideBarOpen(!sideBarOpen)
+handleOpenSidebar()
 
                     
                     // authService.signout();
@@ -210,7 +210,9 @@ setSideBarOpen(!sideBarOpen)
                   refreshUserChats={refreshUserChats}
                   handleIsInChat ={handleIsInChat}
                   sideBarOpen={sideBarOpen}
-                  setSideBarOpen = {setSideBarOpen}>
+                  setSideBarOpen = {setSideBarOpen}
+                  openSearchBox={openSearchBox}
+                  handleOpenSidebar={handleOpenSidebar}>
                    
               <div className=" chat-window ">
                
