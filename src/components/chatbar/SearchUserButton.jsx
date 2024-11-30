@@ -15,7 +15,7 @@ const SearchUserBtn = ({ onOpen }) => {
       onClick={onOpen}
     >
       
-      <HiOutlinePencilSquare  className="w-1/3 h-full" />
+      <HiOutlinePencilSquare  className="w-1/3 min-w-7 h-full" />
     </button>
     </div>
   );
