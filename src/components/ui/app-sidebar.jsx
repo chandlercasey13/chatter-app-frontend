@@ -121,7 +121,7 @@ if (isMobile && open==true){
             
             <SidebarMenu >
            
-            {openSearchBox ? 
+            {(openSearchBox && visualViewport.width < 770) ? 
             <div className="block md:hidden pointer-events-auto ">
             <SearchUser user={user}
             onClose={onClose}
