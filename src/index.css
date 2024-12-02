@@ -532,15 +532,17 @@ border-radius: 50%;
 
 min-width:300px;
 min-height: 400px;  
-max-width: 350px;
-max-height: 500px;
+
+
+/* max-width: 350px;
+max-height: 500px; */
 }
 
 .image-upload-modal::backdrop{
   background-color:  rgba(0, 0, 0, 0.15);
 }
 
-.image-upload-modal-container{
+::backdrop{
 
 }
 

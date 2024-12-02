@@ -1,6 +1,14 @@
 import React, { useState, useEffect, useContext,useRef } from "react";
 import * as userService from "../../services/userService"
 import {Avatar, AvatarImage, AvatarFallback} from "../components/ui/avatar"
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 
 const ImageUploadModal = ({ imageUploadOpen, handleImageUploadModalClose, user }) => {
  
@@ -12,12 +20,15 @@ const ImageUploadModal = ({ imageUploadOpen, handleImageUploadModalClose, user }
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+
   useEffect(() => {
     if (modalRef.current) {
       if (imageUploadOpen) {
         modalRef.current.showModal();
+        // document.addEventListener("click", handleOutsideClick);
       } else {
         modalRef.current.close();
+        // document.removeEventListener("click", handleOutsideClick);
       }
     }
   }, [imageUploadOpen]);
@@ -56,16 +67,38 @@ const ImageUploadModal = ({ imageUploadOpen, handleImageUploadModalClose, user }
 
     
   }
-  
+
+  const handleOutsideClick = (event) => {
+    if (modalRef.current && modalRef.current.open && !modalRef.current.contains(event.target)) {
+      
+      console.log('bruh')
+      handleImageUploadModalClose();
+    }
+  };
+
+
+
+
 
   return (
     <>
+
+
+
+
+
       {imageUploadOpen && (
+
+
+
         <dialog
-          className="image-upload-modal rounded-lg h-1/2 w-1/2 p-4 pt-0 flex flex-col items-center justify-around"
+          className={`image-upload-modal mr-2 mt-2 rounded-lg h-1/2  w-1/2 max-w-40  p-4 pt-0 flex flex-col items-center justify-around transition-transform duration-300 
+          ${
+            imageUploadOpen ? "translate-x-0" : "translate-x-full"
+          }`}
           ref={modalRef}
         >
-         
+         <div className="backdrop"></div>
           <div className="flex w-full justify-end h-4">
             <button onClick={handleImageUploadModalClose}>
               <img
