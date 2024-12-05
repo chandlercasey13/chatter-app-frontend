@@ -120,7 +120,7 @@ const ImageUploadModal = ({ imageUploadOpen, handleImageUploadModalClose, user }
            
           </div>
 
-          <div className="w-full flex justify-center items-center h-1/3 pb-2 ">
+          <div className="w-full flex justify-center items-center h-10 p-2  ">
             <input
               type="file"
               accept="image/*"
