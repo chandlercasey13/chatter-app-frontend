@@ -92,14 +92,14 @@ const ImageUploadModal = ({ imageUploadOpen, handleImageUploadModalClose, user }
 
 
         <dialog
-          className={`image-upload-modal mr-2 mt-2 rounded-lg h-1/2  w-1/2 max-w-40  p-4 pt-0 flex flex-col items-center justify-around transition-transform duration-300 
+          className={`image-upload-modal mr-2 mt-2 rounded-lg h-1/4 w-1/2 max-w-40  p-4  flex flex-col items-center justify-around transition-transform duration-300 
           ${
             imageUploadOpen ? "translate-x-0" : "translate-x-full"
           }`}
           ref={modalRef}
         >
-         <div className="backdrop"></div>
-          <div className="flex w-full justify-end h-4">
+         
+          <div className="flex w-full justify-end h-6">
             <button onClick={handleImageUploadModalClose}>
               <img
                 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAN5JREFUSEvtlMENwyAMRc0mdJPkiEJ26CqdpF0i4tiM0kGS0JoGKVCMQVVUVQrHxPrP/h8jYOcjdtaHA8A6/FuLzDCcVdfdqDaNMRKWpcnVkBOgOFh7BYCH0voUQ5z4PON/CUJcKAgNeAvcnUAE2Yg3ADAqrVtqymwGq1AAqRFHKBtyDMFpXl2znfuJWAAWRhD8lLVla1cNAAPFzvEkg0/lwAJiz9fQP4L/JmTfubMlFXxunblrGoh7oRpIyaIlAw0g1raq78fqDIqeimmSlHjRHrDPJVPA3qID8P8WPQE1R4kZM35sUAAAAABJRU5ErkJggg=="
@@ -118,6 +118,9 @@ const ImageUploadModal = ({ imageUploadOpen, handleImageUploadModalClose, user }
     </Avatar>
     </div>
            
+          </div>
+
+          <div className="w-full flex justify-center items-center h-1/3 pb-2 ">
             <input
               type="file"
               accept="image/*"
@@ -131,15 +134,18 @@ const ImageUploadModal = ({ imageUploadOpen, handleImageUploadModalClose, user }
             >
               {image ? "Choose Picture" : "Select an image"}
             </label>
-          </div>
+            </div>
+
+
+
 
           {error && <div className="text-red-500 text-sm">{error}</div>}
 
-         
+         <div className="w-full flex justify-center items-center p-2 pb-4">
           <button
             onClick={handleUpload}
             disabled={loading}
-            className={`mt-4 px-4 py-2 rounded-md ${
+            className={` px-4 py-2 rounded-md ${
               loading
                 ? "bg-gray-300 text-gray-500 cursor-not-allowed"
                 : "bg-blue-500 text-white hover:bg-blue-600"
@@ -147,6 +153,12 @@ const ImageUploadModal = ({ imageUploadOpen, handleImageUploadModalClose, user }
           >
             {loading ? "Uploading..." : "Set Profile Picture"}
           </button>
+          </div>
+          <div className="w-full h-10 ">
+          <button className="text-red-500 border-t border-gray-300 w-full p-2 pt-3">
+            Sign Out
+          </button>
+          </div>
         </dialog>
       )}
     </>

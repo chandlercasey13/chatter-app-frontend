@@ -163,7 +163,7 @@ const handleOpenSidebar =function () {
     
         {user ? (
           <>
-         <ImageUploadModal imageUploadOpen={imageUploadOpen} handleImageUploadModalClose= {handleImageUploadModalClose} user={user}/>
+         <ImageUploadModal imageUploadOpen={imageUploadOpen} handleImageUploadModalClose= {handleImageUploadModalClose} user={user} setUser={setUser} setUserChats={setUserChats} setIsInChat={setIsInChat}/>
 
             <section className="chat-screen-container">
               <nav className=" chat-top-navbar border-gray-250 border-y-2 border-t-0 ">
@@ -173,11 +173,11 @@ const handleOpenSidebar =function () {
 handleOpenSidebar()
 
                     
-                    // authService.signout();
-                    // setUser(false);
-                    // setUserChats([]);
-                    // setIsInChat(false)
-                    // navigate("/");
+                    authService.signout();
+                    setUser(false);
+                    setUserChats([]);
+                    setIsInChat(false)
+                    navigate("/");
                   }}
                 >
                   <Menu />
