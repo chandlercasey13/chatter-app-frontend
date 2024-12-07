@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-const ImageUploadModal = ({ imageUploadOpen, handleImageUploadModalClose, user }) => {
+const ImageUploadModal = ({ imageUploadOpen, handleImageUploadModalClose, user, handleSignOut }) => {
  
   const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 
@@ -155,7 +155,7 @@ const ImageUploadModal = ({ imageUploadOpen, handleImageUploadModalClose, user }
           </button>
           </div>
           <div className="w-full h-10 ">
-          <button className="text-red-500 border-t border-gray-300 w-full p-2 pt-3">
+          <button onClick={handleSignOut} className="text-red-500 border-t border-gray-300 w-full p-2 pt-3">
             Sign Out
           </button>
           </div>
