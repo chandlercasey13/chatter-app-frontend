@@ -37,6 +37,13 @@ function App() {
   const [isInChat, setIsInChat] =useState(false);
  const [imageUploadOpen, setImageUploadOpen]= useState(false);
  const [sideBarOpen, setSideBarOpen]=useState(false);
+ const [imageFile, setImageFile] = useState(null);
+  const [image, setImage] = useState(`${BACKEND_URL}/users/${user._id}/images`);
+
+
+
+
+
 
 const handleImageUploadModalClose = function () {
 
@@ -171,13 +178,28 @@ function handleSignOut () {
     };
   }, []);
 
+
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file); // Create a temporary URL
+      console.log(imageUrl); // Logs the URL
+      setImage(imageUrl); // Set the URL to your state
+      setImageFile(file)
+    }
+  };
+
+
+
+
   return (
     <div id="root">
     <>
     
         {user ? (
           <>
-         <ImageUploadModal imageUploadOpen={imageUploadOpen} handleImageUploadModalClose= {handleImageUploadModalClose} user={user} setUser={setUser} setUserChats={setUserChats} setIsInChat={setIsInChat} handleSignOut={handleSignOut}/>
+         <ImageUploadModal handleImageChange={handleImageChange} image={image} imageFile={imageFile} imageUploadOpen={imageUploadOpen} handleImageUploadModalClose= {handleImageUploadModalClose} user={user} setUser={setUser} setUserChats={setUserChats} setIsInChat={setIsInChat} handleSignOut={handleSignOut}/>
 
             <section className="chat-screen-container">
               <nav className=" chat-top-navbar border-gray-250 border-y-2 border-t-0 ">
@@ -199,7 +221,7 @@ handleOpenSidebar()
               
 
               <Avatar className='h-8 w-8 ml-2' >
-    <AvatarImage className   src={`${BACKEND_URL}/users/${user._id}/images`} alt="@shadcn" />
+    <AvatarImage className   src={image} alt="@shadcn" />
     <AvatarFallback>{user.username.charAt(0).toUpperCase()}</AvatarFallback>
   </Avatar>
 

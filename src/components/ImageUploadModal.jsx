@@ -10,16 +10,15 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 
-const ImageUploadModal = ({ imageUploadOpen, handleImageUploadModalClose, user, handleSignOut }) => {
+const ImageUploadModal = ({ imageUploadOpen, handleImageUploadModalClose, user, handleSignOut, image, imageFile , handleImageChange }) => {
  
   const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
 
   const modalRef = useRef(null);
-  const [imageFile, setImageFile] = useState(null);
-  const [image, setImage] = useState(`${BACKEND_URL}/users/${user._id}/images`);
+ 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
+  const [buttonMessage, setButtonMessage] = useState('Set Profile Picture');
 
   useEffect(() => {
     if (modalRef.current) {
@@ -38,33 +37,36 @@ const ImageUploadModal = ({ imageUploadOpen, handleImageUploadModalClose, user, 
 
 
   
-  const handleImageChange = (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file); // Create a temporary URL
-      console.log(imageUrl); // Logs the URL
-      setImage(imageUrl); // Set the URL to your state
-      setImageFile(file)
-    }
-  };
+ 
 
   const handleUpload = async (event) => {
     event.preventDefault()
-
-
     const formData = new FormData();
 
     formData.append("image", imageFile)
 
-   
-    
+
+
+    try {
       const postResponse = await userService.createUserPicture(user._id, formData);
-      
 
-    
-      const getResponse = await userService.getUserPicture(user._id, postResponse.imagePath )
+      if (postResponse) { 
 
+        setLoading(true);
+          // Assuming successful postResponse means successful upload
+          await userService.getUserPicture(user._id, postResponse.imagePath);
+           // Set loading to "success" on success
 
+          // Reset the message back to default after 3 seconds
+          setTimeout(() => {
+              setLoading(false);
+
+          }, 1000); // 3000ms = 3 seconds
+      }
+  } catch (error) {
+      console.error("Error uploading image:", error);
+      setLoading(false); // Reset loading in case of error
+  }
     
   }
 
@@ -151,7 +153,11 @@ const ImageUploadModal = ({ imageUploadOpen, handleImageUploadModalClose, user, 
                 : "bg-blue-500 text-white hover:bg-blue-600"
             }`}
           >
-            {loading ? "Uploading..." : "Set Profile Picture"}
+            {loading ? "Uploading..." : `${buttonMessage}`}
+
+
+
+            
           </button>
           </div>
           <div className="w-full h-10 ">
