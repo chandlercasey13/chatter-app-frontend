@@ -29,6 +29,7 @@ function App() {
   const [loginMessage, setLoginMessage] = useState(
     "Connect with your friends and family, build your community, and deepen your interests."
   );
+ const [LoginError,setLoginError]=useState(false)
 
   const [userChats, setUserChats] = useState([]);
   const { previewMessage, setPreviewMessage } = useContext(ChatContext);
@@ -71,6 +72,7 @@ const handleOpenSidebar =function () {
   useEffect(() => {
     if (userId  ) {
       refreshUserChats(userId);
+      setImage(`${BACKEND_URL}/users/${user?._id}/images`)
     }
   }, [previewMessage, user]);
  
@@ -98,10 +100,6 @@ const handleOpenSidebar =function () {
 getUserChats(userId)
 
 
-if (userId) {
-  setImage(`${BACKEND_URL}/users/${user?._id}/images`)
-}
-    
     
     },[])
 
@@ -117,11 +115,11 @@ if (userId) {
 
 
     if (userChats[0]?.length > 0  && !isInChat && user){
-      navigate(`/chatlogs/${userChats[0][0]?._id}/user/${userChats[0][0]?.participants[0].username === user.username ? `${userChats[0][0]?.participants[1]._id}`: `${userChats[0][0]?.participants[0]._id}`}/${userChats[0][0]?.participants[0]?.username === user.username ? `${userChats[0][0]?.participants[1]?.username}`: `${userChats[0][0]?.participants[0].username}` }
+      navigate(`/chatlogs/${userChats[0][0]?._id}/user/${userChats[0][0]?.participants[0]?.username === user?.username ? `${userChats[0][0]?.participants[1]?._id}`: `${userChats[0][0]?.participants[0]?._id}`}/${userChats[0][0]?.participants[0]?.username === user?.username ? `${userChats[0][0]?.participants[1]?.username}`: `${userChats[0][0]?.participants[0]?.username}` }
         ` );
     } else if (userChats[0]?.length ===0  && user) {
       //setUserChats([])
-       navigate(`/chatlogs/undefined/user/${user._id}/${user.username} ` );
+       navigate(`/chatlogs/undefined/user/${user._id}/${user?.username} ` );
     }
     
       
@@ -158,7 +156,8 @@ if (allUserChats) {
       setUser(userToken);
     } catch (err) {
       console.log(err);
-      setLoginMessage("Invalid username or password");
+      setLoginError(true)
+      setLoginMessage(`${err}`);
     }
 
   }
@@ -172,6 +171,7 @@ function handleSignOut () {
                     setIsInChat(false)
                     navigate("/");
                     setImageUploadOpen(false)
+                    setImage(null)
 }
 
 
@@ -342,7 +342,7 @@ handleOpenSidebar()
                         A place for meaningful conversations
                       </h1>
 
-                      <p id="landing-column-left-pitch">{loginMessage}</p>
+                      <p id="landing-column-left-pitch" className={LoginError? "text-red-500": "text-black"}>{loginMessage}</p>
 
                       <div id="login-form-container">
                         <form id="login-form" onSubmit={loginSubmit}>

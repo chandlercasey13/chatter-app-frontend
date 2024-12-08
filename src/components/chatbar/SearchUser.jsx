@@ -46,7 +46,7 @@ const SearchUser = ({ onClose, user, refreshUserChats, setSideBarOpen, handleOpe
 
   useEffect(() => {
     handleSearchUser();
-    console.log(search)
+  
   }, [search]);
  
 

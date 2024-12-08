@@ -54,7 +54,7 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
       inputRef.current.select(); 
     }
 
-console.log(chatId)
+
 
     if (foundUserId && foundUserId != 'undefined') {
       
