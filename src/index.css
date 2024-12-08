@@ -728,7 +728,12 @@ max-height: 500px; */
     color: #2ea1ff;
   }
 
-
+  #landing-column-left-pitch {
+   
+    margin-bottom: 50px;
+    
+    
+  }
 
 
   .chatter-title {
