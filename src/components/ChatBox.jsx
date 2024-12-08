@@ -151,7 +151,7 @@ console.log(window.visualViewport.width)
 
            
             <h1 className="top-chat-name">{
-             foundUserusername
+             foundUserusername === user.username? "" : foundUserusername
               }
               </h1>
               </>

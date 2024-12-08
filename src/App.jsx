@@ -33,12 +33,13 @@ function App() {
   const [userChats, setUserChats] = useState([]);
   const { previewMessage, setPreviewMessage } = useContext(ChatContext);
   const {foundUserId} =useParams();
+  const {chatId} =useParams();
   const userId = user?._id;
   const [isInChat, setIsInChat] =useState(false);
  const [imageUploadOpen, setImageUploadOpen]= useState(false);
  const [sideBarOpen, setSideBarOpen]=useState(false);
  const [imageFile, setImageFile] = useState(null);
-  const [image, setImage] = useState(`${BACKEND_URL}/users/${user._id}/images`);
+  const [image, setImage] = useState(`${BACKEND_URL}/users/${user?._id}/images`);
 
 
 
@@ -65,19 +66,56 @@ const handleOpenSidebar =function () {
   setSideBarOpen(!sideBarOpen)
 }
   useEffect(() => {
-    if (userId) {
+    if (userId  ) {
       refreshUserChats(userId);
     }
   }, [previewMessage, user]);
  
 
+
+  
+
   useEffect(()=>{
     
-    if (userChats.length>0 && !isInChat && user){
+    const getUserChats = async function (userId) {
+      if (userId ) {
+        const allUserChats = await chatService.getUserChats(userId);
+  
+        
+  if (allUserChats) {
+    setUserChats([allUserChats]);
+  }
+        
+        console.log(allUserChats)
+      } else {
+        setUserChats([]); 
+      }
+    };
+  
+getUserChats(userId)
+
+
+    
+    
+    },[])
+
+
+
+
+
+
+  useEffect(()=>{
+    
+
+
+
+
+    if (userChats[0]?.length > 0  && !isInChat && user){
       navigate(`/chatlogs/${userChats[0][0]?._id}/user/${userChats[0][0]?.participants[0].username === user.username ? `${userChats[0][0]?.participants[1]._id}`: `${userChats[0][0]?.participants[0]._id}`}/${userChats[0][0]?.participants[0]?.username === user.username ? `${userChats[0][0]?.participants[1]?.username}`: `${userChats[0][0]?.participants[0].username}` }
         ` );
-    } else if (userChats.length === 0 && user) {
-      navigate(`/chatlogs/undefined/user/${user._id}/${user.username} ` );
+    } else if (userChats && user) {
+      //setUserChats([])
+       navigate(`/chatlogs/undefined/user/${user._id}/${user.username} ` );
     }
     
       
@@ -85,14 +123,18 @@ const handleOpenSidebar =function () {
     
     },[userChats])
 
-  
 
 
   const refreshUserChats = async function (userId) {
-    if (userId) {
+    if (userId ) {
       const allUserChats = await chatService.getUserChats(userId);
 
-      setUserChats([allUserChats]);
+      
+if (allUserChats) {
+  setUserChats([allUserChats]);
+}
+      
+      console.log(allUserChats)
     } else {
       setUserChats([]); 
     }
@@ -105,7 +147,8 @@ const handleOpenSidebar =function () {
       const userToken = isSignedup
         ? await authService.signin(loginText)
         : await authService.signup(loginText);
-
+        // navigate(`/chatlogs/undefined/user/${user._id}/${user.username} ` )
+        
       setUser(userToken);
     } catch (err) {
       console.log(err);
