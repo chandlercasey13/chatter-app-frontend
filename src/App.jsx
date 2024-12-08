@@ -385,7 +385,7 @@ handleOpenSidebar()
                     </div>
                   </div>
                   <div className="landing-column-right-container">
-                    <div className="landing-column-right">hey</div>
+                    <div className="landing-column-right"><img className=" h-5/6 min-w-[32rem] w-full max-h-[40rem]  md:scale-x-100" src="/images/phonedemo.png"></img></div>
                   </div>
                 </>
               </div>
