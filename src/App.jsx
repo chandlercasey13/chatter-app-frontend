@@ -265,7 +265,7 @@ handleOpenSidebar()
 
               <Avatar className='h-8 w-8 ml-2' >
     <AvatarImage className   src={image} alt="@shadcn" />
-    <AvatarFallback>{user.username.charAt(0).toUpperCase()}</AvatarFallback>
+    <AvatarFallback>{user.username?.charAt(0).toUpperCase()}</AvatarFallback>
   </Avatar>
 
                 

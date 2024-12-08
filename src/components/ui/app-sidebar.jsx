@@ -188,7 +188,7 @@ if (isMobile && open==true){
             }/images`}  alt="@shadcn" />
       <AvatarFallback>{(chats?.participants[0]?.username === user.username
                ? chats?.participants[1]?.username
-               : chats?.participants[0]?.username).charAt(0).toUpperCase()} </AvatarFallback>
+               : chats?.participants[0]?.username)?.charAt(0).toUpperCase()} </AvatarFallback>
     </Avatar>
 
   
