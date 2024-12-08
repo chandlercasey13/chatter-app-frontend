@@ -39,7 +39,10 @@ function App() {
  const [imageUploadOpen, setImageUploadOpen]= useState(false);
  const [sideBarOpen, setSideBarOpen]=useState(false);
  const [imageFile, setImageFile] = useState(null);
-  const [image, setImage] = useState(`${BACKEND_URL}/users/${user?._id}/images`);
+
+
+
+  const [image, setImage] = useState(null);
 
 
 
@@ -95,6 +98,9 @@ const handleOpenSidebar =function () {
 getUserChats(userId)
 
 
+if (userId) {
+  setImage(`${BACKEND_URL}/users/${user?._id}/images`)
+}
     
     
     },[])
