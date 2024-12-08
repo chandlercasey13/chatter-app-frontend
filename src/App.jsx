@@ -113,7 +113,7 @@ getUserChats(userId)
     if (userChats[0]?.length > 0  && !isInChat && user){
       navigate(`/chatlogs/${userChats[0][0]?._id}/user/${userChats[0][0]?.participants[0].username === user.username ? `${userChats[0][0]?.participants[1]._id}`: `${userChats[0][0]?.participants[0]._id}`}/${userChats[0][0]?.participants[0]?.username === user.username ? `${userChats[0][0]?.participants[1]?.username}`: `${userChats[0][0]?.participants[0].username}` }
         ` );
-    } else if (userChats && user) {
+    } else if (userChats[0]?.length ===0  && user) {
       //setUserChats([])
        navigate(`/chatlogs/undefined/user/${user._id}/${user.username} ` );
     }

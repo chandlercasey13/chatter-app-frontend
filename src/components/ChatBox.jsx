@@ -134,7 +134,7 @@ if (foundUserId){ setImageSrc(`${BACKEND_URL}/users/${foundUserId}/images`)}
 
     setMessageLog(filteredLog);
   }
-console.log(window.visualViewport.width)
+
   
   return (
     <>
