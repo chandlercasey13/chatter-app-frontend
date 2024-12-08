@@ -127,7 +127,9 @@ if (isMobile && open==true){
             onClose={onClose}
             refreshUserChats={refreshUserChats} 
             setSideBarOpen={setSideBarOpen}
-            handleOpenSideBar={handleOpenSideBar} />
+            handleOpenSideBar={handleOpenSideBar} 
+            toggleSidebar={toggleSidebar}
+            />
             </div> : (
 <>
             {userChats[0]?.map((chats, i) => (

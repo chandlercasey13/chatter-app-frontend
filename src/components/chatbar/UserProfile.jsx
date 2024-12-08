@@ -5,7 +5,7 @@ import * as chatService from "../../../services/chatService";
 import {  Route, Routes, useNavigate } from "react-router-dom";
 import {Avatar, AvatarImage, AvatarFallback} from "../ui/avatar.jsx"
 
-const UserProfile = ({ user, founduser, onClose, refreshUserChats , setSideBarOpen, handleOpenSideBar }) => {
+const UserProfile = ({ user, founduser, onClose, refreshUserChats , setSideBarOpen, handleOpenSideBar, toggleSidebar }) => {
 
   const navigate = useNavigate();
 
@@ -20,11 +20,11 @@ const UserProfile = ({ user, founduser, onClose, refreshUserChats , setSideBarOp
  
     const newChat = await chatService.create(founduser, user); 
     
-console.log(newChat)
+
     navigate(`/chatlogs/${newChat?._id}/user/${founduser?._id}/${founduser?.username} `);
     onClose();
     refreshUserChats(user._id);
-    // handleOpenSideBar()
+     toggleSidebar()
   };
 
   return (

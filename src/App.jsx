@@ -134,7 +134,7 @@ if (allUserChats) {
   setUserChats([allUserChats]);
 }
       
-      console.log(allUserChats)
+   
     } else {
       setUserChats([]); 
     }
