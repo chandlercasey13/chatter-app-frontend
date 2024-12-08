@@ -33,7 +33,7 @@ function App() {
   const [userChats, setUserChats] = useState([]);
   const { previewMessage, setPreviewMessage } = useContext(ChatContext);
   const {foundUserId} =useParams();
-  const {chatId} =useParams();
+
   const userId = user?._id;
   const [isInChat, setIsInChat] =useState(false);
  const [imageUploadOpen, setImageUploadOpen]= useState(false);
@@ -86,7 +86,7 @@ const handleOpenSidebar =function () {
     setUserChats([allUserChats]);
   }
         
-        console.log(allUserChats)
+       
       } else {
         setUserChats([]); 
       }

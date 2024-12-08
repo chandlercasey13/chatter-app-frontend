@@ -69,9 +69,7 @@ const SearchUser = ({ onClose, user, refreshUserChats, setSideBarOpen, handleOpe
 
         <div className="w-full h-1/2 bg-white   max-h-screen mt-2 p-2 pr-1  shadow-custom border-2 rounded-xl">
           <div className="bg-white  w-full h-full overflow-auto scroll-auto pointer-events-auto">
-            {searchUser.length === 0 && (
-              <p className="text-left text-slate-500">User Does Not Exist</p>
-            )}
+           
             {loading && (
               <div className="flex w-full h-full items-center justify-center">
                 <LoadingSpinner />

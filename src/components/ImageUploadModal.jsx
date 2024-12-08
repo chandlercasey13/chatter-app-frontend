@@ -49,13 +49,19 @@ const ImageUploadModal = ({ imageUploadOpen, handleImageUploadModalClose, user, 
 
     try {
       const postResponse = await userService.createUserPicture(user._id, formData);
-
+      setLoading(true);
       if (postResponse) { 
 
-        setLoading(true);
+        
+        
           // Assuming successful postResponse means successful upload
           await userService.getUserPicture(user._id, postResponse.imagePath);
            // Set loading to "success" on success
+          
+
+
+
+
 
           // Reset the message back to default after 3 seconds
           setTimeout(() => {
