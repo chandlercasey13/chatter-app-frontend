@@ -146,7 +146,7 @@ if (isMobile && open==true){
 
 <SidebarMenuItem >
     
-<SidebarMenuButton asChild className="hover:bg-blue-100 ">
+<SidebarMenuButton asChild className="hover:bg-blue-100 max-h-16 ">
     
 <Link className="chatlogs-left-li-button"
              to={`/chatlogs/${chats._id}/user/${
