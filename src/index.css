@@ -135,6 +135,7 @@ color: transparent;  */
   height: 5%;
   margin-bottom: 30px;
   font-family: "Segoe UI", Arial, sans-serif; /* Font stack */
+  color: red;
 }
 
 #login-form-container {

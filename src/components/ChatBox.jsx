@@ -168,7 +168,7 @@ if (foundUserId){ setImageSrc(`${BACKEND_URL}/users/${foundUserId}/images`)}
         
       </header>
       <div className="chat-window-right-panel-chat-container-overflow">
-        { chatId === undefined ? (
+        { 
           <>
             <ul className="state-ul">
               {messageLog?.map((userMessageObject, index) => (
@@ -262,12 +262,7 @@ if (foundUserId){ setImageSrc(`${BACKEND_URL}/users/${foundUserId}/images`)}
                 </div>
               ))}
             </ul>
-          </> ) : (
-            <>
-            
-            
-            </>
-          )
+          </>  
         }
       </div>
       <form className="input-box-container" onSubmit={handleButtonSubmit}>
