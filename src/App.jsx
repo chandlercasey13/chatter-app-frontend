@@ -339,7 +339,7 @@ handleOpenSidebar()
                   <div className="landing-column-left-container">
                     <div className="landing-column-left">
                       <h1 className="landing-column-left-header">
-                        A place for meaningful conversations
+                        A place for meaningful conversation
                       </h1>
 
                       <p id="landing-column-left-pitch" className={LoginError? "text-red-500": "text-black"}>{loginMessage}</p>

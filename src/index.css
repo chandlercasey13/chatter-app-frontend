@@ -126,9 +126,18 @@ color: transparent;  */
   text-align: left;
   margin-top: 20%;
 
-  background: linear-gradient(120deg, #2ea1ff, #697dff);
+  background: linear-gradient( to right,  #2ea1ff,#7ecafc, #6999ff);
+  background-size: 200%;
   background-clip: text;
+  -webkit-background-clip:text;
+  animation: animate-gradient 2s linear infinite;
   color: transparent;
+}
+
+@keyframes animate-gradient {
+to {
+  background-position:200%;
+}
 }
 
 #landing-column-left-pitch {
@@ -785,7 +794,7 @@ width: 100%;
   .landing-column-left-header {
     line-height: 75px;
 
-    font-size: 55px;
+    font-size: 60px;
     
     margin-top: 30%;
     letter-spacing: -3px;
