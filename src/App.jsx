@@ -14,7 +14,9 @@ import ImageUploadModal from "./components/ImageUploadModal";
 import {Avatar, AvatarImage, AvatarFallback} from "./components/ui/avatar"
 import Layout from "../layout";
 import { Menu } from 'lucide-react';
-
+import { DotPattern } from "./components/ui/dot-pattern";
+import { cn } from "@/lib/utils";
+import Iphone15Pro from "./components/ui/iphone-15-pro"
 import "./App.css";
 
 function App() {
@@ -333,7 +335,18 @@ handleOpenSidebar()
                 <p className="chatter-title">Chatter</p>
               </div>
             </nav>
-            <div className="login-container">
+            
+            <div className="login-container  ">
+             
+         
+            <DotPattern
+        className={cn(
+          "[mask-image:radial-gradient(5000px_circle_at_center,white,transparent)]",
+          "t"
+        )}
+      />
+      
+   
               <div className="login-inner">
                 <>
                   <div className="landing-column-left-container">
@@ -349,7 +362,7 @@ handleOpenSidebar()
                           <label htmlFor="username"></label>
 
                           <input
-                            className="form-input"
+                            className="form-input z-50"
                             id="username"
                             name="username"
                             type="text"
@@ -359,7 +372,7 @@ handleOpenSidebar()
                           ></input>
 
                           <input
-                            className="form-input"
+                            className="form-input z-50 "
                             id="password"
                             name="password"
                             type="text"
@@ -385,15 +398,27 @@ handleOpenSidebar()
                     </div>
                   </div>
                   <div className="landing-column-right-container">
-                    <div className="landing-column-right"><img className=" h-5/6 min-w-[32rem] w-full max-h-[40rem]  md:scale-x-100" src="/images/phonedemo.png"></img></div>
+                    <div className="landing-column-right  h-5/6 min-w-[32rem] w-full max-h-[40rem]  md:scale-x-100">
+                    <Iphone15Pro
+        className="size-full "
+      src="/images/phonedemo1.png"
+      />
+                      
+                      
+                      
+                      </div>
                   </div>
                 </>
               </div>
+              
             </div>
+           
           </>
+       
         )}
       
     </>
+    
     </div>
   );
 
