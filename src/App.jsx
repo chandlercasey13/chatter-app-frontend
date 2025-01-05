@@ -315,7 +315,7 @@ function App() {
                           <Input
                             className=" z-50 
 
-mb-4 border-black/20 h-[15%] w-[70%]"
+mb-4 border-black/20 h-[17%] w-[70%] rounded-2xl"
                             id="username"
                             name="username"
                             type="text"
@@ -325,7 +325,7 @@ mb-4 border-black/20 h-[15%] w-[70%]"
                           />
 
                           <Input
-                            className=" mb-4  z-50 border-black/20 h-[15%] w-[70%]  "
+                            className=" mb-4  z-50 border-black/20 h-[17%] w-[70%] rounded-2xl  "
                             id="password"
                             name="password"
                             type="text"
