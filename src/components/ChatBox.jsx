@@ -9,7 +9,7 @@ import UserAvatar from "./chatbar/UserAvatar";
 import { ChatContext } from "../context";
 import SearchUser from "./chatbar/SearchUser";
 import { data } from "autoprefixer";
-import {Avatar, AvatarImage, AvatarFallback} from "../components/ui/avatar"
+import { Avatar, AvatarImage, AvatarFallback } from "../components/ui/avatar";
 function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
   const [textInputData, setTextInputData] = useState({
     senderId: [{ username: user.username }],
@@ -31,9 +31,8 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
   const inputRef = useRef(null);
   const BACKEND_URL = import.meta.env.VITE_EXPRESS_BACKEND_URL;
   const [imageSrc, setImageSrc] = useState(null);
-  
+
   useEffect(() => {
-  
     const handleChatChange = async function (newChatId) {
       const chatMessages = await chatService.getChatMessages(newChatId);
 
@@ -49,19 +48,18 @@ function ChatBox({ user, openSearchBox, onClose, refreshUserChats }) {
       setCurrentRoom(newRoom);
     };
 
-    if (inputRef.current && window.visualViewport<770) {
-      inputRef.current.focus(); 
-      inputRef.current.select(); 
+    if (inputRef.current && window.visualViewport < 770) {
+      inputRef.current.focus();
+      inputRef.current.select();
     }
 
-
-
-    if (foundUserId && foundUserId != 'undefined') {
-      
-    handleRoomChange(chatId);
-    handleChatChange(chatId);}
-if (foundUserId){ setImageSrc(`${BACKEND_URL}/users/${foundUserId}/images`)}
-   
+    if (foundUserId && foundUserId != "undefined") {
+      handleRoomChange(chatId);
+      handleChatChange(chatId);
+    }
+    if (foundUserId) {
+      setImageSrc(`${BACKEND_URL}/users/${foundUserId}/images`);
+    }
   }, [foundUserId]);
 
   const messageListener = async (messagecontent) => {
@@ -74,21 +72,13 @@ if (foundUserId){ setImageSrc(`${BACKEND_URL}/users/${foundUserId}/images`)}
     setTimeout(() => setPreviewMessage(["otherRoom", foundUserusername]), 1000);
   };
 
- 
-
-
-
-
   useEffect(() => {
     socket.on("refreshChatLog", offlineMessageListener);
 
     socket.on("message", messageListener);
-   
 
     return () => socket.off("message", messageListener);
   }, []);
-
-
 
   function handleTextInput(event) {
     setTextInputData({
@@ -99,8 +89,6 @@ if (foundUserId){ setImageSrc(`${BACKEND_URL}/users/${foundUserId}/images`)}
 
   async function handleButtonSubmit(e) {
     e.preventDefault();
-
-    //move to list of users, includes logic that checks for already existing chat between participants
 
     setMessageLog([...messageLog, textInputData]);
 
@@ -135,40 +123,34 @@ if (foundUserId){ setImageSrc(`${BACKEND_URL}/users/${foundUserId}/images`)}
     setMessageLog(filteredLog);
   }
 
-  
   return (
     <>
       <header className="top-chat-name-container border-gray-250 border-y-2 border-t-0 pointer-events-auto ">
         {!openSearchBox ? (
-         <> 
-         
-         
-         <Avatar className='h-8 w-8 ml-2 block  md:hidden ' >
-         <AvatarImage className   src={imageSrc}
-           />
-         <AvatarFallback>{foundUserusername?.charAt(0).toUpperCase()}</AvatarFallback>
-       </Avatar>
+          <>
+            <Avatar className="h-8 w-8 ml-2 block  md:hidden ">
+              <AvatarImage className src={imageSrc} />
+              <AvatarFallback>
+                {foundUserusername?.charAt(0).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
 
-           
-            <h1 className="top-chat-name">{
-             foundUserusername === user.username? "" : foundUserusername
-              }
-              </h1>
-              </>
-            )
-         : ( 
+            <h1 className="top-chat-name">
+              {foundUserusername === user.username ? "" : foundUserusername}
+            </h1>
+          </>
+        ) : (
           <div className=" hidden md:block">
-          <SearchUser
-            user={user}
-            onClose={onClose}
-            refreshUserChats={refreshUserChats}
-          />
+            <SearchUser
+              user={user}
+              onClose={onClose}
+              refreshUserChats={refreshUserChats}
+            />
           </div>
         )}
-        
       </header>
       <div className="chat-window-right-panel-chat-container-overflow">
-        { 
+        {
           <>
             <ul className="state-ul">
               {messageLog?.map((userMessageObject, index) => (
@@ -182,12 +164,12 @@ if (foundUserId){ setImageSrc(`${BACKEND_URL}/users/${foundUserId}/images`)}
                 >
                   {userMessageObject.senderId[0]?.username != user.username && (
                     <div className=" flex items-center justify-center  mr-4">
-                      <Avatar className='h-8 w-8 ml-2' >
-      <AvatarImage className   src={imageSrc} alt="@shadcn" />
-      <AvatarFallback>{foundUserusername.charAt(0).toUpperCase()}</AvatarFallback>
-    </Avatar>
-  
-                    
+                      <Avatar className="h-8 w-8 ml-2">
+                        <AvatarImage className src={imageSrc} alt="@shadcn" />
+                        <AvatarFallback>
+                          {foundUserusername.charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
                     </div>
                   )}
                   <div
@@ -197,22 +179,11 @@ if (foundUserId){ setImageSrc(`${BACKEND_URL}/users/${foundUserId}/images`)}
                         : `bg-gray-400 `
                     }`}
                   >
-                    <div className="chat-right-panel-text-bubbles-innerdiv ">
-                     
-                    </div>
+                    <div className="chat-right-panel-text-bubbles-innerdiv "></div>
                     <li>{` ${userMessageObject.message}`}</li>
                   </div>
                   {userMessageObject.senderId[0]?.username ===
-                    user.username && (
-                    <div className="h-1/2">
-  {/* <Avatar className='h-8 w-8 ml-2' >
-      <AvatarImage className   src={`${BACKEND_URL}/users/${user._id}/images`} alt="@shadcn" />
-      <AvatarFallback>{user.username.charAt(0).toUpperCase()}</AvatarFallback>
-    </Avatar> */}
-
-                     
-                    </div>
-                  )}
+                    user.username && <div className="h-1/2"></div>}
                 </div>
               ))}
             </ul>
@@ -229,11 +200,12 @@ if (foundUserId){ setImageSrc(`${BACKEND_URL}/users/${foundUserId}/images`)}
                 >
                   {dbMessageObject.senderId[0] != user._id && (
                     <div className=" mr-4">
-                      <Avatar className='h-8 w-8 ml-2' >
-      <AvatarImage className  src={imageSrc} alt="@shadcn" />
-      <AvatarFallback>{foundUserusername?.charAt(0).toUpperCase()}</AvatarFallback>
-    </Avatar>
-                      
+                      <Avatar className="h-8 w-8 ml-2">
+                        <AvatarImage className src={imageSrc} alt="@shadcn" />
+                        <AvatarFallback>
+                          {foundUserusername?.charAt(0).toUpperCase()}
+                        </AvatarFallback>
+                      </Avatar>
                     </div>
                   )}
 
@@ -247,22 +219,17 @@ if (foundUserId){ setImageSrc(`${BACKEND_URL}/users/${foundUserId}/images`)}
                     <div
                       key={index + 1}
                       className="chat-right-panel-text-bubbles-innerdiv "
-                    >
-                     
-                    </div>
+                    ></div>
 
                     <li key={index}>{` ${dbMessageObject.message}`}</li>
                   </div>
                   {dbMessageObject.senderId[0] === user._id && (
-                    <div className="h-1/2">
-                      
-                     
-                    </div>
+                    <div className="h-1/2"></div>
                   )}
                 </div>
               ))}
             </ul>
-          </>  
+          </>
         }
       </div>
       <form className="input-box-container" onSubmit={handleButtonSubmit}>
@@ -281,7 +248,7 @@ if (foundUserId){ setImageSrc(`${BACKEND_URL}/users/${foundUserId}/images`)}
           ref={inputRef}
         ></input>
 
-        <button  className="w-10 ml-1 rounded-xl border-blue-300 border-2 transform transition-transform duration-300 hover:scale-110 hover:bg-blue-100 pointer-events-auto">
+        <button className="w-10 ml-1 rounded-xl border-blue-300 border-2 transform transition-transform duration-300 hover:scale-110 hover:bg-blue-100 pointer-events-auto">
           <i className="bx bxs-send"></i>
         </button>
       </form>
