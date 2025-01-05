@@ -17,6 +17,7 @@ import { Menu } from 'lucide-react';
 import { DotPattern } from "./components/ui/dot-pattern";
 import { cn } from "@/lib/utils";
 import Iphone15Pro from "./components/ui/iphone-15-pro"
+import  { Input } from "./components/ui/input";
 import "./App.css";
 
 function App() {
@@ -341,7 +342,7 @@ handleOpenSidebar()
          
             <DotPattern
         className={cn(
-          "[mask-image:radial-gradient(5000px_circle_at_center,white,transparent)]",
+          "[mask-image:radial-gradient(1500px_circle_at_center,white,transparent)]",
           "t"
         )}
       />
@@ -360,26 +361,29 @@ handleOpenSidebar()
                       <div id="login-form-container">
                         <form id="login-form" onSubmit={loginSubmit}>
                           <label htmlFor="username"></label>
+<Input className=" z-50 
 
-                          <input
-                            className="form-input z-50"
+mb-4 border-black/20 h-[15%] w-[70%]"
                             id="username"
                             name="username"
                             type="text"
                             onChange={handleTextInput}
                             value={loginText.username}
-                            placeholder="Username"
-                          ></input>
-
-                          <input
-                            className="form-input z-50 "
-                            id="password"
+                            placeholder="Username"/>
+                         {/* width: 70%;
+  height: 20%;
+  padding: 10px;
+  border:1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  margin-bottom: 12px; */}
+<Input  className=" mb-4  z-50 border-black/20 h-[15%] w-[70%]  "
+id="password"
                             name="password"
                             type="text"
                             onChange={handleTextInput}
                             value={loginText.password}
-                            placeholder="Password"
-                          ></input>
+                            placeholder="Password"/>
+                         
                           <div id="form-buttons">
                             <button id="login-button" type="submit">
                               {isSignedup ? "Log In" : "Sign Up"}
