@@ -161,6 +161,10 @@ if (allUserChats) {
       console.log(err);
       setLoginError(true)
       setLoginMessage(`${err}`);
+      setTimeout(() => {
+        setLoginMessage("Connect with your friends and family, build your community, and deepen your interests.")
+        setLoginError(false);
+      }, 2000);
     }
 
   }
@@ -342,8 +346,8 @@ handleOpenSidebar()
          
             <DotPattern
         className={cn(
-          "[mask-image:radial-gradient(1500px_circle_at_center,white,transparent)]",
-          "t"
+          "[mask-image:radial-gradient(3000px_circle_at_center,white,transparent)]",
+          
         )}
       />
       
@@ -370,12 +374,7 @@ mb-4 border-black/20 h-[15%] w-[70%]"
                             onChange={handleTextInput}
                             value={loginText.username}
                             placeholder="Username"/>
-                         {/* width: 70%;
-  height: 20%;
-  padding: 10px;
-  border:1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
-  margin-bottom: 12px; */}
+                         
 <Input  className=" mb-4  z-50 border-black/20 h-[15%] w-[70%]  "
 id="password"
                             name="password"
@@ -404,12 +403,14 @@ id="password"
                   <div className="landing-column-right-container">
                     <div className="landing-column-right  h-5/6 min-w-[32rem] w-full max-h-[40rem]  md:scale-x-100">
                     <Iphone15Pro
-        className="size-full "
+        className="size-full fixed 2xl:right-[-10rem] right-[0rem]"
       src="/images/phonedemo1.png"
       />
                       
-                      
-                      
+
+                      <img src="./images/stock1.jpg" className="rounded-xl fixed w-40 top-20 left-[12rem]  hidden 2xl:flex "></img>
+                      <img src="./images/stock2.jpg" className="rounded-xl fixed w-40 top-[13.5rem] left-[1rem]  hidden 2xl:flex "></img>
+                      <img src="./images/stock3.jpg" className="rounded-xl fixed w-40 top-[5rem] left-[1rem]  hidden 2xl:flex  "></img>
                       </div>
                   </div>
                 </>
