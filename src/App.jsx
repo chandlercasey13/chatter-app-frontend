@@ -338,7 +338,7 @@ mb-4 border-black/20 h-[23%]  md:h-[17%] w-[70%] rounded-2xl"
                             <button id="login-button" type="submit">
                               {isSignedup ? "Log In" : "Sign Up"}
                             </button>
-                            <button
+                            <button className="font-light"
                               type="button"
                               onClick={function () {
                                 setIsSignedUp(!isSignedup);
