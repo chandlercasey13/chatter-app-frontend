@@ -304,7 +304,7 @@ function App() {
 
                       <p
                         id="landing-column-left-pitch"
-                        className={LoginError ? "text-red-500 font-light" : "text-black font-light"}
+                        className={LoginError ? "text-red-500 font-normal" : "text-black font-normal"}
                       >
                         {loginMessage}
                       </p>
