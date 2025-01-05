@@ -1,12 +1,10 @@
-import React, { useState, useEffect, useContext, useRef } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useParams } from "react-router-dom";
-import ChatBar from "./components/chatbar/ChatsLeftNavBar";
-
 import ChatBox from "./components/ChatBox";
 import * as authService from "../services/userService";
 import * as chatService from "../services/chatService";
-import { Link, Route, Routes, useNavigate } from "react-router-dom";
-import UserAvatar from "./components/chatbar/UserAvatar";
+import {  Route, Routes, useNavigate } from "react-router-dom";
+
 import { ChatContext } from "../src/context";
 
 import { VscSquirrel } from "react-icons/vsc";
@@ -18,7 +16,10 @@ import { DotPattern } from "./components/ui/dot-pattern";
 import { cn } from "@/lib/utils";
 import Iphone15Pro from "./components/ui/iphone-15-pro";
 import { Input } from "./components/ui/input";
+import BlurFade from "./components/ui/blur-fade"
 import "./App.css";
+
+
 
 function App() {
   const navigate = useNavigate();
@@ -279,6 +280,7 @@ function App() {
           </>
         ) : (
           <>
+          <BlurFade direction="up" duration={.5}>
             <nav className="navbar-container">
               {" "}
               <div className="navbar">
@@ -375,6 +377,7 @@ mb-4 border-black/20 h-[23%]  md:h-[17%] w-[70%] rounded-2xl"
                 </>
               </div>
             </div>
+            </BlurFade>
           </>
         )}
       </>
