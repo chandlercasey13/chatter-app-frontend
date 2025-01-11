@@ -280,7 +280,7 @@ function App() {
           </>
         ) : (
           <>
-          <BlurFade direction="up" duration={.5}>
+          <BlurFade direction="up" duration={.8}>
             <nav className="navbar-container">
               {" "}
               <div className="navbar">
@@ -290,11 +290,7 @@ function App() {
             </nav>
 
             <div className="login-container  ">
-              <DotPattern
-                className={cn(
-                  "[mask-image:radial-gradient(3000px_circle_at_center,white,transparent)]"
-                )}
-              />
+              
 
               <div className="login-inner">
                 <>
@@ -353,26 +349,42 @@ mb-4 border-black/20 h-[23%]  md:h-[17%] w-[70%] rounded-2xl"
                       </div>
                     </div>
                   </div>
-                  <div className="landing-column-right-container">
-                    <div className="landing-column-right  h-5/6 min-w-[32rem] w-full max-h-[40rem]  md:scale-x-100">
-                      <Iphone15Pro
-                        className="size-full fixed 2xl:right-[-10rem] right-[0rem]"
-                        src="/images/phonedemo1.png"
-                      />
 
-                      <img
-                        src="./images/stock1.jpg"
-                        className="rounded-xl fixed w-40 top-20 left-[12rem]  hidden 2xl:flex "
-                      ></img>
+
+                  
+                  <div className="landing-column-right-container ">
+                    <div className="landing-column-right flex items-center justify-center h-full w-[100%] max-h-[55rem]   md:scale-x-100">
+                     
+                      
+<div className=" flex  h-50 w-[50%] pr-4   ">
+  
+                     
+                      <div className=" w-1/2 hidden 2xl:flex flex-col justify-center items-center gap-6 mr-1 mb-[75%] ">
                       <img
                         src="./images/stock2.jpg"
-                        className="rounded-xl fixed w-40 top-[13.5rem] left-[1rem]  hidden 2xl:flex "
+                        className="rounded-xl      "
                       ></img>
                       <img
                         src="./images/stock3.jpg"
-                        className="rounded-xl fixed w-40 top-[5rem] left-[1rem]  hidden 2xl:flex  "
+                        className="rounded-xl    hidden 2xl:flex  "
                       ></img>
+                      </div> 
+                      
+                       <div className="h-full w-1/2 pl-1">
+                      <img
+                        src="./images/stock1.jpg"
+                        className="rounded-xl  w-full  hidden 2xl:flex "
+                      ></img>
+                      </div>
+                      </div>
+                      <Iphone15Pro  className="h-full max-h-[45rem]"
+                        src="/images/phonedemo1.png"
+                      />
+                      
+                      
+                     
                     </div>
+                   
                   </div>
                 </>
               </div>
